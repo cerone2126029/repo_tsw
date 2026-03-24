@@ -1,21 +1,316 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pagina Home</title>
+
+    <link rel="stylesheet" href="bootstrap.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main {
+            flex: 1; 
+        }
+
+        /* --- HEADER --- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #004085; 
+            padding: 12px 30px; 
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-section h1 {
+            margin: 0;
+            color: #ffffff; 
+            font-size: 1.8rem;
+            font-weight: 900; 
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #ffffff; 
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: inline-block; 
+            transition: color 0.3s ease, transform 0.3s ease; 
+        }
+
+        .nav-links a:hover {
+            color: #90c2ff; 
+            transform: scale(1.15); 
+        }
+
+        /* --- AREA LOGIN --- */
+        #auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 5px; 
+        }
+
+        .inputs {
+            display: flex;
+            gap: 6px; 
+        }
+
+        .inputs input {
+            padding: 4px 8px; 
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 0.85rem; 
+            width: 140px; 
+        }
+
+        .buttons {
+            display: flex;
+            gap: 5px;
+            justify-content: flex-end;
+        }
+
+        .custom-btn {
+            padding: 4px 10px; 
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85rem; 
+            transition: background-color 0.3s;
+        }
+
+        .custom-primary { background-color: #0d6efd; color: white; }
+        .custom-primary:hover { background-color: #0b5ed7; }
+        
+        .custom-secondary { background-color: #6c757d; color: white; }
+        .custom-secondary:hover { background-color: #5c636a; }
+        
+        .custom-danger { background-color: #dc3545; color: white; }
+        .custom-danger:hover { background-color: #c82333; }
+
+        #logged-in-area {
+            display: flex;
+            align-items: center;
+            gap: 10px; 
+        }
+
+        .welcome-text {
+            color: white;
+            font-weight: bold;
+            font-size: 0.95rem; 
+        }
+
+        .user-icon {
+            font-size: 1.2rem; 
+            text-decoration: none;
+            transition: transform 0.2s ease;
+            display: inline-block;
+        }
+
+        .user-icon:hover {
+            transform: scale(1.2);
+        }
+        /*footer*/
+        .custom-footer {
+            background-color: #004085; /* Stesso blu dell'header */
+            color: #ffffff; /* Testo bianco puro di base */
+            padding: 25px 0 10px 0; 
+            margin-top: auto; 
+        }
+
+        .custom-footer h5 {
+            color: #ffffff; /* Bianco puro */
+            font-weight: 900; /* Stesso grassetto estremo del logo in alto */
+            font-size: 1.1rem; 
+            margin-bottom: 15px; 
+        }
+
+        .custom-footer p {
+            margin-bottom: 4px; /* Un pelo più di respiro tra le righe */
+            font-size: 0.9rem; 
+            color: #ffffff; /* Bianco puro per l'indirizzo e i numeri */
+        }
+        
+        .custom-footer a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .custom-footer a:hover {
+            color: #90c2ff; /* Diventa azzurrino al passaggio del mouse come i link in alto */
+            text-decoration: underline;
+        }
+        
+        .footer-icon {
+            margin-right: 6px;
+            font-size: 1rem;
+        }
+    </style>
 </head>
+
 <body>
-    <div>Inizio progetto</div>
-    <div>Provate a modificare qualcosa e scrivere qualcosa di nuovo così vediamo se ognuno di noi vede le modifiche</div>
-    <div> ciao ciao</div>
-    <div>   prova prova</div>
-    <div> QUINTA MODIFICA, LA VEDE?</div>
-    <div> sesta modifica ciao</div>
-    <div>CIAOOOOOOOOOOO</div>
-    <div>LO VEDI?</div>
-    <div> okkkk</div>
-    <div> PRIMA PROVA ANDREAAAA </div>
-    <div> CIAOOOOO</div>
+
+    <header class="navbar">
+
+        <div class="logo-section">
+            <h1>Studio Dentistico CGJ 🦷</h1>
+        </div>
+
+        <nav class="nav-links">
+            <a href="home.html">Home</a>
+            <a href="chi-siamo.html">Chi siamo</a>
+            <a href="trattamenti.html">Trattamenti</a>
+            <a href="recensioni.html">Recensioni</a>
+            <a href="consigli.html">Consigli</a>
+        </nav>
+
+        <div class="login-section" id="user-area">
+            
+            <form id="auth-form">
+                <div class="inputs">
+                    <input type="text" id="username" placeholder="Username o Email" required>
+                    <input type="password" id="password" placeholder="Password" required>
+                </div>
+                <div class="buttons">
+                    <button type="submit" id="btn-login" class="custom-btn custom-primary">Accedi</button>
+                    <button type="button" id="btn-register" class="custom-btn custom-secondary">Registrati</button>
+                    <button type="reset" id="btn-reset" class="custom-btn custom-danger">Reset</button>
+                </div>
+            </form>
+
+            <div id="logged-in-area" style="display: none;">
+                <span id="welcome-message" class="welcome-text"></span>
+                <a href="area-personale.html" class="user-icon" title="Vai all'Area Personale">👤</a>
+                <button id="btn-logout" class="custom-btn custom-danger">Esci</button>
+            </div>
+
+        </div>
+
+    </header>
+
+    <footer class="custom-footer">
+        <div class="container">
+            <div class="row text-md-start">
+                
+                <div class="col-md-4 mb-3">
+                    <h5>Dove Siamo</h5>
+                    <p><span class="footer-icon">📍</span> Via Tiburtina, 546</p>
+                    <p style="margin-left: 24px;">Roma (RM) - 00159</p>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <h5>Contatti</h5>
+                    <p><span class="footer-icon">📞</span> +39 334 6209473</p>
+                    <p><span class="footer-icon">📱</span> +39 331 7102753</p>
+                    <p><span class="footer-icon">✉️</span> <a href="mailto:studio.dentistico.CGJ@gmail.com">studio.dentistico.CGJ@gmail.com</a></p>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <h5>Orari di Apertura</h5>
+                    <p><span class="footer-icon">🕒</span> Lunedì - Venerdì:</p>
+                    <p style="margin-left: 24px;">08:30 - 13:30 | 14:30 - 19:30</p>
+                    <p style="margin-left: 24px; font-weight: bold;">Riceviamo solo su appuntamento</p>
+                    <p style="margin-left: 24px; color: #ff6b6b; font-weight: bold;">Sabato e Domenica: Chiuso</p>
+                </div>
+
+            </div>
+            
+            <hr class="mt-3 mb-2" style="border-color: rgba(255, 255, 255, 0.3);">
+            
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.7);">&copy; 2026 Studio Dentistico CGJ. Tutti i diritti riservati.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const authForm = document.getElementById("auth-form");
+            const btnRegister = document.getElementById("btn-register");
+            const usernameInput = document.getElementById("username");
+            const passwordInput = document.getElementById("password");
+            const loggedInArea = document.getElementById("logged-in-area");
+            const welcomeMessage = document.getElementById("welcome-message");
+            const btnLogout = document.getElementById("btn-logout");
+
+            function getDatabaseUsers() {
+                const users = localStorage.getItem("dbDentista");
+                return users ? JSON.parse(users) : [];
+            }
+
+            function saveDatabaseUsers(usersArray) {
+                localStorage.setItem("dbDentista", JSON.stringify(usersArray));
+            }
+
+            function updateUI() {
+                const currentUser = sessionStorage.getItem("activeUser");
+                if (currentUser) {
+                    authForm.style.display = "none";
+                    loggedInArea.style.display = "flex";
+                    welcomeMessage.textContent = "Ciao " + currentUser + "!";
+                } else {
+                    authForm.style.display = "flex";
+                    loggedInArea.style.display = "none";
+                    usernameInput.value = "";
+                    passwordInput.value = "";
+                }
+            }
+
+            updateUI();
+
+            authForm.addEventListener("submit", function (event) {
+                event.preventDefault(); 
+                const users = getDatabaseUsers();
+                const userExists = users.find(u => u.username === usernameInput.value && u.password === passwordInput.value);
+
+                if (userExists) {
+                    sessionStorage.setItem("activeUser", usernameInput.value);
+                    updateUI(); 
+                } else {
+                    alert("❌ Credenziali errate o utente non registrato.");
+                }
+            });
+
+            btnRegister.addEventListener("click", () => {
+                const users = getDatabaseUsers();
+                if (!usernameInput.value || !passwordInput.value) {
+                    alert("⚠️ Inserisci dati validi.");
+                    return;
+                }
+                if (users.some(u => u.username === usernameInput.value)) {
+                    alert("⚠️ Username già esistente.");
+                } else {
+                    users.push({ username: usernameInput.value, password: passwordInput.value });
+                    saveDatabaseUsers(users);
+                    alert("🎉 Registrato! Ora clicca su Accedi.");
+                }
+            });
+
+            btnLogout.addEventListener("click", () => {
+                sessionStorage.removeItem("activeUser");
+                updateUI();
+            });
+        });
+    </script>
 </body>
 </html>
