@@ -4,164 +4,531 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pagina Home</title>
+    <title>HomePage</title>
 
     <link rel="stylesheet" href="bootstrap.css">
+    
     <style>
+        /* --- STILI BASE E VARIABILI --- */
+        :root {
+            --primary-blue: #004085;
+            --dark-blue: #002e60;
+            --accent-mint: #20c997;
+            --accent-hover: #17a2b8;
+            --bg-light: #f4f7f6;
+            --text-main: #333333;
+            --text-muted: #6c757d;
+            --white: #ffffff;
+            --shadow-soft: 0 10px 40px rgba(0, 46, 96, 0.08);
+            --shadow-hover: 0 15px 50px rgba(0, 46, 96, 0.12);
+        }
+
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
+            background-color: var(--bg-light); 
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            color: var(--text-main);
+            line-height: 1.6;
         }
 
-        main {
-            flex: 1; 
-        }
+        main { flex: 1; }
 
-        /* --- HEADER --- */
+        /* --- HEADER / NAVBAR --- */
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #004085; 
-            padding: 12px 30px; 
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            background-color: var(--primary-blue); 
+            padding: 15px 40px; 
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
             z-index: 1000;
+            flex-wrap: wrap; 
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-section a {
+            text-decoration: none;
+            transition: transform 0.2s ease;
+            display: inline-block;
+        }
+
+        .logo-section a:hover {
+            transform: scale(1.02);
         }
 
         .logo-section h1 {
             margin: 0;
-            color: #ffffff; 
+            color: var(--white); 
+            font-size: 1.4rem;
+            font-weight: 800; 
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .menu-toggle {
+            display: none;
+            color: var(--white);
             font-size: 1.8rem;
-            font-weight: 900; 
+            cursor: pointer;
+            user-select: none;
+            background: transparent;
+            border: none;
+            padding: 0;
         }
 
         .nav-links {
             display: flex;
             gap: 25px;
+            align-items: center;
         }
 
         .nav-links a {
             text-decoration: none;
-            color: #ffffff; 
-            font-weight: bold;
-            font-size: 1.1rem;
-            display: inline-block; 
-            transition: color 0.3s ease, transform 0.3s ease; 
+            color: rgba(255, 255, 255, 0.85); 
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: inline-block;
+            transition: transform 0.2s ease, color 0.2s ease; 
         }
 
         .nav-links a:hover {
-            color: #90c2ff; 
-            transform: scale(1.15); 
+            color: var(--white); 
+            transform: scale(1.08) translateY(-2px); 
         }
 
         /* --- AREA LOGIN --- */
         #auth-form {
             display: flex;
             flex-direction: column;
-            gap: 5px; 
-        }
-
-        .inputs {
-            display: flex;
             gap: 6px; 
         }
 
+        .inputs { display: flex; gap: 8px; }
+
         .inputs input {
-            padding: 4px 8px; 
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            padding: 6px 12px; 
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
             font-size: 0.85rem; 
             width: 140px; 
+            color: var(--white);
+            transition: border-color 0.3s, background-color 0.3s;
         }
+        
+        .inputs input:focus {
+            outline: none;
+            border-color: var(--accent-mint);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .inputs input::placeholder { color: rgba(255, 255, 255, 0.5); }
 
         .buttons {
             display: flex;
-            gap: 5px;
+            gap: 6px;
             justify-content: flex-end;
         }
 
         .custom-btn {
-            padding: 4px 10px; 
+            padding: 5px 12px; 
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
-            font-weight: bold;
-            font-size: 0.85rem; 
-            transition: background-color 0.3s;
+            font-weight: 600;
+            font-size: 0.8rem; 
+            transition: background-color 0.3s, opacity 0.3s;
         }
-
-        .custom-primary { background-color: #0d6efd; color: white; }
-        .custom-primary:hover { background-color: #0b5ed7; }
         
-        .custom-secondary { background-color: #6c757d; color: white; }
-        .custom-secondary:hover { background-color: #5c636a; }
+        .custom-primary { background-color: var(--accent-mint); color: var(--white); }
+        .custom-primary:hover { background-color: var(--accent-hover); }
         
-        .custom-danger { background-color: #dc3545; color: white; }
-        .custom-danger:hover { background-color: #c82333; }
+        .custom-secondary { background-color: rgba(255, 255, 255, 0.1); color: var(--white); border: 1px solid rgba(255, 255, 255, 0.2); }
+        .custom-secondary:hover { background-color: rgba(255, 255, 255, 0.2); }
+        
+        .custom-danger { background-color: transparent; color: rgba(255, 255, 255, 0.6); }
+        .custom-danger:hover { color: #ff6b6b; }
 
+        /* Area Utente Loggato */
         #logged-in-area {
             display: flex;
             align-items: center;
-            gap: 10px; 
+            gap: 15px; 
         }
 
-        .welcome-text {
-            color: white;
-            font-weight: bold;
-            font-size: 0.95rem; 
-        }
+        .welcome-text { color: var(--white); font-weight: 500; font-size: 0.95rem; }
 
         .user-icon {
-            font-size: 1.2rem; 
+            width: 35px;
+            height: 35px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--accent-mint);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-decoration: none;
-            transition: transform 0.2s ease;
-            display: inline-block;
+            font-weight: bold;
+            transition: background-color 0.3s;
         }
 
-        .user-icon:hover {
-            transform: scale(1.2);
+        .user-icon:hover { background-color: rgba(255, 255, 255, 0.2); }
+
+        /* --- SEZIONE HERO --- */
+        .hero-section {
+            background-image: linear-gradient(to bottom, rgba(0, 64, 133, 0.85), rgba(0, 46, 96, 0.95)), url('background-home.jpg'); 
+            background-size: cover;
+            background-position: center;
+            padding: 100px 20px 140px 20px; 
+            text-align: center;
+            color: var(--white);
         }
-        /*footer*/
+
+        .hero-section h2 {
+            font-weight: 300;
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .hero-section h2 strong { font-weight: 800; }
+
+        .hero-section p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* --- CONTENITORI GENERALI --- */
+        .content-container {
+            max-width: 900px;
+            margin: 0 auto 60px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            color: var(--primary-blue);
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 800;
+            font-size: 2rem;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 3px;
+            background-color: var(--accent-mint);
+            margin: 15px auto 0 auto;
+            border-radius: 2px;
+        }
+
+        /* --- PRENOTAZIONE --- */
+        .booking-card {
+            margin-top: -80px; 
+            background: var(--white);
+            border-radius: 12px; 
+            box-shadow: var(--shadow-soft); 
+            padding: 50px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .booking-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 20px; 
+        }
+
+        .booking-form-full {
+            margin-bottom: 35px;
+        }
+
+        .booking-form-grid label, .booking-form-full label {
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: block;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .booking-form-grid input, .booking-form-grid select, .booking-form-full textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #e2e8f0;
+            background-color: #f8fafc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            transition: all 0.3s ease;
+        }
+
+        .booking-form-full textarea {
+            resize: vertical; 
+            min-height: 100px;
+        }
+        
+        .booking-form-grid input:focus, .booking-form-grid select:focus, .booking-form-full textarea:focus {
+            outline: none;
+            border-color: var(--accent-mint);
+            background-color: var(--white);
+            box-shadow: 0 0 0 4px rgba(32, 201, 151, 0.1);
+        }
+
+        .btn-conferma {
+            background-color: var(--accent-mint);
+            color: var(--white);
+            padding: 14px 35px; 
+            border: none;
+            border-radius: 8px; 
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem; 
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            width: 100%; 
+            max-width: 300px;
+        }
+
+        .btn-conferma:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(32, 201, 151, 0.25);
+        }
+
+        /* --- EQUIPE (SCORREVOLE & ELEGANTE) --- */
+        .team-scroll {
+            display: flex;
+            gap: 25px;
+            overflow-x: auto;
+            padding: 10px 10px 30px 10px; 
+            scroll-snap-type: x mandatory; 
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch; 
+        }
+
+        .team-scroll::-webkit-scrollbar { height: 6px; }
+        .team-scroll::-webkit-scrollbar-track { background: rgba(0, 64, 133, 0.05); border-radius: 10px; }
+        .team-scroll::-webkit-scrollbar-thumb { background: rgba(0, 64, 133, 0.2); border-radius: 10px; }
+        .team-scroll::-webkit-scrollbar-thumb:hover { background: var(--primary-blue); }
+
+        .team-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 35px 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            flex: 0 0 250px; 
+            scroll-snap-align: start; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border: 1px solid transparent;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-color: #e2e8f0;
+        }
+
+        .team-avatar {
+            width: 70px;
+            height: 70px;
+            background-color: #f1f5f9;
+            color: var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 0 auto 20px auto;
+            letter-spacing: 1px;
+        }
+
+        .team-card h4 {
+            margin: 0 0 8px 0;
+            color: var(--primary-blue);
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+
+        .team-card p {
+            margin: 0;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .team-card .spec {
+            display: block;
+            font-weight: 400;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        /* --- FAQ --- */
+        .faq-item {
+            margin-bottom: 15px;
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            transition: box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+        }
+
+        .faq-item summary {
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--primary-blue);
+            padding: 20px;
+            list-style: none; 
+            outline: none;
+            font-size: 1.05rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-item summary::-webkit-details-marker { display: none; }
+        
+        .faq-item summary::after {
+            content: '+';
+            color: var(--accent-mint);
+            font-size: 1.5rem;
+            font-weight: 300;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item[open] summary::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-item p {
+            padding: 0 20px 20px 20px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        /* --- FOOTER --- */
         .custom-footer {
-            background-color: #004085; /* Stesso blu dell'header */
-            color: #ffffff; /* Testo bianco puro di base */
-            padding: 25px 0 10px 0; 
+            background-color: var(--primary-blue);
+            color: rgba(255, 255, 255, 0.85); 
+            padding: 40px 0 15px 0; 
             margin-top: auto; 
+            font-size: 0.85rem; 
+            border-top: 4px solid var(--dark-blue); 
         }
 
         .custom-footer h5 {
-            color: #ffffff; /* Bianco puro */
-            font-weight: 900; /* Stesso grassetto estremo del logo in alto */
-            font-size: 1.1rem; 
+            color: var(--white); 
+            font-weight: 700; 
+            font-size: 1rem; 
             margin-bottom: 15px; 
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
         .custom-footer p {
-            margin-bottom: 4px; /* Un pelo più di respiro tra le righe */
-            font-size: 0.9rem; 
-            color: #ffffff; /* Bianco puro per l'indirizzo e i numeri */
+            margin-bottom: 6px; 
+            line-height: 1.4;
         }
-        
+
         .custom-footer a {
-            color: #ffffff;
+            color: rgba(255, 255, 255, 0.85); 
             text-decoration: none;
             transition: color 0.3s ease;
         }
 
-        .custom-footer a:hover {
-            color: #90c2ff; /* Diventa azzurrino al passaggio del mouse come i link in alto */
-            text-decoration: underline;
+        .custom-footer a:hover { 
+            color: var(--accent-mint); 
         }
         
         .footer-icon {
-            margin-right: 6px;
-            font-size: 1rem;
+            font-size: 0.95rem; 
+            margin-right: 5px;
+            opacity: 0.8;
+        }
+
+        hr {
+            margin: 15px 0;
+        }
+
+        /* =========================================================
+           MEDIA QUERIES (OTTIMIZZAZIONE SMARTPHONE E TABLET) 
+           ========================================================= */
+        
+        /* TABLET */
+        @media (max-width: 992px) {
+            .hero-section h2 { font-size: 2.8rem; }
+            .booking-card { padding: 30px; }
+            .booking-form-grid { grid-template-columns: 1fr 1fr; } 
+        }
+
+        /* SMARTPHONE */
+        @media (max-width: 768px) {
+            .navbar { padding: 15px 20px; }
+            
+            .logo-section { width: 100%; }
+            
+            .menu-toggle { display: block; } 
+            
+            .nav-links, .login-section {
+                display: none; 
+                width: 100%;
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+                padding-top: 20px;
+            }
+
+            .navbar.active .nav-links, 
+            .navbar.active .login-section {
+                display: flex;
+            }
+
+            #logged-in-area {
+                justify-content: center;
+                width: 100%;
+            }
+
+            .inputs { flex-direction: column; width: 100%; }
+            .inputs input { width: 100%; text-align: center; }
+            .buttons { justify-content: center; margin-top: 5px; }
+
+            .hero-section { padding: 60px 20px 100px 20px; }
+            .hero-section h2 { font-size: 2.2rem; }
+
+            .booking-card { margin-top: -40px; padding: 25px; }
+            .booking-form-grid { grid-template-columns: 1fr; gap: 15px; } 
+            
+            .btn-conferma { max-width: 100%; } 
         }
     </style>
 </head>
@@ -169,13 +536,14 @@
 <body>
 
     <header class="navbar">
-
         <div class="logo-section">
-            <h1>Studio Dentistico CGJ 🦷</h1>
+            <a href="home.html" style="text-decoration: none;">
+                <h1>Studio Dentistico CGJ</h1>
+            </a>
+            <button class="menu-toggle" id="mobile-menu">☰</button>
         </div>
 
         <nav class="nav-links">
-            <a href="home.html">Home</a>
             <a href="chi-siamo.html">Chi siamo</a>
             <a href="trattamenti.html">Trattamenti</a>
             <a href="recensioni.html">Recensioni</a>
@@ -186,27 +554,137 @@
             
             <form id="auth-form">
                 <div class="inputs">
-                    <input type="text" id="username" placeholder="Username o Email" required>
+                    <input type="text" id="username" placeholder="Username" required>
                     <input type="password" id="password" placeholder="Password" required>
                 </div>
                 <div class="buttons">
                     <button type="submit" id="btn-login" class="custom-btn custom-primary">Accedi</button>
                     <button type="button" id="btn-register" class="custom-btn custom-secondary">Registrati</button>
-                    <button type="reset" id="btn-reset" class="custom-btn custom-danger">Reset</button>
                 </div>
             </form>
 
             <div id="logged-in-area" style="display: none;">
                 <span id="welcome-message" class="welcome-text"></span>
-                <a href="area-personale.html" class="user-icon" title="Vai all'Area Personale">👤</a>
+                <a href="area-personale.html" class="user-icon" title="Area Personale">U</a>
                 <button id="btn-logout" class="custom-btn custom-danger">Esci</button>
             </div>
 
         </div>
-
     </header>
 
-    <footer class="custom-footer">
+    <main>
+        <section class="hero-section">
+            <h2>Il tuo sorriso, <br><strong>la nostra eccellenza.</strong></h2>
+            <p>Prenota la tua visita presso lo Studio Dentistico CGJ in modo rapido e sicuro. Affidati a professionisti del settore.</p>
+        </section>
+
+        <section class="content-container">
+            <div class="booking-card">
+                <h3 class="section-title" style="margin-bottom: 30px;">Prenota ora il tuo appuntamento</h3>
+                
+                <form id="booking-form">
+                    <div class="booking-form-grid">
+                        <div>
+                            <label for="booking-date">Data della visita</label>
+                            <input type="date" id="booking-date" required>
+                        </div>
+                        <div>
+                            <label for="booking-time">Orario (08:30 - 19:30)</label>
+                            <input type="time" id="booking-time" min="08:30" max="19:30" step="1800" required>
+                        </div>
+                        <div>
+                            <label for="booking-reason">Motivo</label>
+                            <select id="booking-reason" required>
+                                <option value="" disabled selected>Seleziona un'opzione...</option>
+                                <option value="Prima Visita / Controllo">Prima Visita / Controllo</option>
+                                <option value="Igiene Dentale (Pulizia)">Igiene Dentale</option>
+                                <option value="Sbiancamento">Sbiancamento</option>
+                                <option value="Urgenza (Dolore/Rottura)">Urgenza Medica</option>
+                                <option value="Altro">Altro (Specificare in studio)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="booking-form-full">
+                        <label for="booking-description">Breve descrizione del problema (facoltativo)</label>
+                        <textarea id="booking-description" rows="3" placeholder="Es: Avverto un forte dolore durante la masticazione..."></textarea>
+                    </div>
+
+                    <div style="text-align: center;">
+                        <button type="submit" class="btn-conferma">Conferma Prenotazione</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section class="content-container">
+            <h3 class="section-title">La nostra Équipe</h3>
+            
+            <div class="team-scroll">
+                <div class="team-card">
+                    <div class="team-avatar">GR</div>
+                    <h4>Dott.ssa Giulia Rossi</h4>
+                    <p>Direttore Sanitario <span class="spec">Chirurgia e Protesi</span></p>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar">MG</div>
+                    <h4>Marco Giallini</h4>
+                    <p>Igienista Dentale <span class="spec">Prevenzione e Igiene</span></p>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar">AC</div>
+                    <h4>Andrea Cucci</h4>
+                    <p>Igienista Dentale <span class="spec">Sbiancamento</span></p>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar">LB</div>
+                    <h4>Dott. Luca Bianchi</h4>
+                    <p>Odontoiatra <span class="spec">Ortodonzia</span></p>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar">EV</div>
+                    <h4>Dott.ssa Elena Verdi</h4>
+                    <p>Odontoiatra <span class="spec">Endodonzia</span></p>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar">MN</div>
+                    <h4>Dott. Matteo Neri</h4>
+                    <p>Chirurgo <span class="spec">Implantologia</span></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-container" style="max-width: 800px;">
+            <h3 class="section-title">Domande Frequenti</h3>
+
+            <details class="faq-item">
+                <summary>Ho degli sconti alla mia prima visita?</summary>
+                <p>Sì, hai il 10% di sconto sulla tua prima visita presso il nostro studio.</p>
+            </details>
+            
+            <details class="faq-item">
+                <summary>Quali sono i metodi di pagamento accettati?</summary>
+                <p>Accettiamo contanti, carte di credito/debito (Visa, Mastercard, PagoBancomat) e bonifici bancari. È possibile anche richiedere un piano di rateizzazione a tasso zero per importi superiori a determinate soglie concordate in segreteria.</p>
+            </details>
+            
+            <details class="faq-item">
+                <summary>Cosa devo portare alla prima visita?</summary>
+                <p>Ti preghiamo di portare un documento d'identità in corso di validità, la tessera sanitaria (codice fiscale) ed eventuali radiografie o panoramiche dentali recenti, possibilmente effettuate negli ultimi 6 mesi.</p>
+            </details>
+            
+            <details class="faq-item">
+                <summary>Posso disdire o spostare il mio appuntamento?</summary>
+                <p>Certamente. Ti chiediamo cortesemente di avvisarci con almeno 24 ore di anticipo contattando telefonicamente la segreteria, in modo da permetterci di riorganizzare l'agenda clinica e assistere pazienti con urgenze.</p>
+            </details>
+        </section>
+    </main>
+
+   <footer class="custom-footer">
         <div class="container">
             <div class="row text-md-start">
                 
@@ -237,7 +715,7 @@
             
             <div class="row">
                 <div class="col-12 text-center">
-                    <p style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.7);">&copy; 2026 Studio Dentistico CGJ. Tutti i diritti riservati.</p>
+                    <p style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.7); margin: 0;">&copy; 2026 Studio Dentistico CGJ. Tutti i diritti riservati.</p>
                 </div>
             </div>
         </div>
@@ -245,6 +723,37 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            
+            // --- GESTIONE MENU MOBILE (HAMBURGER) ---
+            const mobileMenuBtn = document.getElementById("mobile-menu");
+            const navbar = document.querySelector(".navbar");
+
+            mobileMenuBtn.addEventListener("click", () => {
+                navbar.classList.toggle("active"); 
+            });
+
+            // --- IMPOSTAZIONE DATA MINIMA NEL CALENDARIO ---
+            const dateInput = document.getElementById("booking-date");
+            const today = new Date();
+            const localDate = new Date(today.getTime() - (today.getTimezoneOffset() * 60000)).toISOString().split('T')[0];
+            dateInput.setAttribute("min", localDate);
+
+            // NUOVO CONTROLLO: Appena l'utente sceglie la data, verifico e blocco subito i weekend
+            dateInput.addEventListener("change", function() {
+                if (this.value) {
+                    // Divido in [anno, mese, giorno] per annullare ogni problema di fuso orario
+                    const parti = this.value.split('-');
+                    const dataScelta = new Date(parti[0], parti[1] - 1, parti[2]);
+                    const giornoSettimana = dataScelta.getDay();
+                    
+                    if (giornoSettimana === 0 || giornoSettimana === 6) {
+                        alert("⚠️ Lo studio è chiuso il sabato e la domenica. Seleziona un giorno dal lunedì al venerdì.");
+                        this.value = ""; // Svuota immediatamente il campo
+                    }
+                }
+            });
+
+            // --- GESTIONE LOGIN E PRENOTAZIONE ---
             const authForm = document.getElementById("auth-form");
             const btnRegister = document.getElementById("btn-register");
             const usernameInput = document.getElementById("username");
@@ -252,6 +761,8 @@
             const loggedInArea = document.getElementById("logged-in-area");
             const welcomeMessage = document.getElementById("welcome-message");
             const btnLogout = document.getElementById("btn-logout");
+            const userIcon = document.querySelector(".user-icon");
+            const bookingForm = document.getElementById("booking-form");
 
             function getDatabaseUsers() {
                 const users = localStorage.getItem("dbDentista");
@@ -267,7 +778,8 @@
                 if (currentUser) {
                     authForm.style.display = "none";
                     loggedInArea.style.display = "flex";
-                    welcomeMessage.textContent = "Ciao " + currentUser + "!";
+                    welcomeMessage.textContent = "Ciao, " + currentUser+"!";
+                    userIcon.textContent = currentUser.charAt(0).toUpperCase(); 
                 } else {
                     authForm.style.display = "flex";
                     loggedInArea.style.display = "none";
@@ -278,7 +790,7 @@
 
             updateUI();
 
-            authForm.addEventListener("submit", function (event) {
+            authForm.onsubmit = function (event) {
                 event.preventDefault(); 
                 const users = getDatabaseUsers();
                 const userExists = users.find(u => u.username === usernameInput.value && u.password === passwordInput.value);
@@ -287,29 +799,68 @@
                     sessionStorage.setItem("activeUser", usernameInput.value);
                     updateUI(); 
                 } else {
-                    alert("❌ Credenziali errate o utente non registrato.");
+                    alert("Credenziali errate o utente non registrato.");
                 }
-            });
+            };
 
-            btnRegister.addEventListener("click", () => {
+            btnRegister.onclick = function() {
                 const users = getDatabaseUsers();
                 if (!usernameInput.value || !passwordInput.value) {
-                    alert("⚠️ Inserisci dati validi.");
+                    alert("Inserisci username e password validi per registrarti.");
                     return;
                 }
                 if (users.some(u => u.username === usernameInput.value)) {
-                    alert("⚠️ Username già esistente.");
+                    alert("Username già in uso. Scegline un altro o effettua l'accesso.");
                 } else {
                     users.push({ username: usernameInput.value, password: passwordInput.value });
                     saveDatabaseUsers(users);
-                    alert("🎉 Registrato! Ora clicca su Accedi.");
+                    alert("Registrazione completata! Ora puoi accedere.");
                 }
-            });
+            };
 
-            btnLogout.addEventListener("click", () => {
+            btnLogout.onclick = function() {
                 sessionStorage.removeItem("activeUser");
                 updateUI();
-            });
+            };
+
+            // --- GESTIONE INVIO MODULO PRENOTAZIONE ---
+            bookingForm.onsubmit = function(event) {
+                event.preventDefault();
+                
+                const currentUser = sessionStorage.getItem("activeUser");
+                if (!currentUser) {
+                    alert("⚠️ Devi prima accedere o registrarti in alto a destra per poter prenotare una visita.");
+                    return; 
+                }
+
+                const dataInserita = document.getElementById("booking-date").value;
+                const oraInserita = document.getElementById("booking-time").value;
+                const motivoInserito = document.getElementById("booking-reason").value;
+
+                // Ricontrollo sicurezza per chi smanetta con l'HTML
+                if (dataInserita) {
+                    const partiD = dataInserita.split('-');
+                    const dataVerifica = new Date(partiD[0], partiD[1] - 1, partiD[2]);
+                    if (dataVerifica.getDay() === 0 || dataVerifica.getDay() === 6) {
+                        alert("⚠️ Lo studio è chiuso il sabato e la domenica.");
+                        return;
+                    }
+                }
+
+                const minuti = oraInserita.split(':')[1];
+                if (minuti !== "00" && minuti !== "30") {
+                    alert("L'orario inserito non è valido. Puoi prenotare solo a intervalli di 30 minuti.");
+                    return;
+                }
+
+                if (oraInserita >= "13:30" && oraInserita < "14:30") {
+                    alert("⚠️ Lo studio è chiuso per pausa pranzo tra le 13:30 e le 14:30. Ti preghiamo di selezionare un altro orario.");
+                    return;
+                }
+
+                alert(`✅ Prenotazione confermata con successo per il ${dataInserita} alle ${oraInserita} (${motivoInserito}). Ti aspettiamo in studio!`);
+                bookingForm.reset();
+            };
         });
     </script>
 </body>
