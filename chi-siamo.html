@@ -167,8 +167,7 @@
         }
 
         .user-icon:hover { background-color: rgba(255, 255, 255, 0.2); }
-
-
+        #rotating-words { font-weight: bold; }
         </style>
 
     </head>
@@ -209,7 +208,29 @@
 
         </div>
     </header>
+    <main>
+            
+        <div style="
+            position: relative;
+            background-image: 
+                linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                url('ddd.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 40px;
+            color: white;
+            font-family: Georgia, serif;
+">
+            <h1>Proteggiamo i sorrisi con<br>
+            <span id="rotating-words"></span> </h1>
+        </div>
 
+        <div></div>
+    
+    </main>
 
     <script>
                // Prendo i riferimenti agli elementi
@@ -251,6 +272,21 @@
         sessionStorage.removeItem("activeUser");
         updateUI();
     };
+
+    const words = ["prevenzione", "cura", "professionalità", "affidabilità"];
+    let i = 0;
+    const rotatingSpan = document.getElementById("rotating-words");
+
+    function rotateWords() {
+        rotatingSpan.textContent = words[i];
+        i = (i + 1) % words.length;
+    }
+
+    // Cambia parola ogni 2 secondi
+    setInterval(rotateWords, 2000);
+
+    // Avvia subito
+    rotateWords();
     </script>
    
     </body>
