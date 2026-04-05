@@ -169,7 +169,144 @@
             transition: background-color 0.3s;
         }
 
-        .user-icon:hover { background-color: rgba(255, 255, 255, 0.2); }
+        .user-icon:hover { background-color: rgba(255, 255, 255, 0.2);
+
+        }
+        .hero-section{
+                background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                url('ddd.jpg');
+                background-size: cover;
+                background-position: center;
+                height: 80vh;
+                padding: 40px ;
+                text-align: center;
+                color: var(--white);
+               /* display: flex;*/
+                align-items: center;
+                justify-content: center;
+        }
+        .hero-section h2 {
+            font-weight: 300;
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+        .container{
+            display: flex;
+            flex-wrap: wrap;      /* permette di andare a capo */
+            gap: 20px;            /* spazio tra le card */
+            max-width: 800px;     /* larghezza totale contenitore */
+            margin: auto; 
+
+        }
+        .card{
+            flex: 1 1 45%;        /* ogni card prende circa il 45% e va a capo se manca spazio */
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .carousel-container {
+            position: relative;
+            max-width: 800px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+        }
+
+        .carousel {
+            display: flex;
+            overflow-x: auto;  /* abilita lo scroll orizzontale */
+            scroll-behavior: smooth; /* animazione fluida */
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .review-card {
+            min-width: 250px;   /* larghezza fissa per ogni card */
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            flex-shrink: 0;     /* impedisce ridimensionamento */
+        }
+
+        .carousel-container button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            font-size: 1.5rem;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .carousel-container .prev {
+            left: -25px;
+        }
+
+        .carousel-container .next {
+            right: -25px;
+        }
+
+
+
+        /* =========================================================
+           MEDIA QUERIES (OTTIMIZZAZIONE SMARTPHONE E TABLET) 
+           ========================================================= */
+        
+        /* TABLET */
+        @media (max-width: 992px) {
+            .hero-section h2 { font-size: 2.8rem; }
+            .booking-card { padding: 30px; }
+            .booking-form-grid { grid-template-columns: 1fr 1fr; } 
+        }
+
+        /* SMARTPHONE */
+        @media (max-width: 768px) {
+            .navbar { padding: 15px 20px; }
+            
+            .logo-section { width: 100%; }
+            
+            .menu-toggle { display: block; } 
+            
+            .nav-links, .login-section {
+                display: none; 
+                width: 100%;
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+                padding-top: 20px;
+            }
+
+            .navbar.active .nav-links, 
+            .navbar.active .login-section {
+                display: flex;
+            }
+
+            #logged-in-area {
+                justify-content: center;
+                width: 100%;
+            }
+
+            .inputs { flex-direction: column; width: 100%; }
+            .inputs input { width: 100%; text-align: center; }
+            .buttons { justify-content: center; margin-top: 5px; }
+
+            .hero-section { padding: 60px 20px 100px 20px; }
+            .hero-section h2 { font-size: 2.2rem; }
+
+            .booking-card { margin-top: -40px; padding: 25px; }
+            .booking-form-grid { grid-template-columns: 1fr; gap: 15px; } 
+            
+            .btn-conferma { max-width: 100%; } 
+        }
 
 
         </style>
@@ -214,6 +351,43 @@
         </div>
     </header>
 
+    <main>
+        <section class="hero-section"> 
+            <h2> Ogni sorriso racconta una storia</h2><br>
+            <h4> Scopri le esperienze dei nostri pazienti</h4>
+        </section>
+        <br>
+        <br>
+        <section class="commenti">
+            <h2 class="titolo"> Commenti lasciati dai nostri pazienti</h2>
+            <h4 class="att"> Le testimonianze riguardano esperienze individuali e non rappresentano necessariamente l'esperienza di tutti i pazienti</h4>
+            <div class="container">
+                <button class="prec">&lt</button> <!--freccia che va all indietro-->
+            
+                <div class="car">
+                    <div class="card">
+                        <h5>M. Rossi</h5>
+                        <p>"Un'esperienza straordinaria! Il team è stato molto professionale e gentile."</p>
+                    </div>
+                
+                    <div class="card">
+                        <h5>L. Bianchi</h5>
+                        <p>"Servizio eccellente e ambiente accogliente. Consiglio vivamente il loro studio!"</p>
+                    </div>
+                
+                    <div class="card">
+                        <h5>G. Verdi</h5>
+                        <p>"Esperienza fantastica! Ci teneva a ringraziare la Dott.ssa Rossi per il suo approccio gentile e competente."</p>
+                    </div>
+                
+            </div>
+                <button class="succ">&gt</button> <!--freccia che va avanti-->
+        </div>
+        </section>
+
+
+        <h1>LASCIA COMMENTO-DA FARE</h1>
+
 
     <script>
     // Prendo i riferimenti agli elementi
@@ -255,6 +429,19 @@
         sessionStorage.removeItem("activeUser");
         updateUI();
     };
+
+
+    const car = document.querySelector('.car');
+    const nextBtn = document.querySelector('.succ');
+    const prevBtn = document.querySelector('.prec');
+
+    nextBtn.addEventListener('click', () => {
+        car.scrollBy({ left: 270, behavior: 'smooth' });
+    });
+
+    prevBtn.addEventListener('click', () => {
+        car.scrollBy({ left: -270, behavior: 'smooth' });
+    });
         </script>
     </body>
 </html>

@@ -168,6 +168,40 @@
 
         .user-icon:hover { background-color: rgba(255, 255, 255, 0.2); }
         #rotating-words { font-weight: bold; }
+
+
+        /* Animazione comparsa */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease-out;
+        }
+
+/* Quando diventa visibile */
+        .fade-in.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        section.fade-in {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        /* lato sinistro */
+        .text {
+            width: 60%;
+        }
+
+        /* lato destro */
+        .images {
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
         </style>
 
     </head>
@@ -208,7 +242,7 @@
 
         </div>
     </header>
-    <main>
+    
             
         <div style="
             position: relative;
@@ -217,7 +251,7 @@
                 url('ddd.jpg');
             background-size: cover;
             background-position: center;
-            height: 100vh;
+            height: 80vh;
             display: flex;
             align-items: center;
             padding: 40px;
@@ -228,9 +262,35 @@
             <span id="rotating-words"></span> </h1>
         </div>
 
-        <div></div>
+        <main>
+        <section class="fade-in" style="max-width: 900px; margin: 60px auto; padding: 20px;">
+            <div class="text">
+        <h2 style="color: #004085; margin-bottom: 20px;">Chi siamo</h2>
+
+        <p>
+            Lo Studio Dentistico CGJ nasce con l’obiettivo di offrire cure odontoiatriche di alta qualità in un ambiente accogliente, moderno prestando particolare attenzione alle esigenze di ogni paziente. Fin dal primo contatto, il nostro impegno è quello di mettere al centro la persona, creando un rapporto di fiducia basato su professionalità, trasparenza e ascolto.
+        </p>
+
+        <p>
+            La nostra missione è prenderci cura del sorriso dei nostri pazienti a 360 gradi, combinando competenze cliniche avanzate con tecnologie all’avanguardia. Crediamo fortemente nella prevenzione come strumento fondamentale per mantenere una buona salute orale nel tempo, ma siamo anche specializzati in trattamenti mirati e personalizzati, pensati per rispondere a ogni necessità.
+        </p>
+
+        <p>
+            Gli obiettivi dello studio sono chiari: garantire risultati efficaci e duraturi, ridurre al minimo il disagio durante le cure e offrire un’esperienza serena e positiva. Per questo motivo, il nostro team segue costantemente percorsi di aggiornamento professionale.
+        </p>
+
+        <p>
+            La storia dello Studio Dentistico CGJ è il risultato della passione e della dedizione dei suoi fondatori, che hanno unito competenze diverse per creare una realtà solida e affidabile. Nel corso degli anni, lo studio è cresciuto mantenendo sempre gli stessi valori: attenzione al paziente, qualità del lavoro e cura dei dettagli.
+        </p>
+        </div>
+        <div class="images">
+            <img src="sala.webp">
+        </div>
+        </section>
     
-    </main>
+</main>
+    
+    
 
     <script>
                // Prendo i riferimenti agli elementi
@@ -287,6 +347,25 @@
 
     // Avvia subito
     rotateWords();
+
+    const elements = document.querySelectorAll('.fade-in');
+
+function checkScroll() {
+    const triggerBottom = window.innerHeight * 0.85;
+
+    elements.forEach(el => {
+        const boxTop = el.getBoundingClientRect().top;
+
+        if (boxTop < triggerBottom) {
+            el.classList.add('show');
+        }
+    });
+}
+
+window.addEventListener('scroll', checkScroll);
+
+// attiva subito quando carica la pagina
+checkScroll();
     </script>
    
     </body>
