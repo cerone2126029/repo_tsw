@@ -355,7 +355,7 @@
             height: 70px;
             border-radius: 50%;
             margin: 0 auto 20px auto;
-            overflow: hidden; /* Questo trucco taglia via gli angoli della foto per renderla rotonda */
+            overflow: hidden; 
         }
 
          .team-avatar img {
@@ -529,6 +529,11 @@
             .booking-form-grid { grid-template-columns: 1fr; gap: 15px; } 
             
             .btn-conferma { max-width: 100%; } 
+
+            /* --- FIX FOOTER CENTRATO MOBILE --- */
+            .custom-footer .row { flex-direction: column; text-align: center; }
+            .custom-footer .col-md-4 { margin-bottom: 25px; }
+            .custom-footer p { margin-left: 0 !important; }
         }
     </style>
 </head>
