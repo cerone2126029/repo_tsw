@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="it">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Consigli</title>
 
-        <link rel="stylesheet" href="bootstrap.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consigli</title>
 
-        <style>
-            :root {
+    <link rel="stylesheet" href="bootstrap.css">
+
+    <style>
+        :root {
             --primary-blue: #004085;
             --dark-blue: #002e60;
             --accent-mint: #20c997;
@@ -21,10 +22,10 @@
             --shadow-hover: 0 15px 50px rgba(0, 46, 96, 0.12);
         }
 
-         body {
+        body {
             margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
-            background-color: var(--bg-light); 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-light);
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -37,13 +38,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: var(--primary-blue); 
-            padding: 15px 40px; 
+            background-color: var(--primary-blue);
+            padding: 15px 40px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
             z-index: 1000;
-            flex-wrap: wrap; 
+            flex-wrap: wrap;
         }
 
         .logo-section {
@@ -60,16 +61,17 @@
 
         .logo-section h1 {
             margin: 0;
-            color: var(--white); 
+            color: var(--white);
             font-size: 1.4rem;
-            font-weight: 800; 
+            font-weight: 800;
             letter-spacing: 0.5px;
             text-transform: uppercase;
         }
 
         .menu-toggle {
             display: none;
-            background: none;}
+            background: none;
+        }
 
         .nav-links {
             display: flex;
@@ -79,45 +81,50 @@
 
         .nav-links a {
             text-decoration: none;
-            color: rgba(255, 255, 255, 0.85); 
+            color: rgba(255, 255, 255, 0.85);
             font-weight: 500;
             font-size: 0.95rem;
             display: inline-block;
-            transition: transform 0.2s ease, color 0.2s ease; 
+            transition: transform 0.2s ease, color 0.2s ease;
         }
 
         .nav-links a:hover {
-            color: var(--white); 
-            transform: scale(1.08) translateY(-2px); 
+            color: var(--white);
+            transform: scale(1.08) translateY(-2px);
         }
 
-                /* --- AREA LOGIN --- */
+        /* --- AREA LOGIN --- */
         #auth-form {
             display: flex;
             flex-direction: column;
-            gap: 6px; 
+            gap: 6px;
         }
 
-        .inputs { display: flex; gap: 8px; }
+        .inputs {
+            display: flex;
+            gap: 8px;
+        }
 
         .inputs input {
-            padding: 6px 12px; 
+            padding: 6px 12px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             background-color: rgba(255, 255, 255, 0.05);
             border-radius: 6px;
-            font-size: 0.85rem; 
-            width: 140px; 
+            font-size: 0.85rem;
+            width: 140px;
             color: var(--white);
             transition: border-color 0.3s, background-color 0.3s;
         }
-        
+
         .inputs input:focus {
             outline: none;
             border-color: var(--accent-mint);
             background-color: rgba(255, 255, 255, 0.1);
         }
 
-        .inputs input::placeholder { color: rgba(255, 255, 255, 0.5); }
+        .inputs input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
 
         .buttons {
             display: flex;
@@ -126,32 +133,55 @@
         }
 
         .custom-btn {
-            padding: 5px 12px; 
+            padding: 5px 12px;
             border: none;
             border-radius: 6px;
             cursor: pointer;
             font-weight: 600;
-            font-size: 0.8rem; 
+            font-size: 0.8rem;
             transition: background-color 0.3s, opacity 0.3s;
         }
-        
-        .custom-primary { background-color: var(--accent-mint); color: var(--white); }
-        .custom-primary:hover { background-color: var(--accent-hover); }
-        
-        .custom-secondary { background-color: rgba(255, 255, 255, 0.1); color: var(--white); border: 1px solid rgba(255, 255, 255, 0.2); }
-        .custom-secondary:hover { background-color: rgba(255, 255, 255, 0.2); }
-        
-        .custom-danger { background-color: transparent; color: rgba(255, 255, 255, 0.6); }
-        .custom-danger:hover { color: #ff6b6b; }
+
+        .custom-primary {
+            background-color: var(--accent-mint);
+            color: var(--white);
+        }
+
+        .custom-primary:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .custom-secondary {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .custom-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .custom-danger {
+            background-color: transparent;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .custom-danger:hover {
+            color: #ff6b6b;
+        }
 
         /* Area Utente Loggato */
         #logged-in-area {
             display: flex;
             align-items: center;
-            gap: 15px; 
+            gap: 15px;
         }
 
-        .welcome-text { color: var(--white); font-weight: 500; font-size: 0.95rem; }
+        .welcome-text {
+            color: var(--white);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
 
         .user-icon {
             width: 35px;
@@ -167,13 +197,14 @@
             transition: background-color 0.3s;
         }
 
-        .user-icon:hover { background-color: rgba(255, 255, 255, 0.2); }
+        .user-icon:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
 
-
-        </style>
-    </head>
-    <body>
-        <header class="navbar">
+<body>
+    <header class="navbar">
         <div class="logo-section">
             <a href="home.html" style="text-decoration: none;">
                 <h1>Studio Dentistico CGJ</h1>
@@ -189,7 +220,7 @@
         </nav>
 
         <div class="login-section" id="user-area">
-            
+
             <form id="auth-form">
                 <div class="inputs">
                     <input type="text" id="username" placeholder="Username" required>
@@ -213,45 +244,47 @@
 
     <script>
 
-                       // Prendo i riferimenti agli elementi
-    const authForm = document.getElementById("auth-form");
-    const usernameInput = document.getElementById("username");
-    const btnLogout = document.getElementById("btn-logout");
-    const loggedInArea = document.getElementById("logged-in-area");
-    const welcomeMessage = document.getElementById("welcome-message");
-    const userArea = document.getElementById("user-area");
-
-    // Funzione per aggiornare la UI in base allo stato di login
-    function updateUI() {
-        const activeUser = sessionStorage.getItem("activeUser");
-
-        if (activeUser) {
-            // Mostra area loggato
-            loggedInArea.style.display = "flex";
-            authForm.style.display = "none";
-            welcomeMessage.textContent = `Benvenuto, ${activeUser}!`;
-        } else {
-            // Mostra form login
-            loggedInArea.style.display = "none";
-            authForm.style.display = "flex";
+        // Prendo i riferimenti agli elementi
+        const authForm = document.getElementById("auth-form");
+        const usernameInput = document.getElementById("username");
+        const passwordInput = document.getElementById("password"); // <-- AGGIUNTO
+        const btnLogout = document.getElementById("btn-logout");
+        const loggedInArea = document.getElementById("logged-in-area");
+        const welcomeMessage = document.getElementById("welcome-message");
+        const userArea = document.getElementById("user-area");
+        const userIcon = document.querySelector(".user-icon"); // <-- AGGIUNTO
+        // Funzione per aggiornare la UI in base allo stato di login
+        function updateUI() {
+            const currentUser = sessionStorage.getItem("activeUser");
+            if (currentUser) {
+                authForm.style.display = "none";
+                loggedInArea.style.display = "flex";
+                welcomeMessage.textContent = "Ciao, " + currentUser + "!";
+                userIcon.textContent = currentUser.charAt(0).toUpperCase();
+            } else {
+                authForm.style.display = "flex";
+                loggedInArea.style.display = "none";
+                usernameInput.value = "";
+                passwordInput.value = "";
+            }
         }
-    }
 
-    // Aggiorna subito la UI all'avvio
-    updateUI();
-
-    // Login
-    authForm.onsubmit = function(event) {
-        event.preventDefault();
-        sessionStorage.setItem("activeUser", usernameInput.value);
+        // Aggiorna subito la UI all'avvio
         updateUI();
-    };
 
-    // Logout
-    btnLogout.onclick = function() {
-        sessionStorage.removeItem("activeUser");
-        updateUI();
-    };
+        // Login
+        authForm.onsubmit = function (event) {
+            event.preventDefault();
+            sessionStorage.setItem("activeUser", usernameInput.value);
+            updateUI();
+        };
+
+        // Logout
+        btnLogout.onclick = function () {
+            sessionStorage.removeItem("activeUser");
+            updateUI();
+        };
     </script>
-    </body>
+</body>
+
 </html>

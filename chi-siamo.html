@@ -290,82 +290,84 @@
     
 </main>
     
-    
-
     <script>
-               // Prendo i riferimenti agli elementi
-    const authForm = document.getElementById("auth-form");
-    const usernameInput = document.getElementById("username");
-    const btnLogout = document.getElementById("btn-logout");
-    const loggedInArea = document.getElementById("logged-in-area");
-    const welcomeMessage = document.getElementById("welcome-message");
-    const userArea = document.getElementById("user-area");
+        // Prendo i riferimenti agli elementi
+        const authForm = document.getElementById("auth-form");
+        const usernameInput = document.getElementById("username");
+        const passwordInput = document.getElementById("password"); 
+        const btnLogout = document.getElementById("btn-logout");
+        const loggedInArea = document.getElementById("logged-in-area");
+        const welcomeMessage = document.getElementById("welcome-message");
+        const userArea = document.getElementById("user-area");
+        const userIcon = document.querySelector(".user-icon"); 
 
-    // Funzione per aggiornare la UI in base allo stato di login
-    function updateUI() {
-        const activeUser = sessionStorage.getItem("activeUser");
-
-        if (activeUser) {
-            // Mostra area loggato
-            loggedInArea.style.display = "flex";
-            authForm.style.display = "none";
-            welcomeMessage.textContent = `Ciao, ${activeUser}!`;
-        } else {
-            // Mostra form login
-            loggedInArea.style.display = "none";
-            authForm.style.display = "flex";
+        // Funzione per aggiornare la UI in base allo stato di login
+        function updateUI() {
+            const currentUser = sessionStorage.getItem("activeUser");
+            if (currentUser) {
+                authForm.style.display = "none";
+                loggedInArea.style.display = "flex";
+                welcomeMessage.textContent = "Ciao, " + currentUser + "!";
+                userIcon.textContent = currentUser.charAt(0).toUpperCase(); 
+            } else {
+                authForm.style.display = "flex";
+                loggedInArea.style.display = "none";
+                usernameInput.value = "";
+                passwordInput.value = "";
+            }
         }
-    }
 
-    // Aggiorna subito la UI all'avvio
-    updateUI();
-
-    // Login
-    authForm.onsubmit = function(event) {
-        event.preventDefault();
-        sessionStorage.setItem("activeUser", usernameInput.value);
+        // Aggiorna subito la UI all'avvio
         updateUI();
-    };
 
-    // Logout
-    btnLogout.onclick = function() {
-        sessionStorage.removeItem("activeUser");
-        updateUI();
-    };
+        // Login
+        authForm.onsubmit = function(event) {
+            event.preventDefault();
+            sessionStorage.setItem("activeUser", usernameInput.value);
+            updateUI();
+        };
 
-    const words = ["prevenzione", "cura", "professionalità", "affidabilità"];
-    let i = 0;
-    const rotatingSpan = document.getElementById("rotating-words");
+        // Logout
+        btnLogout.onclick = function() {
+            sessionStorage.removeItem("activeUser");
+            updateUI();
+        };
 
-    function rotateWords() {
-        rotatingSpan.textContent = words[i];
-        i = (i + 1) % words.length;
-    }
+        // Animazione Testo
+        const words = ["prevenzione", "cura", "professionalità", "affidabilità"];
+        let i = 0;
+        const rotatingSpan = document.getElementById("rotating-words");
 
-    // Cambia parola ogni 2 secondi
-    setInterval(rotateWords, 2000);
-
-    // Avvia subito
-    rotateWords();
-
-    const elements = document.querySelectorAll('.fade-in');
-
-function checkScroll() {
-    const triggerBottom = window.innerHeight * 0.85;
-
-    elements.forEach(el => {
-        const boxTop = el.getBoundingClientRect().top;
-
-        if (boxTop < triggerBottom) {
-            el.classList.add('show');
+        function rotateWords() {
+            rotatingSpan.textContent = words[i];
+            i = (i + 1) % words.length;
         }
-    });
-}
 
-window.addEventListener('scroll', checkScroll);
+        // Cambia parola ogni 2 secondi
+        setInterval(rotateWords, 2000);
 
-// attiva subito quando carica la pagina
-checkScroll();
+        // Avvia subito
+        rotateWords();
+
+        // Scroll Fade-in
+        const elements = document.querySelectorAll('.fade-in');
+
+        function checkScroll() {
+            const triggerBottom = window.innerHeight * 0.85;
+
+            elements.forEach(el => {
+                const boxTop = el.getBoundingClientRect().top;
+
+                if (boxTop < triggerBottom) {
+                    el.classList.add('show');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkScroll);
+
+        // attiva subito quando carica la pagina
+        checkScroll();
     </script>
    
     </body>
