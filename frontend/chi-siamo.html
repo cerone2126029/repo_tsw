@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chi Siamo</title>
+    <title>Chi Siamo - Studio Dentistico CGJ</title>
     <link rel="stylesheet" href="bootstrap.css">
     <style>
         :root {
@@ -64,12 +64,12 @@
         .custom-secondary:hover { background-color: rgba(255, 255, 255, 0.2); }
         .custom-danger { background-color: transparent; color: rgba(255, 255, 255, 0.6); }
         .custom-danger:hover { color: #ff6b6b; }
-        #logged-in-area { display: flex; align-items: center; gap: 15px; }
+        #logged-in-area { display: none; align-items: center; gap: 15px; }
         .welcome-text { color: var(--white); font-weight: 500; font-size: 0.95rem; }
         .user-icon { width: 35px; height: 35px; background-color: rgba(255, 255, 255, 0.1); color: var(--accent-mint); border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: bold; transition: background-color 0.3s; }
         .user-icon:hover { background-color: rgba(255, 255, 255, 0.2); }
 
-        /* --- FOOTER (Stile uguale alla Home) --- */
+        /* --- FOOTER --- */
         .custom-footer { background-color: var(--primary-blue); color: rgba(255, 255, 255, 0.85); padding: 40px 0 15px 0; margin-top: auto; font-size: 0.85rem; border-top: 4px solid var(--dark-blue); }
         .custom-footer h5 { color: var(--white); font-weight: 700; font-size: 1rem; margin-bottom: 15px; letter-spacing: 0.5px; text-transform: uppercase; }
         .custom-footer p { margin-bottom: 6px; line-height: 1.4; }
@@ -86,44 +86,23 @@
         .text { width: 60%; }
         .images { width: 40%; display: flex; flex-direction: column; gap: 15px; }
 
-        /* =========================================================
-           MEDIA QUERIES GLOBALI
-           ========================================================= */
-        @media (max-width: 992px) {
-            .navbar { padding: 15px 20px; }
-            section.fade-in { padding: 20px; }
-        }
-
         @media (max-width: 768px) {
             .logo-section { width: 100%; }
             .menu-toggle { display: block; }
-            
             .nav-links, .login-section { display: none; width: 100%; flex-direction: column; text-align: center; gap: 15px; padding-top: 20px; }
             .navbar.active .nav-links, .navbar.active .login-section { display: flex; }
             #logged-in-area { justify-content: center; width: 100%; }
             .inputs { flex-direction: column; width: 100%; }
             .inputs input { width: 100%; text-align: center; }
-            .buttons { justify-content: center; margin-top: 5px; }
-
-            /* Fix specifici Chi Siamo */
-            section.fade-in { flex-direction: column; gap: 20px; }
+            section.fade-in { flex-direction: column; }
             .text, .images { width: 100%; }
-            .images img { width: 100%; height: auto; border-radius: 12px; }
-            div[style*="font-family: Georgia"] h1 { font-size: 1.8rem; }
-
-            /* Fix Footer Mobile */
-            .custom-footer .row { flex-direction: column; text-align: center; }
-            .custom-footer .col-md-4 { margin-bottom: 25px; }
-            .custom-footer p { margin-left: 0 !important; }
         }
     </style>
 </head>
 <body>
     <header class="navbar">
         <div class="logo-section">
-            <a href="home.html">
-                <h1>Studio Dentistico CGJ</h1>
-            </a>
+            <a href="home.html"><h1>Studio Dentistico CGJ</h1></a>
             <button class="menu-toggle" id="mobile-menu">☰</button>
         </div>
 
@@ -137,7 +116,7 @@
         <div class="login-section" id="user-area">
             <form id="auth-form">
                 <div class="inputs">
-                    <input type="text" id="username" placeholder="Username" required>
+                    <input type="email" id="username" placeholder="Email" required>
                     <input type="password" id="password" placeholder="Password" required>
                 </div>
                 <div class="buttons">
@@ -146,149 +125,123 @@
                 </div>
             </form>
 
-            <div id="logged-in-area" style="display: none;">
+            <div id="logged-in-area">
                 <span id="welcome-message" class="welcome-text"></span>
-                <a href="area-personale.html" class="user-icon" title="Area Personale">U</a>
+                <a href="#" class="user-icon">U</a>
                 <button id="btn-logout" class="custom-btn custom-danger">Esci</button>
             </div>
         </div>
     </header>
     
-    <div style="
-            position: relative;
-            background-image: 
-                linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-                url('ddd.jpg');
-            background-size: cover;
-            background-position: center;
-            height: 80vh;
-            display: flex;
-            align-items: center;
-            padding: 40px;
-            color: white;
-            font-family: Georgia, serif;
-            text-align: center;
-        ">
-        <h1 style="width: 100%;">Proteggiamo i sorrisi con<br>
-        <span id="rotating-words"></span> </h1>
+    <div style="position: relative; background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('ddd.jpg'); background-size: cover; background-position: center; height: 80vh; display: flex; align-items: center; padding: 40px; color: white; font-family: Georgia, serif; text-align: center;">
+        <h1 style="width: 100%;">Proteggiamo i sorrisi con<br><span id="rotating-words"></span></h1>
     </div>
 
     <main>
         <section class="fade-in" style="max-width: 900px; margin: 60px auto; padding: 20px;">
             <div class="text">
                 <h2 style="color: #004085; margin-bottom: 20px;">Chi siamo</h2>
-                <p>Lo Studio Dentistico CGJ nasce con l’obiettivo di offrire cure odontoiatriche di alta qualità in un ambiente accogliente, moderno prestando particolare attenzione alle esigenze di ogni paziente. Fin dal primo contatto, il nostro impegno è quello di mettere al centro la persona, creando un rapporto di fiducia basato su professionalità, trasparenza e ascolto.</p>
-                <p>La nostra missione è prenderci cura del sorriso dei nostri pazienti a 360 gradi, combinando competenze cliniche avanzate con tecnologie all’avanguardia. Crediamo fortemente nella prevenzione come strumento fondamentale per mantenere una buona salute orale nel tempo, ma siamo anche specializzati in trattamenti mirati e personalizzati, pensati per rispondere a ogni necessità.</p>
-                <p>Gli obiettivi dello studio sono chiari: garantire risultati efficaci e duraturi, ridurre al minimo il disagio durante le cure e offrire un’esperienza serena e positiva. Per questo motivo, il nostro team segue costantemente percorsi di aggiornamento professionale.</p>
-                <p>La storia dello Studio Dentistico CGJ è il risultato della passione e della dedizione dei suoi fondatori, che hanno unito competenze diverse per creare una realtà solida e affidabile. Nel corso degli anni, lo studio è cresciuto mantenendo sempre gli stessi valori: attenzione al paziente, qualità del lavoro e cura dei dettagli.</p>
+                <p>Lo Studio Dentistico CGJ nasce con l’obiettivo di offrire cure odontoiatriche di alta qualità in un ambiente accogliente...</p>
+                <p>La nostra missione è prenderci cura del sorriso dei nostri pazienti a 360 gradi...</p>
             </div>
             <div class="images">
-                <img src="sala.webp" alt="Sala Studio Dentistico">
+                <img src="sala.webp" alt="Sala Studio" style="width:100%; border-radius:12px;">
             </div>
         </section>
     </main>
     
     <footer class="custom-footer">
-        <div class="container">
-            <div class="row text-md-start">
-                
-                <div class="col-md-4 mb-3">
-                    <h5>Dove Siamo</h5>
-                    <p><span class="footer-icon">📍</span> Via Tiburtina, 546</p>
-                    <p style="margin-left: 24px;">Roma (RM) - 00159</p>
-                </div>
-
-                <div class="col-md-4 mb-3">
-                    <h5>Contatti</h5>
-                    <p><span class="footer-icon">📞</span> +39 334 6209473</p>
-                    <p><span class="footer-icon">📱</span> +39 331 7102753</p>
-                    <p><span class="footer-icon">✉️</span> <a href="mailto:studio.dentistico.CGJ@gmail.com">studio.dentistico.CGJ@gmail.com</a></p>
-                </div>
-
-                <div class="col-md-4 mb-3">
-                    <h5>Orari di Apertura</h5>
-                    <p><span class="footer-icon">🕒</span> Lunedì - Venerdì:</p>
-                    <p style="margin-left: 24px;">08:30 - 13:30 | 14:30 - 19:30</p>
-                    <p style="margin-left: 24px; font-weight: bold;">Riceviamo solo su appuntamento</p>
-                    <p style="margin-left: 24px; color: #ff6b6b; font-weight: bold;">Sabato e Domenica: Chiuso</p>
-                </div>
-
-            </div>
-            
-            <hr class="mt-3 mb-2" style="border-color: rgba(255, 255, 255, 0.3);">
-            
-            <div class="row">
-                <div class="col-12 text-center">
-                    <p style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.7); margin: 0;">&copy; 2026 Studio Dentistico CGJ. Tutti i diritti riservati.</p>
-                </div>
-            </div>
+        <div class="container text-center">
+            <p>&copy; 2026 Studio Dentistico CGJ. Tutti i diritti riservati.</p>
         </div>
     </footer>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            // --- CONFIGURAZIONE BACKEND DINAMICA ---
+            const currentIP = window.location.hostname;
+            const API_URL = `http://${currentIP}:3000/api`;
+
+            // --- GESTIONE NAVBAR MOBILE ---
             const mobileMenuBtn = document.getElementById("mobile-menu");
             const navbar = document.querySelector(".navbar");
+            mobileMenuBtn.onclick = () => navbar.classList.toggle("active");
 
-            mobileMenuBtn.addEventListener("click", () => {
-                navbar.classList.toggle("active"); 
-            });
-
+            // --- GESTIONE AUTH (DATABASE) ---
             const authForm = document.getElementById("auth-form");
+            const btnRegister = document.getElementById("btn-register");
             const usernameInput = document.getElementById("username");
-            const passwordInput = document.getElementById("password"); 
-            const btnLogout = document.getElementById("btn-logout");
+            const passwordInput = document.getElementById("password");
             const loggedInArea = document.getElementById("logged-in-area");
             const welcomeMessage = document.getElementById("welcome-message");
-            const userIcon = document.querySelector(".user-icon"); 
+            const userIcon = document.querySelector(".user-icon");
+            const btnLogout = document.getElementById("btn-logout");
 
             function updateUI() {
-                const currentUser = sessionStorage.getItem("activeUser");
-                if (currentUser) {
+                const user = sessionStorage.getItem("activeUser");
+                if (user) {
                     authForm.style.display = "none";
                     loggedInArea.style.display = "flex";
-                    welcomeMessage.textContent = "Ciao, " + currentUser + "!";
-                    userIcon.textContent = currentUser.charAt(0).toUpperCase(); 
+                    welcomeMessage.textContent = "Ciao, " + user.split('@')[0] + "!";
+                    userIcon.textContent = user.charAt(0).toUpperCase();
                 } else {
                     authForm.style.display = "flex";
                     loggedInArea.style.display = "none";
-                    usernameInput.value = "";
-                    passwordInput.value = "";
                 }
             }
-
             updateUI();
 
-            authForm.onsubmit = function(event) {
-                event.preventDefault();
-                sessionStorage.setItem("activeUser", usernameInput.value);
-                updateUI();
+            // Login
+            authForm.onsubmit = async (e) => {
+                e.preventDefault();
+                try {
+                    const res = await fetch(`${API_URL}/login`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email: usernameInput.value, password: passwordInput.value })
+                    });
+                    const data = await res.json();
+                    if (res.ok) {
+                        sessionStorage.setItem("activeUser", usernameInput.value);
+                        updateUI();
+                    } else { alert(data.error); }
+                } catch (err) { alert("Errore di connessione al server."); }
             };
 
-            btnLogout.onclick = function() {
+            // Registrazione
+            btnRegister.onclick = async () => {
+                try {
+                    const res = await fetch(`${API_URL}/register`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email: usernameInput.value, password: passwordInput.value })
+                    });
+                    const data = await res.json();
+                    alert(res.ok ? "Registrato! Ora puoi accedere." : "Errore: " + data.error);
+                } catch (err) { alert("Errore di connessione al server."); }
+            };
+
+            // Logout
+            btnLogout.onclick = () => {
                 sessionStorage.removeItem("activeUser");
                 updateUI();
             };
 
+            // --- ANIMAZIONI ORIGINALI ---
             const words = ["prevenzione", "cura", "professionalità", "affidabilità"];
             let i = 0;
             const rotatingSpan = document.getElementById("rotating-words");
-
-            function rotateWords() {
+            setInterval(() => {
                 if(rotatingSpan) {
                     rotatingSpan.textContent = words[i];
                     i = (i + 1) % words.length;
                 }
-            }
-            setInterval(rotateWords, 2000);
-            rotateWords();
+            }, 2000);
 
             const elements = document.querySelectorAll('.fade-in');
             function checkScroll() {
-                const triggerBottom = window.innerHeight * 0.85;
                 elements.forEach(el => {
-                    const boxTop = el.getBoundingClientRect().top;
-                    if (boxTop < triggerBottom) {
+                    if (el.getBoundingClientRect().top < window.innerHeight * 0.85) {
                         el.classList.add('show');
                     }
                 });

@@ -178,18 +178,21 @@
         </div>
     </footer>
 
+ 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            // --- CONFIGURAZIONE BACKEND DINAMICA ---
+            const currentIP = window.location.hostname;
+            const API_URL = `http://${currentIP}:3000/api`;
+
             // Menu Hamburger
             const mobileMenuBtn = document.getElementById("mobile-menu");
             const navbar = document.querySelector(".navbar");
+            mobileMenuBtn.addEventListener("click", () => navbar.classList.toggle("active"));
 
-            mobileMenuBtn.addEventListener("click", () => {
-                navbar.classList.toggle("active"); 
-            });
-
-            // Gestione Autenticazione
+            // Elementi UI Auth
             const authForm = document.getElementById("auth-form");
+            const btnRegister = document.getElementById("btn-register");
             const usernameInput = document.getElementById("username");
             const passwordInput = document.getElementById("password");
             const btnLogout = document.getElementById("btn-logout");
@@ -202,25 +205,47 @@
                 if (currentUser) {
                     authForm.style.display = "none";
                     loggedInArea.style.display = "flex";
-                    welcomeMessage.textContent = "Ciao, " + currentUser + "!";
+                    welcomeMessage.textContent = "Ciao, " + currentUser.split('@')[0] + "!";
                     userIcon.textContent = currentUser.charAt(0).toUpperCase();
                 } else {
                     authForm.style.display = "flex";
                     loggedInArea.style.display = "none";
-                    usernameInput.value = "";
-                    passwordInput.value = "";
                 }
             }
-
             updateUI();
 
-            authForm.onsubmit = function (event) {
-                event.preventDefault();
-                sessionStorage.setItem("activeUser", usernameInput.value);
-                updateUI();
+            // Login
+            authForm.onsubmit = async (e) => {
+                e.preventDefault();
+                try {
+                    const res = await fetch(`${API_URL}/login`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email: usernameInput.value, password: passwordInput.value })
+                    });
+                    const data = await res.json();
+                    if (res.ok) {
+                        sessionStorage.setItem("activeUser", usernameInput.value);
+                        updateUI();
+                    } else { alert("Errore: " + data.error); }
+                } catch (err) { alert("Server non raggiungibile."); }
             };
 
-            btnLogout.onclick = function () {
+            // Registrazione
+            btnRegister.onclick = async () => {
+                try {
+                    const res = await fetch(`${API_URL}/register`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email: usernameInput.value, password: passwordInput.value })
+                    });
+                    const data = await res.json();
+                    alert(res.ok ? "Registrato con successo!" : "Errore: " + data.error);
+                } catch (err) { alert("Server non raggiungibile."); }
+            };
+
+            // Logout
+            btnLogout.onclick = () => {
                 sessionStorage.removeItem("activeUser");
                 updateUI();
             };
