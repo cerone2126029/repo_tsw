@@ -23,8 +23,8 @@
 
         body {
             margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
-            background-color: var(--bg-light); 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-light);
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -32,139 +32,605 @@
             line-height: 1.6;
         }
 
-        main { flex: 1; }
+        main {
+            flex: 1;
+        }
 
         /* --- HEADER / NAVBAR --- */
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: var(--primary-blue); 
-            padding: 15px 40px; 
+            background-color: var(--primary-blue);
+            padding: 15px 40px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
             z-index: 1000;
-            flex-wrap: wrap; 
+            flex-wrap: wrap;
         }
-        .logo-section { display: flex; align-items: center; justify-content: space-between; }
-        .logo-section a { text-decoration: none; transition: transform 0.2s ease; display: inline-block; }
-        .logo-section a:hover { transform: scale(1.02); }
-        .logo-section h1 { margin: 0; color: var(--white); font-size: 1.4rem; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; }
-        .menu-toggle { display: none; color: var(--white); font-size: 1.8rem; cursor: pointer; user-select: none; background: transparent; border: none; padding: 0; }
-        .nav-links { display: flex; gap: 25px; align-items: center; }
-        .nav-links a { text-decoration: none; color: rgba(255, 255, 255, 0.85); font-weight: 500; font-size: 0.95rem; display: inline-block; transition: transform 0.2s ease, color 0.2s ease; }
-        .nav-links a:hover { color: var(--white); transform: scale(1.08) translateY(-2px); }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-section a {
+            text-decoration: none;
+            transition: transform 0.2s ease;
+            display: inline-block;
+        }
+
+        .logo-section a:hover {
+            transform: scale(1.02);
+        }
+
+        .logo-section h1 {
+            margin: 0;
+            color: var(--white);
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .menu-toggle {
+            display: none;
+            color: var(--white);
+            font-size: 1.8rem;
+            cursor: pointer;
+            user-select: none;
+            background: transparent;
+            border: none;
+            padding: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: inline-block;
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--white);
+            transform: scale(1.08) translateY(-2px);
+        }
 
         /* --- AREA LOGIN --- */
-        #auth-form { display: flex; flex-direction: column; gap: 6px; }
-        .inputs { display: flex; gap: 8px; }
-        .inputs input { padding: 6px 12px; border: 1px solid rgba(255, 255, 255, 0.2); background-color: rgba(255, 255, 255, 0.05); border-radius: 6px; font-size: 0.85rem; width: 140px; color: var(--white); transition: border-color 0.3s, background-color 0.3s; }
-        .inputs input:focus { outline: none; border-color: var(--accent-mint); background-color: rgba(255, 255, 255, 0.1); }
-        .inputs input::placeholder { color: rgba(255, 255, 255, 0.5); }
-        .buttons { display: flex; gap: 6px; justify-content: flex-end; }
-        .custom-btn { padding: 5px 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.8rem; transition: background-color 0.3s, opacity 0.3s; }
-        .custom-primary { background-color: var(--accent-mint); color: var(--white); }
-        .custom-primary:hover { background-color: var(--accent-hover); }
-        .custom-secondary { background-color: rgba(255, 255, 255, 0.1); color: var(--white); border: 1px solid rgba(255, 255, 255, 0.2); }
-        .custom-secondary:hover { background-color: rgba(255, 255, 255, 0.2); }
-        .custom-danger { background-color: transparent; color: rgba(255, 255, 255, 0.6); }
-        .custom-danger:hover { color: #ff6b6b; }
+        #auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .inputs {
+            display: flex;
+            gap: 8px;
+        }
+
+        .inputs input {
+            padding: 6px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            font-size: 0.85rem;
+            width: 140px;
+            color: var(--white);
+            transition: border-color 0.3s, background-color 0.3s;
+        }
+
+        .inputs input:focus {
+            outline: none;
+            border-color: var(--accent-mint);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .inputs input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .buttons {
+            display: flex;
+            gap: 6px;
+            justify-content: flex-end;
+        }
+
+        .custom-btn {
+            padding: 5px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: background-color 0.3s, opacity 0.3s;
+        }
+
+        .custom-primary {
+            background-color: var(--accent-mint);
+            color: var(--white);
+        }
+
+        .custom-primary:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .custom-secondary {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .custom-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .custom-danger {
+            background-color: transparent;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .custom-danger:hover {
+            color: #ff6b6b;
+        }
 
         /* Area Utente Loggato */
-        #logged-in-area { display: flex; align-items: center; gap: 15px; }
-        .welcome-text { color: var(--white); font-weight: 500; font-size: 0.95rem; }
-        .user-icon { width: 35px; height: 35px; background-color: rgba(255, 255, 255, 0.1); color: var(--accent-mint); border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: bold; transition: background-color 0.3s; }
-        .user-icon:hover { background-color: rgba(255, 255, 255, 0.2); }
+        #logged-in-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .welcome-text {
+            color: var(--white);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .user-icon {
+            width: 35px;
+            height: 35px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--accent-mint);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .user-icon:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
 
         /* --- SEZIONE HERO --- */
         .hero-section {
-            background-image: linear-gradient(to bottom, rgba(0, 64, 133, 0.85), rgba(0, 46, 96, 0.95)), url('background-home.jpg'); 
+            background-image: linear-gradient(to bottom, rgba(0, 64, 133, 0.85), rgba(0, 46, 96, 0.95)), url('background-home.jpg');
             background-size: cover;
             background-position: center;
-            padding: 100px 20px 140px 20px; 
+            padding: 100px 20px 140px 20px;
             text-align: center;
             color: var(--white);
         }
-        .hero-section h2 { font-weight: 300; font-size: 3.5rem; margin-bottom: 15px; letter-spacing: -1px; line-height: 1.2; }
-        .hero-section h2 strong { font-weight: 800; }
-        .hero-section p { font-size: 1.1rem; opacity: 0.8; max-width: 600px; margin: 0 auto; font-weight: 300; }
+
+        .hero-section h2 {
+            font-weight: 300;
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .hero-section h2 strong {
+            font-weight: 800;
+        }
+
+        .hero-section p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
 
         /* --- CONTENITORI GENERALI --- */
-        .content-container { max-width: 900px; margin: 0 auto 60px auto; padding: 0 20px; }
-        .section-title { color: var(--primary-blue); text-align: center; margin-bottom: 40px; font-weight: 800; font-size: 2rem; letter-spacing: -0.5px; }
-        .section-title::after { content: ''; display: block; width: 40px; height: 3px; background-color: var(--accent-mint); margin: 15px auto 0 auto; border-radius: 2px; }
+        .content-container {
+            max-width: 900px;
+            margin: 0 auto 60px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            color: var(--primary-blue);
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 800;
+            font-size: 2rem;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 3px;
+            background-color: var(--accent-mint);
+            margin: 15px auto 0 auto;
+            border-radius: 2px;
+        }
 
         /* --- PRENOTAZIONE --- */
-        .booking-card { margin-top: -80px; background: var(--white); border-radius: 12px; box-shadow: var(--shadow-soft); padding: 50px; position: relative; z-index: 10; }
-        .booking-form-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 25px; margin-bottom: 20px; }
-        .booking-form-full { margin-bottom: 35px; }
-        .booking-form-grid label, .booking-form-full label { font-weight: 600; font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
-        .booking-form-grid input, .booking-form-grid select, .booking-form-full textarea { width: 100%; padding: 14px 16px; border: 1px solid #e2e8f0; background-color: #f8fafc; border-radius: 8px; box-sizing: border-box; font-family: inherit; font-size: 0.95rem; color: var(--text-main); transition: all 0.3s ease; }
-        .booking-form-full textarea { resize: vertical; min-height: 100px; }
-        .booking-form-grid input:focus, .booking-form-grid select:focus, .booking-form-full textarea:focus { outline: none; border-color: var(--accent-mint); background-color: var(--white); box-shadow: 0 0 0 4px rgba(32, 201, 151, 0.1); }
-        .btn-conferma { background-color: var(--accent-mint); color: var(--white); padding: 14px 35px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 1rem; letter-spacing: 0.5px; transition: all 0.3s ease; width: 100%; max-width: 300px; }
-        .btn-conferma:hover { background-color: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(32, 201, 151, 0.25); }
+        .booking-card {
+            margin-top: -80px;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: var(--shadow-soft);
+            padding: 50px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .booking-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+
+        .booking-form-full {
+            margin-bottom: 35px;
+        }
+
+        .booking-form-grid label,
+        .booking-form-full label {
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: block;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .booking-form-grid input,
+        .booking-form-grid select,
+        .booking-form-full textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #e2e8f0;
+            background-color: #f8fafc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            transition: all 0.3s ease;
+        }
+
+        .booking-form-full textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .booking-form-grid input:focus,
+        .booking-form-grid select:focus,
+        .booking-form-full textarea:focus {
+            outline: none;
+            border-color: var(--accent-mint);
+            background-color: var(--white);
+            box-shadow: 0 0 0 4px rgba(32, 201, 151, 0.1);
+        }
+
+        .btn-conferma {
+            background-color: var(--accent-mint);
+            color: var(--white);
+            padding: 14px 35px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .btn-conferma:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(32, 201, 151, 0.25);
+        }
 
         /* --- EQUIPE --- */
-        .team-scroll { display: flex; gap: 25px; overflow-x: auto; padding: 10px 10px 30px 10px; scroll-snap-type: x mandatory; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
-        .team-scroll::-webkit-scrollbar { height: 6px; }
-        .team-scroll::-webkit-scrollbar-track { background: rgba(0, 64, 133, 0.05); border-radius: 10px; }
-        .team-scroll::-webkit-scrollbar-thumb { background: rgba(0, 64, 133, 0.2); border-radius: 10px; }
-        .team-scroll::-webkit-scrollbar-thumb:hover { background: var(--primary-blue); }
-        .team-card { background: var(--white); border-radius: 12px; padding: 35px 25px; text-align: center; transition: all 0.3s ease; flex: 0 0 250px; scroll-snap-align: start; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid transparent; }
-        .team-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); border-color: #e2e8f0; }
-        .team-avatar { width: 70px; height: 70px; border-radius: 50%; margin: 0 auto 20px auto; overflow: hidden; }
-        .team-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: 100% center; } 
-        .team-card h4 { margin: 0 0 8px 0; color: var(--primary-blue); font-size: 1.15rem; font-weight: 700; }
-        .team-card p { margin: 0; color: var(--text-main); font-size: 0.9rem; font-weight: 500; }
-        .team-card .spec { display: block; font-weight: 400; font-size: 0.85rem; color: var(--text-muted); margin-top: 6px; }
+        .team-scroll {
+            display: flex;
+            gap: 25px;
+            overflow-x: auto;
+            padding: 10px 10px 30px 10px;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .team-scroll::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .team-scroll::-webkit-scrollbar-track {
+            background: rgba(0, 64, 133, 0.05);
+            border-radius: 10px;
+        }
+
+        .team-scroll::-webkit-scrollbar-thumb {
+            background: rgba(0, 64, 133, 0.2);
+            border-radius: 10px;
+        }
+
+        .team-scroll::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-blue);
+        }
+
+        .team-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 35px 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            flex: 0 0 250px;
+            scroll-snap-align: start;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            border: 1px solid transparent;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-color: #e2e8f0;
+        }
+
+        .team-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            margin: 0 auto 20px auto;
+            overflow: hidden;
+        }
+
+        .team-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: 100% center;
+        }
+
+        .team-card h4 {
+            margin: 0 0 8px 0;
+            color: var(--primary-blue);
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+
+        .team-card p {
+            margin: 0;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .team-card .spec {
+            display: block;
+            font-weight: 400;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
 
         /* --- FAQ --- */
-        .faq-item { margin-bottom: 15px; background-color: var(--white); border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); transition: box-shadow 0.3s ease; overflow: hidden; }
-        .faq-item:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
-        .faq-item summary { font-weight: 600; cursor: pointer; color: var(--primary-blue); padding: 20px; list-style: none; outline: none; font-size: 1.05rem; display: flex; justify-content: space-between; align-items: center; }
-        .faq-item summary::-webkit-details-marker { display: none; }
-        .faq-item summary::after { content: '+'; color: var(--accent-mint); font-size: 1.5rem; font-weight: 300; transition: transform 0.3s ease; }
-        .faq-item[open] summary::after { transform: rotate(45deg); }
-        .faq-item p { padding: 0 20px 20px 20px; color: var(--text-muted); line-height: 1.7; margin: 0; font-size: 0.95rem; }
+        .faq-item {
+            margin-bottom: 15px;
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            transition: box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .faq-item summary {
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--primary-blue);
+            padding: 20px;
+            list-style: none;
+            outline: none;
+            font-size: 1.05rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-item summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-item summary::after {
+            content: '+';
+            color: var(--accent-mint);
+            font-size: 1.5rem;
+            font-weight: 300;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item[open] summary::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-item p {
+            padding: 0 20px 20px 20px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin: 0;
+            font-size: 0.95rem;
+        }
 
         /* --- FOOTER --- */
-        .custom-footer { background-color: var(--primary-blue); color: rgba(255, 255, 255, 0.85); padding: 40px 0 15px 0; margin-top: auto; font-size: 0.85rem; border-top: 4px solid var(--dark-blue); }
-        .custom-footer h5 { color: var(--white); font-weight: 700; font-size: 1rem; margin-bottom: 15px; letter-spacing: 0.5px; text-transform: uppercase; }
-        .custom-footer p { margin-bottom: 6px; line-height: 1.4; }
-        .custom-footer a { color: rgba(255, 255, 255, 0.85); text-decoration: none; transition: color 0.3s ease; }
-        .custom-footer a:hover { color: var(--accent-mint); }
-        .footer-icon { font-size: 0.95rem; margin-right: 5px; opacity: 0.8; }
-        hr { margin: 15px 0; }
+        .custom-footer {
+            background-color: var(--primary-blue);
+            color: rgba(255, 255, 255, 0.85);
+            padding: 40px 0 15px 0;
+            margin-top: auto;
+            font-size: 0.85rem;
+            border-top: 4px solid var(--dark-blue);
+        }
+
+        .custom-footer h5 {
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .custom-footer p {
+            margin-bottom: 6px;
+            line-height: 1.4;
+        }
+
+        .custom-footer a {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .custom-footer a:hover {
+            color: var(--accent-mint);
+        }
+
+        .footer-icon {
+            font-size: 0.95rem;
+            margin-right: 5px;
+            opacity: 0.8;
+        }
+
+        hr {
+            margin: 15px 0;
+        }
 
         /* =========================================================
            MEDIA QUERIES 
            ========================================================= */
         @media (max-width: 992px) {
-            .hero-section h2 { font-size: 2.8rem; }
-            .booking-card { padding: 30px; }
-            .booking-form-grid { grid-template-columns: 1fr 1fr; } 
+            .hero-section h2 {
+                font-size: 2.8rem;
+            }
+
+            .booking-card {
+                padding: 30px;
+            }
+
+            .booking-form-grid {
+                grid-template-columns: 1fr 1fr;
+            }
         }
 
         @media (max-width: 768px) {
-            .navbar { padding: 15px 20px; }
-            .logo-section { width: 100%; }
-            .menu-toggle { display: block; } 
-            .nav-links, .login-section { display: none; width: 100%; flex-direction: column; text-align: center; gap: 15px; padding-top: 20px; }
-            .navbar.active .nav-links, .navbar.active .login-section { display: flex; }
-            #logged-in-area { justify-content: center; width: 100%; }
-            .inputs { flex-direction: column; width: 100%; }
-            .inputs input { width: 100%; text-align: center; }
-            .buttons { justify-content: center; margin-top: 5px; }
-            .hero-section { padding: 60px 20px 100px 20px; }
-            .hero-section h2 { font-size: 2.2rem; }
-            .booking-card { margin-top: -40px; padding: 25px; }
-            .booking-form-grid { grid-template-columns: 1fr; gap: 15px; } 
-            .btn-conferma { max-width: 100%; } 
-            .custom-footer .row { flex-direction: column; text-align: center; }
-            .custom-footer .col-md-4 { margin-bottom: 25px; }
-            .custom-footer p { margin-left: 0 !important; }
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .logo-section {
+                width: 100%;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links,
+            .login-section {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+                padding-top: 20px;
+            }
+
+            .navbar.active .nav-links,
+            .navbar.active .login-section {
+                display: flex;
+            }
+
+            #logged-in-area {
+                justify-content: center;
+                width: 100%;
+            }
+
+            .inputs {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .inputs input {
+                width: 100%;
+                text-align: center;
+            }
+
+            .buttons {
+                justify-content: center;
+                margin-top: 5px;
+            }
+
+            .hero-section {
+                padding: 60px 20px 100px 20px;
+            }
+
+            .hero-section h2 {
+                font-size: 2.2rem;
+            }
+
+            .booking-card {
+                margin-top: -40px;
+                padding: 25px;
+            }
+
+            .booking-form-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .btn-conferma {
+                max-width: 100%;
+            }
+
+            .custom-footer .row {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .custom-footer .col-md-4 {
+                margin-bottom: 25px;
+            }
+
+            .custom-footer p {
+                margin-left: 0 !important;
+            }
         }
     </style>
 </head>
@@ -209,13 +675,14 @@
     <main>
         <section class="hero-section">
             <h2>Il tuo sorriso, <br><strong>la nostra eccellenza.</strong></h2>
-            <p>Prenota la tua visita presso lo Studio Dentistico CGJ in modo rapido e sicuro. Affidati a professionisti del settore.</p>
+            <p>Prenota la tua visita presso lo Studio Dentistico CGJ in modo rapido e sicuro. Affidati a professionisti
+                del settore.</p>
         </section>
 
         <section class="content-container">
             <div class="booking-card">
                 <h3 class="section-title" style="margin-bottom: 30px;">Prenota ora il tuo appuntamento</h3>
-                
+
                 <form id="booking-form">
                     <div class="booking-form-grid">
                         <div>
@@ -241,7 +708,8 @@
 
                     <div class="booking-form-full">
                         <label for="booking-description">Breve descrizione del problema (facoltativo)</label>
-                        <textarea id="booking-description" rows="3" placeholder="Es: Avverto un forte dolore durante la masticazione..."></textarea>
+                        <textarea id="booking-description" rows="3"
+                            placeholder="Es: Avverto un forte dolore durante la masticazione..."></textarea>
                     </div>
 
                     <div style="text-align: center;">
@@ -253,30 +721,85 @@
 
         <section class="content-container">
             <h3 class="section-title">La nostra Équipe</h3>
+
             <div class="team-scroll">
                 <div class="team-card">
-                    <div class="team-avatar"><img src="giulia.jpg" alt="Foto Dott.ssa Giulia Rossi"></div>
-                    <h4>Dott.ssa Giulia Rossi</h4><p>Direttore Sanitario <span class="spec">Chirurgia e Protesi</span></p>
+                    <div class="team-avatar">
+                        <img src="giulia.jpg" alt="Foto Dott.ssa Giulia Rossi">
+                    </div>
+                    <h4>Dott.ssa Giulia Rossi</h4>
+                    <p>Direttore Sanitario <span class="spec">Chirurgia e Protesi</span></p>
                 </div>
+
                 <div class="team-card">
-                    <div class="team-avatar"><img src="marco.webp" alt="Foto Marco Giallini" style="transform: scale(1.1) translateX(-10%);"></div>
-                    <h4>Marco Giallini</h4><p>Igienista Dentale <span class="spec">Prevenzione e Igiene</span></p>
+                    <div class="team-avatar">
+                        <img src="marco.webp" alt="Foto Marco Giallini" style="transform: scale(1.1) translateX(-10%);">
+                    </div>
+                    <h4>Marco Giallini</h4>
+                    <p>Igienista Dentale <span class="spec">Prevenzione e Igiene</span></p>
                 </div>
+
                 <div class="team-card">
-                    <div class="team-avatar"><img src="andrea.avif" alt="Foto Andrea Cucci" style="object-position: 20% top;"> </div>
-                    <h4>Andrea Cucci</h4><p>Igienista Dentale <span class="spec">Sbiancamento</span></p>
+                    <div class="team-avatar">
+                        <img src="andrea.avif" alt="Foto Andrea Cucci" style="object-position: 20% top;">
+                    </div>
+                    <h4>Andrea Cucci</h4>
+                    <p>Igienista Dentale <span class="spec">Sbiancamento</span></p>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <img src="luca.webp" alt="Foto Dott. Luca Bianchi">
+                    </div>
+                    <h4>Dott. Luca Bianchi</h4>
+                    <p>Odontoiatra <span class="spec">Ortodonzia</span></p>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <img src="elena.webp" alt="Foto Dott.ssa Elena Verdi" style="object-position: 30% top;">
+                    </div>
+                    <h4>Dott.ssa Elena Verdi</h4>
+                    <p>Odontoiatra <span class="spec">Endodonzia</span></p>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <img src="matteo.jpg" alt="Foto Dott. Matteo Neri">
+                    </div>
+                    <h4>Dott. Matteo Neri</h4>
+                    <p>Chirurgo <span class="spec">Implantologia</span></p>
                 </div>
             </div>
         </section>
 
         <section class="content-container" style="max-width: 800px;">
             <h3 class="section-title">Domande Frequenti</h3>
-            <details class="faq-item"><summary>Ho degli sconti alla mia prima visita?</summary><p>Sì, hai il 10% di sconto sulla tua prima visita presso il nostro studio.</p></details>
-            <details class="faq-item"><summary>Quali sono i metodi di pagamento accettati?</summary><p>Accettiamo contanti, carte di credito/debito (Visa, Mastercard, PagoBancomat) e bonifici bancari.</p></details>
+            <details class="faq-item">
+                <summary>Ho degli sconti alla mia prima visita?</summary>
+                <p>Sì, hai il 10% di sconto sulla tua prima visita presso il nostro studio.</p>
+            </details>
+            <details class="faq-item">
+                <summary>Quali sono i metodi di pagamento accettati?</summary>
+                <p>Accettiamo contanti, carte di credito/debito (Visa, Mastercard, PagoBancomat) e bonifici bancari.</p>
+            </details>
+            <details class="faq-item">
+                <summary>Cosa devo portare alla prima visita?</summary>
+                <p>Ti preghiamo di portare un documento d'identità in corso di validità, la tessera sanitaria (codice
+                    fiscale) ed eventuali radiografie o panoramiche dentali recenti, possibilmente effettuate negli
+                    ultimi 6 mesi.</p>
+            </details>
+
+            <details class="faq-item">
+                <summary>Posso disdire o spostare il mio appuntamento?</summary>
+                <p>Certamente. Ti chiediamo cortesemente di avvisarci con almeno 24 ore di anticipo contattando
+                    telefonicamente la segreteria, in modo da permetterci di riorganizzare l'agenda clinica e assistere
+                    pazienti con urgenze.</p>
+            </details>
         </section>
     </main>
 
-   <footer class="custom-footer">
+    <footer class="custom-footer">
         <div class="container">
             <div class="row text-md-start">
                 <div class="col-md-4 mb-3">
@@ -288,7 +811,8 @@
                     <h5>Contatti</h5>
                     <p><span class="footer-icon">📞</span> +39 334 6209473</p>
                     <p><span class="footer-icon">📱</span> +39 331 7102753</p>
-                    <p><span class="footer-icon">✉️</span> <a href="mailto:studio.dentistico.CGJ@gmail.com">studio.dentistico.CGJ@gmail.com</a></p>
+                    <p><span class="footer-icon">✉️</span> <a
+                            href="mailto:studio.dentistico.CGJ@gmail.com">studio.dentistico.CGJ@gmail.com</a></p>
                 </div>
                 <div class="col-md-4 mb-3">
                     <h5>Orari di Apertura</h5>
@@ -301,7 +825,8 @@
             <hr class="mt-3 mb-2" style="border-color: rgba(255, 255, 255, 0.3);">
             <div class="row">
                 <div class="col-12 text-center">
-                    <p style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.7); margin: 0;">&copy; 2026 Studio Dentistico CGJ. Tutti i diritti riservati.</p>
+                    <p style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.7); margin: 0;">&copy; 2026 Studio
+                        Dentistico CGJ. Tutti i diritti riservati.</p>
                 </div>
             </div>
         </div>
@@ -309,13 +834,13 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            
+
             // --- GESTIONE MENU MOBILE (HAMBURGER) ---
             const mobileMenuBtn = document.getElementById("mobile-menu");
             const navbar = document.querySelector(".navbar");
 
             mobileMenuBtn.addEventListener("click", () => {
-                navbar.classList.toggle("active"); 
+                navbar.classList.toggle("active");
             });
 
             // --- IMPOSTAZIONE DATA MINIMA NEL CALENDARIO ---
@@ -324,15 +849,15 @@
             const localDate = new Date(today.getTime() - (today.getTimezoneOffset() * 60000)).toISOString().split('T')[0];
             dateInput.setAttribute("min", localDate);
 
-            dateInput.addEventListener("change", function() {
+            dateInput.addEventListener("change", function () {
                 if (this.value) {
                     const parti = this.value.split('-');
                     const dataScelta = new Date(parti[0], parti[1] - 1, parti[2]);
                     const giornoSettimana = dataScelta.getDay();
-                    
+
                     if (giornoSettimana === 0 || giornoSettimana === 6) {
                         alert("⚠️ Lo studio è chiuso il sabato e la domenica. Seleziona un giorno dal lunedì al venerdì.");
-                        this.value = ""; 
+                        this.value = "";
                     }
                 }
             });
@@ -359,7 +884,7 @@
                     loggedInArea.style.display = "flex";
                     // Mostra solo la parte dell'email prima della @
                     welcomeMessage.textContent = "Ciao, " + currentUser.split('@')[0] + "!";
-                    userIcon.textContent = currentUser.charAt(0).toUpperCase(); 
+                    userIcon.textContent = currentUser.charAt(0).toUpperCase();
                 } else {
                     authForm.style.display = "flex";
                     loggedInArea.style.display = "none";
@@ -371,7 +896,7 @@
             updateUI();
 
             // --- 1. REGISTRAZIONE (invia a Node.js) ---
-            btnRegister.onclick = async function() {
+            btnRegister.onclick = async function () {
                 if (!usernameInput.value || !passwordInput.value) {
                     alert("Inserisci email e password validi per registrarti.");
                     return;
@@ -383,7 +908,7 @@
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ email: usernameInput.value, password: passwordInput.value })
                     });
-                    
+
                     const data = await response.json();
 
                     if (response.ok) {
@@ -398,21 +923,21 @@
 
             // --- 2. LOGIN (invia a Node.js) ---
             authForm.onsubmit = async function (event) {
-                event.preventDefault(); 
-                
+                event.preventDefault();
+
                 try {
                     const response = await fetch(`${API_URL}/login`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ email: usernameInput.value, password: passwordInput.value })
                     });
-                    
+
                     const data = await response.json();
 
                     if (response.ok) {
                         // Salvo localmente solo l'email per ricordarmi che sono loggato
                         sessionStorage.setItem("activeUser", usernameInput.value);
-                        updateUI(); 
+                        updateUI();
                     } else {
                         alert("Attenzione: " + data.error);
                     }
@@ -422,19 +947,19 @@
             };
 
             // --- LOGOUT ---
-            btnLogout.onclick = function() {
+            btnLogout.onclick = function () {
                 sessionStorage.removeItem("activeUser");
                 updateUI();
             };
 
             // --- 3. PRENOTAZIONE (invia a Node.js) ---
-            bookingForm.onsubmit = async function(event) {
+            bookingForm.onsubmit = async function (event) {
                 event.preventDefault();
-                
+
                 const currentUser = sessionStorage.getItem("activeUser");
                 if (!currentUser) {
                     alert("⚠️ Devi prima accedere o registrarti in alto a destra per poter prenotare una visita.");
-                    return; 
+                    return;
                 }
 
                 const dataInserita = document.getElementById("booking-date").value;
@@ -458,14 +983,14 @@
                     const response = await fetch(`${API_URL}/prenotazioni`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ 
-                            email: currentUser, 
-                            dataVisita: dataInserita, 
-                            oraVisita: oraInserita, 
-                            motivo: motivoInserito 
+                        body: JSON.stringify({
+                            email: currentUser,
+                            dataVisita: dataInserita,
+                            oraVisita: oraInserita,
+                            motivo: motivoInserito
                         })
                     });
-                    
+
                     const data = await response.json();
 
                     if (response.ok) {
@@ -481,4 +1006,5 @@
         });
     </script>
 </body>
+
 </html>
