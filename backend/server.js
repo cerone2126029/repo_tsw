@@ -75,11 +75,30 @@ app.post('/api/prenotazioni', async (req, res) => {
     res.status(201).json({ message: 'Prenotazione confermata con successo!' });
 });
 
+// --- ROTTA PER LEGGERE LE PRENOTAZIONI DELL'UTENTE ---
+app.get('/api/prenotazioni', async (req, res) => {
+    const emailUtente = req.query.email;
+
+    if (!emailUtente) {
+        return res.status(400).json({ error: "Email utente non fornita" });
+    }
+
+    // Cerchiamo su Supabase tutte le prenotazioni che hanno quell'email
+    const { data, error } = await supabase
+        .from('prenotazioni')
+        .select('*')
+        .eq('user_email', emailUtente); // Assicurati che la colonna si chiami così nel tuo database
+
+    if (error) {
+        return res.status(500).json({ error: error.message });
+    }
+
+    res.status(200).json(data);
+});
 // AVVIO DEL SERVER (Con il trucco per lo smartphone)
 const PORT = process.env.PORT || 3000;
-const HOST = '0.0.0.0'; 
+const HOST = '0.0.0.0';
 
 app.listen(PORT, HOST, () => {
     console.log(`✅ Server in ascolto su http://localhost:${PORT}`);
-    console.log(`📱 Per testarlo da smartphone: connettiti allo stesso Wi-Fi e digita l'indirizzo IP locale del tuo PC seguito da :${PORT}`);
 });

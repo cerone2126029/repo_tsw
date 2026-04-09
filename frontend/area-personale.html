@@ -1,257 +1,107 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Area Personale - Studio Dentistico CGJ</title>
-    <link rel="stylesheet" href="bootstrap.css">
-    
-    <style>
-        :root {
-            --primary-blue: #004085;
-            --dark-blue: #002e60;
-            --accent-mint: #20c997;
-            --accent-hover: #17a2b8;
-            --bg-light: #f4f7f6;
-            --text-main: #333333;
-            --text-muted: #6c757d;
-            --white: #ffffff;
-            --shadow-soft: 0 10px 40px rgba(0, 46, 96, 0.08);
-        }
-
-        body {
-            margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-            background-color: var(--bg-light); 
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            color: var(--text-main);
-        }
-
-        main { flex: 1; padding-top: 40px; }
-
-        /* NAVBAR*/
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: var(--primary-blue); 
-            padding: 15px 40px; 
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        .logo-section h1 { margin: 0; color: var(--white); font-size: 1.4rem; font-weight: 800; text-transform: uppercase; }
-        .nav-links a { text-decoration: none; color: rgba(255, 255, 255, 0.85); font-weight: 500; margin-left: 20px; transition: 0.3s; }
-        .nav-links a:hover { color: var(--white); }
-
-        /* DASHBOARD STYLE*/
-        .profile-card {
-            background: var(--white);
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: var(--shadow-soft);
-            margin-bottom: 30px;
-            border-left: 5px solid var(--accent-mint);
-        }
-
-        .section-title {
-            color: var(--primary-blue);
-            font-weight: 800;
-            margin-bottom: 25px;
-            font-size: 1.8rem;
-        }
-
-        /* Tabella Prenotazioni */
-        .table-container {
-            background: var(--white);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--shadow-soft);
-        }
-
-        .custom-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .custom-table th {
-            background-color: var(--primary-blue);
-            color: var(--white);
-            padding: 15px;
-            text-align: left;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-        }
-
-        .custom-table td {
-            padding: 15px;
-            border-bottom: 1px solid #eee;
-            font-size: 0.95rem;
-        }
-
-        .status-badge {
-            background: #e1fcef;
-            color: #14804a;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 40px;
-            color: var(--text-muted);
-        }
-
-        .btn-logout-red {
-            background-color: #ff6b6b;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-        .btn-logout-red:hover { background-color: #fa5252; }
-
-        /* Footer*/
-        .custom-footer { background-color: var(--primary-blue); color: white; padding: 40px 0 20px; margin-top: 60px; text-align: center; }
-    </style>
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
 
     <header class="navbar">
         <div class="logo-section">
-            <a href="home.html" style="text-decoration: none;">
+            <a href="home.html">
                 <h1>Studio CGJ</h1>
             </a>
         </div>
-        <nav class="nav-links">
-            <a href="home.html">Home</a>
+        <nav class="nav-links" style="display: flex;">
+            <a href="home.html" style="margin-right: 20px;">Torna alla Home</a>
             <button id="btn-logout-top" class="btn-logout-red">Esci</button>
         </nav>
     </header>
 
-    <main class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h2 class="section-title">La tua Area Riservata</h2>
-                
-                <div class="profile-card">
-                    <div class="d-flex align-items: center; gap: 20px;">
-                        <div style="width: 60px; height: 60px; background: var(--primary-blue); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;" id="user-initial">
-                            U
-                        </div>
-                        <div>
-                            <h4 style="margin: 0;" id="display-username">Caricamento...</h4>
-                            <p style="margin: 0; color: var(--text-muted);">Paziente registrato</p>
-                        </div>
-                    </div>
-                </div>
+    <main class="content-container dashboard-main">
+        <h2 class="section-title" style="text-align: left;">La tua Area Riservata</h2>
 
-                <h3 class="mb-3" style="color: var(--primary-blue); font-weight: 700;">Le tue Prenotazioni</h3>
-                <div class="table-container">
-                    <table class="custom-table" id="bookings-table">
-                        <thead>
-                            <tr>
-                                <th>Data</th>
-                                <th>Orario</th>
-                                <th>Trattamento</th>
-                                <th>Stato</th>
-                            </tr>
-                        </thead>
-                        <tbody id="bookings-list">
-                            </tbody>
-                    </table>
-                    <div id="no-bookings" class="empty-state" style="display: none;">
-                        <p>Non hai ancora prenotato nessuna visita.</p>
-                        <a href="home.html" class="btn-logout-red" style="background: var(--accent-mint); text-decoration: none;">Prenota ora</a>
-                    </div>
+        <div class="info-card">
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <div style="width: 60px; height: 60px; background: var(--primary-blue); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;"
+                    id="user-initial">
+                    U
                 </div>
+                <div>
+                    <h4 style="margin: 0; color: var(--primary-blue);" id="display-username">Caricamento...</h4>
+                    <p style="margin: 0; color: var(--text-muted);">Paziente registrato</p>
+                </div>
+            </div>
+        </div>
+
+        <h3 style="color: var(--primary-blue); font-weight: 700; margin-bottom: 15px;">Le tue Prenotazioni</h3>
+        <div class="table-container">
+            <table class="custom-table" id="bookings-table">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Orario</th>
+                        <th>Trattamento</th>
+                        <th>Stato</th>
+                    </tr>
+                </thead>
+                <tbody id="bookings-list">
+                </tbody>
+            </table>
+            <div id="no-bookings" class="empty-state" style="display: none;">
+                <p>Non hai ancora prenotato nessuna visita.</p>
+                <a href="home.html" class="btn-logout-red"
+                    style="background: var(--accent-mint); text-decoration: none; display: inline-block; margin-top: 10px;">Prenota
+                    ora</a>
             </div>
         </div>
     </main>
 
     <footer class="custom-footer">
-       <div class="container">
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <h5 class="footer-title">Studio Dentistico CGJ</h5>
-                    <p style="color: rgba(255,255,255,0.7); line-height: 1.6;">
-                        Prendiamoci cura del tuo sorriso con le migliori tecnologie e un team di esperti al tuo servizio.
-                    </p>
+        <div class="container">
+            <div class="row text-md-start">
+
+                <div class="col-md-4 mb-3">
+                    <h5>Dove Siamo</h5>
+                    <p><span class="footer-icon">📍</span> Via Tiburtina, 546</p>
+                    <p style="margin-left: 24px;">Roma (RM) - 00159</p>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <h5 class="footer-title">Link Utili</h5>
-                    <ul class="footer-links">
-                        <li><a href="home.html">Torna alla Home</a></li>
-                    </ul>
+
+                <div class="col-md-4 mb-3">
+                    <h5>Contatti</h5>
+                    <p><span class="footer-icon">📞</span> +39 334 6209473</p>
+                    <p><span class="footer-icon">📱</span> +39 331 7102753</p>
+                    <p><span class="footer-icon">✉️</span> <a
+                            href="mailto:studio.dentistico.CGJ@gmail.com">studio.dentistico.CGJ@gmail.com</a></p>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <h5 class="footer-title">Contatti & Orari</h5>
-                    <p style="color: rgba(255,255,255,0.7); margin-bottom: 5px;">📍  Via Tiburtina, 546, Roma</p>
-                    <p style="color: rgba(255,255,255,0.7); margin-bottom: 5px;">📞 +39 334 6209473</p>
-                    <p style="color: rgba(255,255,255,0.7);">🕒 Lun - Ven: 08:30 - 13:30 | 14:30 - 19:30</p>
+
+                <div class="col-md-4 mb-3">
+                    <h5>Orari di Apertura</h5>
+                    <p><span class="footer-icon">🕒</span> Lunedì - Venerdì:</p>
+                    <p style="margin-left: 24px;">08:30 - 13:30 | 14:30 - 19:30</p>
+                    <p style="margin-left: 24px; font-weight: bold;">Riceviamo solo su appuntamento</p>
+                    <p style="margin-left: 24px; color: #ff6b6b; font-weight: bold;">Sabato e Domenica: Chiuso</p>
                 </div>
+
             </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2026 Studio Dentistico CGJ. Tutti i diritti riservati.</p>
+
+            <hr class="mt-3 mb-2" style="border-color: rgba(255, 255, 255, 0.3);">
+
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.7); margin: 0;">&copy; 2026 Studio
+                        Dentistico CGJ. Tutti i diritti riservati.</p>
+                </div>
             </div>
         </div>
     </footer>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const currentUser = sessionStorage.getItem("activeUser");
-
-            // 1. Protezione Pagina: se non sei loggato, torna alla home
-            if (!currentUser) {
-                window.location.href = "home.html";
-                return;
-            }
-
-            // 2. Mostra info utente
-            document.getElementById("display-username").textContent = currentUser;
-            document.getElementById("user-initial").textContent = currentUser.charAt(0).toUpperCase();
-
-            // 3. Carica Prenotazioni
-            const allBookings = JSON.parse(localStorage.getItem("prenotazioniStudio")) || [];
-            // Filtra solo quelle dell'utente loggato
-            const userBookings = allBookings.filter(b => b.user === currentUser);
-
-            const listContainer = document.getElementById("bookings-list");
-            const noBookingsMsg = document.getElementById("no-bookings");
-            const table = document.getElementById("bookings-table");
-
-            if (userBookings.length === 0) {
-                table.style.display = "none";
-                noBookingsMsg.style.display = "block";
-            } else {
-                userBookings.forEach(book => {
-                    const row = `
-                        <tr>
-                            <td><strong>${book.data}</strong></td>
-                            <td>${book.ora}</td>
-                            <td>${book.motivo}</td>
-                            <td><span class="status-badge">Confermata</span></td>
-                        </tr>
-                    `;
-                    listContainer.innerHTML += row;
-                });
-            }
-
-            // 4. Logout
-            document.getElementById("btn-logout-top").onclick = () => {
-                sessionStorage.removeItem("activeUser");
-                window.location.href = "home.html";
-            };
-        });
-    </script>
+    <script src="assets/js/main.js"></script>
 </body>
+
 </html>

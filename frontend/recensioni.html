@@ -1,203 +1,97 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recensioni - Studio Dentistico CGJ</title>
-    <link rel="stylesheet" href="bootstrap.css">
-    <style>
-        :root {
-            --primary-blue: #004085;
-            --dark-blue: #002e60;
-            --accent-mint: #20c997;
-            --accent-hover: #17a2b8;
-            --bg-light: #f4f7f6;
-            --text-main: #333333;
-            --text-muted: #6c757d;
-            --white: #ffffff;
-            --shadow-soft: 0 10px 40px rgba(0, 46, 96, 0.08);
-            --shadow-hover: 0 15px 50px rgba(0, 46, 96, 0.12);
-        }
-        body {
-            margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: var(--bg-light);
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            color: var(--text-main);
-            line-height: 1.6;
-        }
-
-        /* --- NAVBAR --- */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: var(--primary-blue);
-            padding: 15px 40px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            flex-wrap: wrap;
-        }
-        .logo-section { display: flex; align-items: center; justify-content: space-between; }
-        .logo-section a { text-decoration: none; transition: transform 0.2s ease; display: inline-block; }
-        .logo-section h1 { margin: 0; color: var(--white); font-size: 1.4rem; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; }
-        .menu-toggle { display: none; background: transparent; border: none; font-size: 1.8rem; color: var(--white); cursor: pointer; }
-        .nav-links { display: flex; gap: 25px; align-items: center; }
-        .nav-links a { text-decoration: none; color: rgba(255, 255, 255, 0.85); font-weight: 500; font-size: 0.95rem; display: inline-block; transition: 0.2s ease; }
-        .nav-links a:hover { color: var(--white); transform: scale(1.08) translateY(-2px); }
-
-        /* --- LOGIN --- */
-        #auth-form { display: flex; flex-direction: column; gap: 6px; }
-        .inputs { display: flex; gap: 8px; }
-        .inputs input { padding: 6px 12px; border: 1px solid rgba(255, 255, 255, 0.2); background-color: rgba(255, 255, 255, 0.05); border-radius: 6px; font-size: 0.85rem; width: 140px; color: var(--white); transition: 0.3s; }
-        .inputs input:focus { outline: none; border-color: var(--accent-mint); background-color: rgba(255, 255, 255, 0.1); }
-        .inputs input::placeholder { color: rgba(255, 255, 255, 0.5); }
-        .buttons { display: flex; gap: 6px; justify-content: flex-end; }
-        .custom-btn { padding: 5px 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.8rem; transition: 0.3s; }
-        .custom-primary { background-color: var(--accent-mint); color: var(--white); }
-        .custom-primary:hover { background-color: var(--accent-hover); }
-        .custom-secondary { background-color: rgba(255, 255, 255, 0.1); color: var(--white); border: 1px solid rgba(255, 255, 255, 0.2); }
-        .custom-secondary:hover { background-color: rgba(255, 255, 255, 0.2); }
-        .custom-danger { background-color: transparent; color: rgba(255, 255, 255, 0.6); }
-        .custom-danger:hover { color: #ff6b6b; }
-        #logged-in-area { display: none; align-items: center; gap: 15px; }
-        .welcome-text { color: var(--white); font-weight: 500; font-size: 0.95rem; }
-        .user-icon { width: 35px; height: 35px; background-color: rgba(255, 255, 255, 0.1); color: var(--accent-mint); border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: bold; transition: 0.3s; }
-        .user-icon:hover { background-color: rgba(255, 255, 255, 0.2); }
-
-        /* --- HERO E RECENSIONI --- */
-        .hero-section {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('ddd.jpg');
-            background-size: cover;
-            background-position: center;
-            height: 60vh;
-            padding: 40px;
-            text-align: center;
-            color: var(--white);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        .hero-section h2 { font-weight: 300; font-size: 3.5rem; margin-bottom: 15px; letter-spacing: -1px; line-height: 1.2; }
-        
-        .s-container { max-width: 1000px; margin: 0 auto; padding: 20px; }
-        .s-container h2 { text-align: center; color: var(--primary-blue); margin-bottom: 40px; font-weight: 800; }
-        .container-c { display: flex; gap: 25px; overflow-x: auto; scroll-behavior: smooth; padding-bottom: 20px;}
-        .card { background: var(--white); border-radius: 12px; padding: 20px; box-shadow: var(--shadow-soft); flex: 0 0 250px; transition: 0.3s; }
-        .card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
-        .nome { font-weight: 700; color: var(--primary-blue); margin-bottom: 5px; }
-        .star { color: gold; margin-bottom: 10px; }
-        .commento { font-size: 0.9rem; color: var(--text-main); margin-bottom: 10px; }
-        .card button { border: none; background: var(--accent-mint); color: var(--white); padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; transition: 0.3s; }
-        .card button:hover { background: var(--accent-hover); }
-        .full-c { display: none; margin-top: 10px; font-size: 0.9rem; color: var(--text-muted); }
-        .time { color: var(--text-muted); font-weight: 400; font-size: 0.8rem; }
-
-        .riepilogo-affiancato { display: flex; max-width: 1000px; margin: 40px auto; gap: 40px; align-items: center; flex-wrap: wrap; padding: 0 20px;}
-        .col-left { flex: 1; color: var(--primary-blue); font-family: sans-serif; }
-        .col-left h3 { font-size: 1.8rem; margin-bottom: 10px; }
-        .col-left p { font-size: 1rem; color: var(--text-main); }
-        .col-right { flex: 1; }
-        .rating-row { display: flex; align-items: center; margin-bottom: 10px; }
-        .stars { width: 60px; }
-        .bar-container { flex: 1; background: #e0e0e0; height: 12px; border-radius: 6px; margin: 0 10px; overflow: hidden; }
-        .bar { height: 100%; background-color: var(--accent-mint); border-radius: 6px; }
-        .percent { width: 40px; text-align: right; }
-
-        .richiesta { text-align: center; color: var(--primary-blue); font-weight: 700; font-size: 1.8rem; margin-bottom: 20px; letter-spacing: 0.5px; line-height: 1.3; padding: 0 20px;}
-        .votaz { text-align: center; margin-bottom: 40px;}
-
-        /* --- FOOTER --- */
-        .custom-footer { background-color: var(--primary-blue); color: rgba(255, 255, 255, 0.85); padding: 40px 0 15px 0; margin-top: auto; font-size: 0.85rem; border-top: 4px solid var(--dark-blue); }
-        .custom-footer p { margin-bottom: 6px; line-height: 1.4; text-align: center; }
-
-        @media (max-width: 768px) {
-            .navbar { padding: 15px 20px; }
-            .logo-section { width: 100%; }
-            .menu-toggle { display: block; }
-            .nav-links, .login-section { display: none; width: 100%; flex-direction: column; text-align: center; gap: 15px; padding-top: 20px; }
-            .navbar.active .nav-links, .navbar.active .login-section { display: flex; }
-            #logged-in-area { justify-content: center; width: 100%; }
-            .inputs { flex-direction: column; width: 100%; }
-            .inputs input { width: 100%; text-align: center; }
-            .riepilogo-affiancato { flex-direction: column; text-align: center; }
-        }
-    </style>
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
-
     <header class="navbar">
-        <div class="logo-section">
-            <a href="home.html"><h1>Studio Dentistico CGJ</h1></a>
-            <button class="menu-toggle" id="mobile-menu">☰</button>
-        </div>
-
-        <nav class="nav-links">
-            <a href="chi-siamo.html">Chi siamo</a>
-            <a href="trattamenti.html">Trattamenti</a>
-            <a href="recensioni.html">Recensioni</a>
-            <a href="consigli.html">Consigli</a>
-        </nav>
-
+        <div class="logo-section"><a href="home.html">
+                <h1>Studio Dentistico CGJ</h1>
+            </a><button class="menu-toggle" id="mobile-menu">☰</button></div>
+        <nav class="nav-links"><a href="chi-siamo.html">Chi siamo</a><a href="trattamenti.html">Trattamenti</a><a
+                href="recensioni.html">Recensioni</a><a href="consigli.html">Consigli</a></nav>
         <div class="login-section" id="user-area">
             <form id="auth-form">
-                <div class="inputs">
-                    <input type="email" id="username" placeholder="Email" required>
-                    <input type="password" id="password" placeholder="Password" required>
-                </div>
-                <div class="buttons">
-                    <button type="submit" id="btn-login" class="custom-btn custom-primary">Accedi</button>
-                    <button type="button" id="btn-register" class="custom-btn custom-secondary">Registrati</button>
-                </div>
+                <div class="inputs"><input type="email" id="username" placeholder="Email" required><input
+                        type="password" id="password" placeholder="Password" required></div>
+                <div class="buttons"><button type="submit" id="btn-login"
+                        class="custom-btn custom-primary">Accedi</button><button type="button" id="btn-register"
+                        class="custom-btn custom-secondary">Registrati</button></div>
             </form>
-            <div id="logged-in-area">
-                <span id="welcome-message" class="welcome-text"></span>
-                <a href="#" class="user-icon" title="Area Personale">U</a>
-                <button id="btn-logout" class="custom-btn custom-danger">Esci</button>
+            <div id="logged-in-area" style="display: none;">
+                <span id="welcome-message" class="welcome-text"></span><a href="area-personale.html"
+                    class="user-icon">U</a><button id="btn-logout" class="custom-btn custom-danger">Esci</button>
             </div>
         </div>
     </header>
 
     <main>
-        <section class="hero-section">
+        <section class="hero-recensioni">
             <h2>Ogni sorriso racconta una storia</h2>
             <h4>Scopri le esperienze dei nostri pazienti</h4>
         </section>
 
-        <section class="s-container">
-            <h2>Alcuni dei commenti da parte dei nostri pazienti</h2>
+        <section class="content-container" style="margin-top: 40px; max-width: 1000px;">
+            <h2 class="section-title">Alcuni dei commenti da parte dei nostri pazienti</h2>
             <div class="container-c">
-                <div class="card">
+
+                <div class="card-recensione">
                     <div class="nome">M. Rossi</div>
                     <div class="star">⭐⭐⭐⭐⭐</div>
                     <div class="commento">Servizio eccellente e ambiente accogliente...</div>
                     <button onclick="toggle(this)">Mostra di più</button>
-                    <div class="full-c">Servizio eccellente e ambiente accogliente, dentista eccezionale, molto professionale e gentile così come il resto dello staff.</div>
+                    <div class="full-c">Servizio eccellente e ambiente accogliente, dentista eccezionale, molto
+                        professionale e gentile così come il resto dello staff.</div>
                 </div>
-                <div class="card">
+
+                <div class="card-recensione">
                     <div class="nome">L. Bianchi</div>
                     <div class="star">⭐⭐⭐⭐</div>
-                    <div class="commento">Ringrazio la Dott.ssa Rossi...</div>
+                    <div class="commento">Ringrazio la Dott.ssa Rossi per la sua professionalità...</div>
                     <button onclick="toggle(this)">Mostra di più</button>
-                    <div class="full-c">Ringrazio la Dott.ssa Rossi per la sua professionalità e la gentilezza dimostrata durante tutto il trattamento.</div>
+                    <div class="full-c">Ringrazio la Dott.ssa Rossi per la sua professionalità e la gentilezza
+                        dimostrata durante tutto il trattamento.</div>
                 </div>
-                <div class="card">
+
+                <div class="card-recensione">
                     <div class="nome">John Smith <br><span class="time">pubblicato 3 mesi fa</span></div>
                     <div class="star">⭐⭐⭐</div>
-                    <div class="commento">Ho avuto la fortuna di conoscere il Dott. Bianchi...</div>
+                    <div class="commento">Ho avuto la fortuna di aver conosciuto il Dott. Bianchi...</div>
                     <button onclick="toggle(this)">Mostra di più</button>
-                    <div class="full-c">Ho avuto la fortuna di aver conosciuto il Dott. Bianchi uno dei migliori esperti nel campo, e grazie alla sua squadra che non mi hanno fatto sentire a disagio.</div>
+                    <div class="full-c">Ho avuto la fortuna di aver conosciuto il Dott. Bianchi uno dei migliori esperti
+                        nel campo, e grazie alla sua squadra che non mi hanno fatto sentire a disagio.</div>
                 </div>
+
+                <div class="card-recensione">
+                    <div class="nome">Lisa R.</div>
+                    <div class="star">⭐⭐⭐⭐⭐</div>
+                    <div class="commento">Lo studio dentistico CGJ è un posto che consiglio caldamente a tutti...</div>
+                    <button onclick="toggle(this)">Mostra di più</button>
+                    <div class="full-c">Lo studio dentistico CGJ è un posto che consiglio caldamente a tutti coloro che
+                        desiderano farsi controllare i denti in totale serenità.</div>
+                </div>
+
+                <div class="card-recensione">
+                    <div class="nome">G.B.</div>
+                    <div class="star">⭐⭐⭐⭐</div>
+                    <div class="commento">Sono rimasto molto colpito dal servizio ricevuto...</div>
+                    <button onclick="toggle(this)">Mostra di più</button>
+                    <div class="full-c">Sono rimasto molto colpito dal servizio ricevuto, la professionalità del dottore
+                        e dello staff è davvero impressionante.</div>
+                </div>
+
             </div>
         </section>
 
-        <section>
-            <h2 class="richiesta">La tua valutazione contribuirà a migliorare il nostro servizio</h2>
+        <section class="content-container">
+            <h2 class="richiesta" style="color: var(--primary-blue);">La tua valutazione contribuirà a migliorare il
+                nostro servizio</h2>
             <div class="votaz">
                 <label><input type="radio" name="rating" value="5"> 5⭐</label>
                 <label><input type="radio" name="rating" value="4"> 4⭐</label>
@@ -213,102 +107,42 @@
                 <p>ogni recensione è un impegno a fare sempre meglio</p>
             </div>
             <div class="col-right">
-                <div class="rating-row"><span class="stars">5 ⭐</span><div class="bar-container"><div class="bar" style="width: 70%;"></div></div><span class="percent">70%</span></div>
-                <div class="rating-row"><span class="stars">4 ⭐</span><div class="bar-container"><div class="bar" style="width: 20%;"></div></div><span class="percent">20%</span></div>
-                <div class="rating-row"><span class="stars">3 ⭐</span><div class="bar-container"><div class="bar" style="width: 7%;"></div></div><span class="percent">7%</span></div>
-                <div class="rating-row"><span class="stars">2 ⭐</span><div class="bar-container"><div class="bar" style="width: 2%;"></div></div><span class="percent">2%</span></div>
-                <div class="rating-row"><span class="stars">1 ⭐</span><div class="bar-container"><div class="bar" style="width: 1%;"></div></div><span class="percent">1%</span></div>
+                <div class="rating-row"><span class="stars">5 ⭐</span>
+                    <div class="bar-container">
+                        <div class="bar" style="width: 70%;"></div>
+                    </div><span class="percent">70%</span>
+                </div>
+                <div class="rating-row"><span class="stars">4 ⭐</span>
+                    <div class="bar-container">
+                        <div class="bar" style="width: 20%;"></div>
+                    </div><span class="percent">20%</span>
+                </div>
+                <div class="rating-row"><span class="stars">3 ⭐</span>
+                    <div class="bar-container">
+                        <div class="bar" style="width: 7%;"></div>
+                    </div><span class="percent">7%</span>
+                </div>
+                <div class="rating-row"><span class="stars">2 ⭐</span>
+                    <div class="bar-container">
+                        <div class="bar" style="width: 2%;"></div>
+                    </div><span class="percent">2%</span>
+                </div>
+                <div class="rating-row"><span class="stars">1 ⭐</span>
+                    <div class="bar-container">
+                        <div class="bar" style="width: 1%;"></div>
+                    </div><span class="percent">1%</span>
+                </div>
             </div>
         </section>
     </main>
 
     <footer class="custom-footer">
-        <p>&copy; 2026 Studio Dentistico CGJ. Tutti i diritti riservati.</p>
+        <div class="container text-center">
+            <p>&copy; 2026 Studio Dentistico CGJ. Tutti i diritti riservati.</p>
+        </div>
     </footer>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // --- CONFIGURAZIONE BACKEND DINAMICA ---
-            const currentIP = window.location.hostname;
-            const API_URL = `http://${currentIP}:3000/api`;
-
-            // Menu Mobile
-            const mobileMenuBtn = document.getElementById("mobile-menu");
-            const navbar = document.querySelector(".navbar");
-            mobileMenuBtn.onclick = () => navbar.classList.toggle("active");
-
-            // Elementi UI Auth
-            const authForm = document.getElementById("auth-form");
-            const btnRegister = document.getElementById("btn-register");
-            const usernameInput = document.getElementById("username");
-            const passwordInput = document.getElementById("password");
-            const loggedInArea = document.getElementById("logged-in-area");
-            const welcomeMessage = document.getElementById("welcome-message");
-            const userIcon = document.querySelector(".user-icon");
-            const btnLogout = document.getElementById("btn-logout");
-
-            function updateUI() {
-                const currentUser = sessionStorage.getItem("activeUser");
-                if (currentUser) {
-                    authForm.style.display = "none";
-                    loggedInArea.style.display = "flex";
-                    welcomeMessage.textContent = "Ciao, " + currentUser.split('@')[0] + "!";
-                    userIcon.textContent = currentUser.charAt(0).toUpperCase();
-                } else {
-                    authForm.style.display = "flex";
-                    loggedInArea.style.display = "none";
-                }
-            }
-            updateUI();
-
-            // Login con Backend
-            authForm.onsubmit = async (e) => {
-                e.preventDefault();
-                try {
-                    const res = await fetch(`${API_URL}/login`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ email: usernameInput.value, password: passwordInput.value })
-                    });
-                    const data = await res.json();
-                    if (res.ok) {
-                        sessionStorage.setItem("activeUser", usernameInput.value);
-                        updateUI();
-                    } else { alert("Errore: " + data.error); }
-                } catch (err) { alert("Server non raggiungibile."); }
-            };
-
-            // Registrazione con Backend
-            btnRegister.onclick = async () => {
-                try {
-                    const res = await fetch(`${API_URL}/register`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ email: usernameInput.value, password: passwordInput.value })
-                    });
-                    const data = await res.json();
-                    alert(res.ok ? "Registrazione effettuata con successo!" : "Errore: " + data.error);
-                } catch (err) { alert("Server non raggiungibile."); }
-            };
-
-            // Logout
-            btnLogout.onclick = () => {
-                sessionStorage.removeItem("activeUser");
-                updateUI();
-            };
-        });
-
-        // Funzione Mostra di Più (Originale)
-        function toggle(btn) {
-            const full = btn.nextElementSibling;
-            if (full.style.display === "block") {
-                full.style.display = "none";
-                btn.textContent = "Mostra di più";
-            } else {
-                full.style.display = "block";
-                btn.textContent = "Mostra meno";
-            }
-        }
-    </script>
+    <script src="assets/js/main.js"></script>
 </body>
+
 </html>

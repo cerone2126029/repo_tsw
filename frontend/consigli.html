@@ -1,108 +1,14 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consigli</title>
-    <link rel="stylesheet" href="bootstrap.css">
-    <style>
-        :root {
-            --primary-blue: #004085;
-            --dark-blue: #002e60;
-            --accent-mint: #20c997;
-            --accent-hover: #17a2b8;
-            --bg-light: #f4f7f6;
-            --text-main: #333333;
-            --text-muted: #6c757d;
-            --white: #ffffff;
-            --shadow-soft: 0 10px 40px rgba(0, 46, 96, 0.08);
-            --shadow-hover: 0 15px 50px rgba(0, 46, 96, 0.12);
-        }
-
-        body {
-            margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: var(--bg-light);
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            color: var(--text-main);
-            line-height: 1.6;
-        }
-
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: var(--primary-blue);
-            padding: 15px 40px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            flex-wrap: wrap;
-        }
-
-        .logo-section { display: flex; align-items: center; justify-content: space-between; }
-        .logo-section a { text-decoration: none; transition: transform 0.2s ease; display: inline-block; }
-        .logo-section h1 { margin: 0; color: var(--white); font-size: 1.4rem; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; }
-        .menu-toggle { display: none; background: transparent; border: none; font-size: 1.8rem; color: var(--white); cursor: pointer; }
-
-        .nav-links { display: flex; gap: 25px; align-items: center; }
-        .nav-links a { text-decoration: none; color: rgba(255, 255, 255, 0.85); font-weight: 500; font-size: 0.95rem; display: inline-block; transition: 0.2s ease; }
-        .nav-links a:hover { color: var(--white); transform: scale(1.08) translateY(-2px); }
-
-        /* --- AREA LOGIN --- */
-        #auth-form { display: flex; flex-direction: column; gap: 6px; }
-        .inputs { display: flex; gap: 8px; }
-        .inputs input { padding: 6px 12px; border: 1px solid rgba(255, 255, 255, 0.2); background-color: rgba(255, 255, 255, 0.05); border-radius: 6px; font-size: 0.85rem; width: 140px; color: var(--white); transition: 0.3s; }
-        .inputs input:focus { outline: none; border-color: var(--accent-mint); background-color: rgba(255, 255, 255, 0.1); }
-        .inputs input::placeholder { color: rgba(255, 255, 255, 0.5); }
-        .buttons { display: flex; gap: 6px; justify-content: flex-end; }
-        .custom-btn { padding: 5px 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.8rem; transition: 0.3s; }
-        .custom-primary { background-color: var(--accent-mint); color: var(--white); }
-        .custom-primary:hover { background-color: var(--accent-hover); }
-        .custom-secondary { background-color: rgba(255, 255, 255, 0.1); color: var(--white); border: 1px solid rgba(255, 255, 255, 0.2); }
-        .custom-secondary:hover { background-color: rgba(255, 255, 255, 0.2); }
-        .custom-danger { background-color: transparent; color: rgba(255, 255, 255, 0.6); }
-        .custom-danger:hover { color: #ff6b6b; }
-
-        #logged-in-area { display: flex; align-items: center; gap: 15px; }
-        .welcome-text { color: var(--white); font-weight: 500; font-size: 0.95rem; }
-        .user-icon { width: 35px; height: 35px; background-color: rgba(255, 255, 255, 0.1); color: var(--accent-mint); border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: bold; transition: 0.3s; }
-        .user-icon:hover { background-color: rgba(255, 255, 255, 0.2); }
-
-        /* --- FOOTER (Stile uguale alla Home) --- */
-        .custom-footer { background-color: var(--primary-blue); color: rgba(255, 255, 255, 0.85); padding: 40px 0 15px 0; margin-top: auto; font-size: 0.85rem; border-top: 4px solid var(--dark-blue); }
-        .custom-footer h5 { color: var(--white); font-weight: 700; font-size: 1rem; margin-bottom: 15px; letter-spacing: 0.5px; text-transform: uppercase; }
-        .custom-footer p { margin-bottom: 6px; line-height: 1.4; }
-        .custom-footer a { color: rgba(255, 255, 255, 0.85); text-decoration: none; transition: color 0.3s ease; }
-        .custom-footer a:hover { color: var(--accent-mint); }
-        .footer-icon { font-size: 0.95rem; margin-right: 5px; opacity: 0.8; }
-        hr { margin: 15px 0; }
-
-        /* =========================================================
-           MEDIA QUERIES GLOBALI
-           ========================================================= */
-        @media (max-width: 768px) {
-            .navbar { padding: 15px 20px; }
-            .logo-section { width: 100%; }
-            .menu-toggle { display: block; }
-            
-            .nav-links, .login-section { display: none; width: 100%; flex-direction: column; text-align: center; gap: 15px; padding-top: 20px; }
-            .navbar.active .nav-links, .navbar.active .login-section { display: flex; }
-            #logged-in-area { justify-content: center; width: 100%; }
-            .inputs { flex-direction: column; width: 100%; }
-            .inputs input { width: 100%; text-align: center; }
-            .buttons { justify-content: center; margin-top: 5px; }
-
-            /* Fix Footer Mobile */
-            .custom-footer .row { flex-direction: column; text-align: center; }
-            .custom-footer .col-md-4 { margin-bottom: 25px; }
-            .custom-footer p { margin-left: 0 !important; }
-        }
-    </style>
+    <title>Consigli - Studio Dentistico CGJ</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
     <header class="navbar">
         <div class="logo-section">
@@ -139,12 +45,12 @@
     </header>
 
     <main>
-        </main>
+    </main>
 
     <footer class="custom-footer">
         <div class="container">
             <div class="row text-md-start">
-                
+
                 <div class="col-md-4 mb-3">
                     <h5>Dove Siamo</h5>
                     <p><span class="footer-icon">📍</span> Via Tiburtina, 546</p>
@@ -155,7 +61,8 @@
                     <h5>Contatti</h5>
                     <p><span class="footer-icon">📞</span> +39 334 6209473</p>
                     <p><span class="footer-icon">📱</span> +39 331 7102753</p>
-                    <p><span class="footer-icon">✉️</span> <a href="mailto:studio.dentistico.CGJ@gmail.com">studio.dentistico.CGJ@gmail.com</a></p>
+                    <p><span class="footer-icon">✉️</span> <a
+                            href="mailto:studio.dentistico.CGJ@gmail.com">studio.dentistico.CGJ@gmail.com</a></p>
                 </div>
 
                 <div class="col-md-4 mb-3">
@@ -167,87 +74,19 @@
                 </div>
 
             </div>
-            
+
             <hr class="mt-3 mb-2" style="border-color: rgba(255, 255, 255, 0.3);">
-            
+
             <div class="row">
                 <div class="col-12 text-center">
-                    <p style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.7); margin: 0;">&copy; 2026 Studio Dentistico CGJ. Tutti i diritti riservati.</p>
+                    <p style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.7); margin: 0;">&copy; 2026 Studio
+                        Dentistico CGJ. Tutti i diritti riservati.</p>
                 </div>
             </div>
         </div>
     </footer>
-<script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // --- CONFIGURAZIONE BACKEND DINAMICA ---
-            const currentIP = window.location.hostname;
-            const API_URL = `http://${currentIP}:3000/api`;
 
-            // Menu Hamburger
-            const mobileMenuBtn = document.getElementById("mobile-menu");
-            const navbar = document.querySelector(".navbar");
-            mobileMenuBtn.addEventListener("click", () => navbar.classList.toggle("active"));
-
-            // Elementi UI Auth
-            const authForm = document.getElementById("auth-form");
-            const btnRegister = document.getElementById("btn-register");
-            const usernameInput = document.getElementById("username");
-            const passwordInput = document.getElementById("password");
-            const btnLogout = document.getElementById("btn-logout");
-            const loggedInArea = document.getElementById("logged-in-area");
-            const welcomeMessage = document.getElementById("welcome-message");
-            const userIcon = document.querySelector(".user-icon");
-
-            function updateUI() {
-                const currentUser = sessionStorage.getItem("activeUser");
-                if (currentUser) {
-                    authForm.style.display = "none";
-                    loggedInArea.style.display = "flex";
-                    welcomeMessage.textContent = "Ciao, " + currentUser.split('@')[0] + "!";
-                    userIcon.textContent = currentUser.charAt(0).toUpperCase();
-                } else {
-                    authForm.style.display = "flex";
-                    loggedInArea.style.display = "none";
-                }
-            }
-            updateUI();
-
-            // Login
-            authForm.onsubmit = async (e) => {
-                e.preventDefault();
-                try {
-                    const res = await fetch(`${API_URL}/login`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ email: usernameInput.value, password: passwordInput.value })
-                    });
-                    const data = await res.json();
-                    if (res.ok) {
-                        sessionStorage.setItem("activeUser", usernameInput.value);
-                        updateUI();
-                    } else { alert("Errore: " + data.error); }
-                } catch (err) { alert("Server non raggiungibile."); }
-            };
-
-            // Registrazione
-            btnRegister.onclick = async () => {
-                try {
-                    const res = await fetch(`${API_URL}/register`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ email: usernameInput.value, password: passwordInput.value })
-                    });
-                    const data = await res.json();
-                    alert(res.ok ? "Registrato con successo!" : "Errore: " + data.error);
-                } catch (err) { alert("Server non raggiungibile."); }
-            };
-
-            // Logout
-            btnLogout.onclick = () => {
-                sessionStorage.removeItem("activeUser");
-                updateUI();
-            };
-        });
-    </script>
+    <script src="assets/js/main.js"></script>
 </body>
+
 </html>
