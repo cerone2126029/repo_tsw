@@ -622,6 +622,70 @@ label[for="ordina"] {
     text-align: right;
 }
 
+/* card consigli css */
+/* HERO */
+.hero-consigli {
+    background: linear-gradient(135deg, var(--primary-blue), var(--accent-mint));
+    color: var(--white);
+    padding: 60px 20px;
+    text-align: center;
+    border-radius: 0 0 20px 20px;
+}
+
+.hero-consigli h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.3;
+}
+
+/* CONTAINER GENERALE */
+.container-consigli {
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* GRID CARD */
+.container-card-consigli {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+/* SINGOLA CARD */
+.card-consiglio {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: var(--shadow-soft);
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* HOVER come le recensioni */
+.card-consiglio:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* TITOLO */
+.card-consiglio h2 {
+    color: var(--primary-blue);
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+/* TESTO */
+.card-consiglio p {
+    font-size: 0.95rem;
+    color: var(--text-main);
+    line-height: 1.5;
+}
+
+/*fine css card consigli */
 
 /* --- AREA PERSONALE & CONSIGLI --- */
 .dashboard-main {
