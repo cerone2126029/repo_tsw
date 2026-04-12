@@ -404,17 +404,70 @@ section.fade-in {
 
 /* --- HERO CHI SIAMO --- */
 .hero-chisiamo {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../img/ddd.jpg');
+    background-image: linear-gradient(rgba(0, 46, 96, 0.7), rgba(0, 46, 96, 0.7)), url('../img/studio8.webp');
     background-size: cover;
     background-position: center;
-    height: 80vh;
+    height: 50vh;
     display: flex;
     align-items: center;
     padding: 40px;
     color: white;
-    font-family: Georgia, serif;
+    justify-content: center;
     text-align: center;
 }
+/* card dei valori */
+/* --- SEZIONE VALORI --- */
+.container-valori {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    padding: 0 20px;
+}
+
+/* CARD SINGOLA */
+.card-valore {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 30px 20px;
+    box-shadow: var(--shadow-soft);
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* EFFETTO HOVER (coerente con il resto del sito) */
+.card-valore:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* LINEA COLORATA SOTTO (effetto figo 💡) */
+.card-valore::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--accent-mint);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.card-valore:hover::after {
+    transform: scaleX(1);
+}
+
+/* TESTO VALORE */
+.valore {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    letter-spacing: 0.5px;
+}
+/* fine codice css delle card dei valori*/
+
 /* --- SEZIONE TRATTAMENTI --- */
 .treatment-section {
     padding: 60px 0;
