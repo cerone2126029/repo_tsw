@@ -510,6 +510,40 @@ section.fade-in {
     font-size: 0.9rem;
     color: var(--text-muted);
 }
+#ordina {
+    margin-top: 10px;
+    margin-bottom: 25px;
+    padding: 8px 12px;
+    
+    border-radius: 8px;
+    border: 1px solid #ccc;
+
+    background-color: #fff;
+    font-size: 14px;
+
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+/* LABEL */
+label[for="ordina"] {
+    display: block;
+    margin-top: 20px;
+    font-weight: 600;
+    color: var(--primary-blue); /* usa il tuo colore */
+}
+
+/* HOVER */
+#ordina:hover {
+    border-color: var(--primary-blue);
+}
+
+/* FOCUS (quando clicchi) */
+#ordina:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
 
 /* Sezione Riepilogo e Barre (Recensioni) */
 .richiesta {
@@ -691,6 +725,21 @@ section.fade-in {
     margin: 0;
 }
 
+/*hero-consigli*/
+.hero-consigli {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../img/paziente.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    padding: 40px;
+    text-align: center;
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 /* --- FOOTER --- */
 .custom-footer {
     background-color: var(--primary-blue);
@@ -723,6 +772,11 @@ hr {
     margin: 15px 0;
     border-color: rgba(255, 255, 255, 0.3);
 }
+
+
+
+
+
 
 /* --- RESPONSIVE MOBILE GLOBALE --- */
 @media (max-width: 992px) {

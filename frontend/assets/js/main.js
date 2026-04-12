@@ -188,3 +188,42 @@ window.toggle = function (btn) {
     if (full.style.display === "block") { full.style.display = "none"; btn.textContent = "Mostra di più"; }
     else { full.style.display = "block"; btn.textContent = "Mostra meno"; }
 };
+// --- codice per far funzionare il filtro per i commenti ---
+document.getElementById("ordina").addEventListener("change", function () {
+    const valore = this.value;
+    const container = document.querySelector(".container-c");
+    const recensioni = Array.from(document.querySelectorAll(".card-recensione"));
+
+    if (valore === "recenti") {
+        recensioni.sort((a, b) => {
+            return getTimeValue(a) - getTimeValue(b);
+        });
+    }
+
+    if (valore === "valutazione") {
+        recensioni.sort((a, b) => {
+            return getStars(b) - getStars(a);
+        });
+    }
+
+    // svuota e riaggiunge in ordine
+    recensioni.forEach(rec => container.appendChild(rec));
+});
+
+
+// 🔹 funzione per leggere le stelle
+function getStars(recensione) {
+    const stelle = recensione.querySelector(".star").textContent;
+    return stelle.length; // conta le ⭐
+}
+
+// 🔹 funzione per leggere il tempo
+function getTimeValue(recensione) {
+    const testo = recensione.querySelector(".time").textContent;
+
+    if (testo.includes("giorni")) return 1;
+    if (testo.includes("settimana")) return 7;
+    if (testo.includes("mesi")) return 30;
+
+    return 100;
+}

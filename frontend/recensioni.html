@@ -39,10 +39,16 @@
 
         <section class="content-container" style="margin-top: 40px; max-width: 1000px;">
             <h2 class="section-title">Alcuni dei commenti da parte dei nostri pazienti</h2>
+            <label for="ordina">Ordina per:</label>
+                <select  id="ordina">
+                    <option value="recenti"> recenti</option>
+                    <option value="valutazione">Valutazione</option>
+                </select>
+                
             <div class="container-c">
 
                 <div class="card-recensione">
-                    <div class="nome">M. Rossi</div>
+                    <div class="nome">M. Rossi <br><span class="time">pubblicato 5 mesi fa</span></div>
                     <div class="star">⭐⭐⭐⭐⭐</div>
                     <div class="commento">Servizio eccellente e ambiente accogliente...</div>
                     <button onclick="toggle(this)">Mostra di più</button>
@@ -51,7 +57,7 @@
                 </div>
 
                 <div class="card-recensione">
-                    <div class="nome">L. Bianchi</div>
+                    <div class="nome">L. Bianchi <br><span class="time">pubblicato 2 settimane fa</span></div>
                     <div class="star">⭐⭐⭐⭐</div>
                     <div class="commento">Ringrazio la Dott.ssa Rossi per la sua professionalità...</div>
                     <button onclick="toggle(this)">Mostra di più</button>
@@ -69,16 +75,16 @@
                 </div>
 
                 <div class="card-recensione">
-                    <div class="nome">Lisa R.</div>
+                    <div class="nome">Lisa R. <br><span class="time">pubblicato 4 giorni fa</span></div>
                     <div class="star">⭐⭐⭐⭐⭐</div>
-                    <div class="commento">Lo studio dentistico CGJ è un posto che consiglio caldamente a tutti...</div>
+                    <div class="commento">Lo studio dentistico CGJ è un posto che consiglio ...</div>
                     <button onclick="toggle(this)">Mostra di più</button>
                     <div class="full-c">Lo studio dentistico CGJ è un posto che consiglio caldamente a tutti coloro che
                         desiderano farsi controllare i denti in totale serenità.</div>
                 </div>
 
                 <div class="card-recensione">
-                    <div class="nome">G.B.</div>
+                    <div class="nome">G.B. <br><span class="time">pubblicato 1 settimana fa</span></div>
                     <div class="star">⭐⭐⭐⭐</div>
                     <div class="commento">Sono rimasto molto colpito dal servizio ricevuto...</div>
                     <button onclick="toggle(this)">Mostra di più</button>
