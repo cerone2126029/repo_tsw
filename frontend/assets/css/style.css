@@ -764,6 +764,42 @@ label[for="ordina"] {
     color: var(--text-main);
     line-height: 1.5;
 }
+/* --- NUOVE AGGIUNTE PER CONSIGLI --- */
+
+.checklist-box {
+    border-radius: 15px;
+    background-color: #f8f9fa;
+}
+
+.checklist-box li {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+/* Stile Tabella */
+.table thead {
+    background: var(--primary-blue);
+    color: white;
+}
+
+.table-responsive {
+    border: 1px solid #dee2e6;
+}
+
+/* Fix per le immagini nelle card */
+.card-image {
+    transition: transform 0.3s ease;
+}
+
+.card-consiglio:hover .card-image {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-consigli h2 { font-size: 1.5rem; }
+    .checklist-box { margin-top: 20px; }
+}
 
 /*fine css card consigli */
 
