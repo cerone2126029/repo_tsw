@@ -510,35 +510,31 @@ section.fade-in {
     font-size: 0.9rem;
     color: var(--text-muted);
 }
+
+/* Filtro Ordina Recensioni */
 #ordina {
     margin-top: 10px;
     margin-bottom: 25px;
     padding: 8px 12px;
-    
     border-radius: 8px;
     border: 1px solid #ccc;
-
     background-color: #fff;
     font-size: 14px;
-
     transition: all 0.2s ease;
     cursor: pointer;
 }
 
-/* LABEL */
 label[for="ordina"] {
     display: block;
     margin-top: 20px;
     font-weight: 600;
-    color: var(--primary-blue); /* usa il tuo colore */
+    color: var(--primary-blue);
 }
 
-/* HOVER */
 #ordina:hover {
     border-color: var(--primary-blue);
 }
 
-/* FOCUS (quando clicchi) */
 #ordina:focus {
     outline: none;
     border-color: var(--primary-blue);
@@ -699,13 +695,14 @@ label[for="ordina"] {
     background-color: #fa5252;
 }
 
-/* --- FAQ --- */
+/* --- FAQ CON FRECCIA ANIMATA --- */
 .faq-item {
     margin-bottom: 15px;
     background-color: var(--white);
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
     overflow: hidden;
+    transition: all 0.3s ease;
 }
 
 .faq-item summary {
@@ -716,6 +713,24 @@ label[for="ordina"] {
     list-style: none;
     outline: none;
     font-size: 1.05rem;
+    display: flex;                
+    justify-content: space-between; 
+    align-items: center;          
+}
+
+.faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq-item summary::after {
+    content: '▼';                 
+    font-size: 0.8rem;
+    color: var(--accent-mint);    
+    transition: transform 0.3s ease; 
+}
+
+.faq-item[open] summary::after {
+    transform: rotate(180deg);
 }
 
 .faq-item p {
@@ -725,7 +740,7 @@ label[for="ordina"] {
     margin: 0;
 }
 
-/*hero-consigli*/
+/* --- HERO CONSIGLI --- */
 .hero-consigli {
     background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../img/paziente.jpg');
     background-size: cover;
@@ -772,11 +787,6 @@ hr {
     margin: 15px 0;
     border-color: rgba(255, 255, 255, 0.3);
 }
-
-
-
-
-
 
 /* --- RESPONSIVE MOBILE GLOBALE --- */
 @media (max-width: 992px) {
