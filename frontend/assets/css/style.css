@@ -415,7 +415,92 @@ section.fade-in {
     justify-content: center;
     text-align: center;
 }
-/* card dei valori */
+/* css per sezione studio e storia  */
+/* --- SEZIONE STUDIO (CHI SIAMO) --- */
+.section-studio {
+    display: flex;
+    gap: 50px;
+    align-items: flex-start;
+    justify-content: center;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* TESTO SEMPLICE (NO BOX) */
+.left-noi {
+    flex: 1;
+}
+
+.left-noi p {
+    margin: 0;
+    color: var(--text-main);
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+/* IMMAGINI */
+.right-noi {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* CARD IMMAGINI */
+.im {
+    width: 50%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: var(--white);
+}
+
+.im img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.im:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-hover);
+}
+/*  animazione per test e immagini sezione storia e studio*/
+.fade-in {
+    opacity: 0; /* no testo dopo metto la sua po. iniz e appare nel tempo specificato nella transition */
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    will-change: opacity, transform; /* ottimizzo animazione */
+}
+
+/* questo e la situazione finale ovvero quadno il testo appare dopo l animazione */
+.fade-in.show {
+    opacity: 1;   /*qui il testo diventa visibile e nell' istante dopo torna nella posizone normale */
+    transform: translateY(0);
+}
+
+
+/* sezione filosofia*/
+.fil-container{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.90), rgba(0, 20, 40, 0.8)), url('../img/ddd.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    color: white;
+    justify-content: center;
+    text-align: center;
+}
+
+/* fine sezione filosofia */
+
+
 /* --- SEZIONE VALORI --- */
 .container-valori {
     display: grid;
@@ -442,7 +527,7 @@ section.fade-in {
     box-shadow: var(--shadow-hover);
 }
 
-/* LINEA COLORATA SOTTO (effetto figo 💡) */
+/* LINEA COLORATA SOTTO  */
 .card-valore::after {
     content: "";
     position: absolute;
@@ -467,6 +552,11 @@ section.fade-in {
     letter-spacing: 0.5px;
 }
 /* fine codice css delle card dei valori*/
+
+/* --- SEZIONE tecnologie - chi siamo --- */
+
+
+/*fine sezione tecnologie- chi siamo */
 
 /* --- SEZIONE TRATTAMENTI --- */
 .treatment-section {
