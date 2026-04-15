@@ -499,7 +499,19 @@ section.fade-in {
 }
 
 /* fine sezione filosofia */
-
+.section-tec{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.90), rgba(0, 20, 40, 0.8)), url('../img/sala-dent.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    color: white;
+    justify-content: center;
+    text-align: center;
+}
 
 /* --- SEZIONE VALORI --- */
 .container-valori {
@@ -552,6 +564,7 @@ section.fade-in {
     letter-spacing: 0.5px;
 }
 /* fine codice css delle card dei valori*/
+
 
 /* --- SEZIONE tecnologie - chi siamo --- */
 
