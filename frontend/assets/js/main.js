@@ -227,3 +227,4 @@ function getTimeValue(recensione) {
 
     return 100;
 }
+
