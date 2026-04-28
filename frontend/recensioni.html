@@ -10,141 +10,226 @@
 </head>
 
 <body>
+
     <header class="navbar">
-        <div class="logo-section"><a href="home.html">
+        <div class="logo-section">
+            <a href="home.html" style="text-decoration: none;">
                 <h1>Studio Dentistico CGJ</h1>
-            </a><button class="menu-toggle" id="mobile-menu">☰</button></div>
-        <nav class="nav-links"><a href="chi-siamo.html">Chi siamo</a><a href="trattamenti.html">Trattamenti</a><a
-                href="recensioni.html">Recensioni</a><a href="consigli.html">Consigli</a></nav>
+            </a>
+            <button class="menu-toggle" id="mobile-menu">☰</button>
+        </div>
+
+        <nav class="nav-links">
+            <a href="chi-siamo.html">Chi siamo</a>
+            <a href="trattamenti.html">Trattamenti</a>
+            <a href="recensioni.html" style="color: var(--white); font-weight: 700;">Recensioni</a>
+            <a href="consigli.html">Consigli</a>
+        </nav>
+
         <div class="login-section" id="user-area">
             <form id="auth-form">
-                <div class="inputs"><input type="email" id="username" placeholder="Email" required><input
-                        type="password" id="password" placeholder="Password" required></div>
-                <div class="buttons"><button type="submit" id="btn-login"
-                        class="custom-btn custom-primary">Accedi</button><button type="button" id="btn-register"
-                        class="custom-btn custom-secondary">Registrati</button></div>
+                <div class="inputs">
+                    <input type="email" id="username" placeholder="Email" required>
+                    <input type="password" id="password" placeholder="Password" required>
+                </div>
+                <div class="buttons">
+                    <button type="submit" id="btn-login" class="custom-btn custom-primary">Accedi</button>
+                    <button type="button" id="btn-register" class="custom-btn custom-secondary">Registrati</button>
+                </div>
             </form>
+
             <div id="logged-in-area" style="display: none;">
-                <span id="welcome-message" class="welcome-text"></span><a href="area-personale.html"
-                    class="user-icon">U</a><button id="btn-logout" class="custom-btn custom-danger">Esci</button>
+                <span id="welcome-message" class="welcome-text"></span>
+                <a href="area-personale.html" class="user-icon" title="Area Personale">U</a>
+                <button id="btn-logout" class="custom-btn custom-danger">Esci</button>
             </div>
         </div>
     </header>
 
     <main>
         <section class="hero-recensioni">
-            <h2>Ogni sorriso racconta una storia</h2>
-            <h4>Scopri le esperienze dei nostri pazienti</h4>
+            <h2>Cosa dicono <strong>di noi</strong></h2>
+            <p style="font-size: 1.1rem; opacity: 0.8; max-width: 600px;">La tua opinione è fondamentale. Leggi le
+                esperienze dei nostri pazienti o condividi la tua.</p>
         </section>
 
-        <section class="content-container" style="margin-top: 40px; max-width: 1000px;">
-            <h2 class="section-title">Alcuni dei commenti da parte dei nostri pazienti</h2>
-            <label for="ordina">Ordina per:</label>
-                <select  id="ordina">
-                    <option value="recenti"> recenti</option>
-                    <option value="valutazione">Valutazione</option>
-                </select>
-                
-            <div class="container-c">
+        <section class="content-container" style="margin-top: -60px; position: relative; z-index: 10;">
+            <div class="booking-card">
+                <h3 class="section-title" style="margin-bottom: 30px;">Lascia la tua Recensione</h3>
 
-                <div class="card-recensione">
-                    <div class="nome">M. Rossi <br><span class="time">pubblicato 5 mesi fa</span></div>
-                    <div class="star">⭐⭐⭐⭐⭐</div>
-                    <div class="commento">Servizio eccellente e ambiente accogliente...</div>
-                    <button onclick="toggle(this)">Mostra di più</button>
-                    <div class="full-c">Servizio eccellente e ambiente accogliente, dentista eccezionale, molto
-                        professionale e gentile così come il resto dello staff.</div>
-                </div>
+                <form id="review-form">
+                    <div class="booking-form-full" style="text-align: center;">
+                        <div class="radio-rating-group">
+                            <label class="radio-label">
+                                1 ⭐️ <input type="radio" name="rating" value="1" required>
+                            </label>
+                            
+                            <label class="radio-label">
+                                2 ⭐️ <input type="radio" name="rating" value="2">
+                            </label>
+                            
+                            <label class="radio-label">
+                                3 ⭐️ <input type="radio" name="rating" value="3">
+                            </label>
+                            
+                            <label class="radio-label">
+                                4 ⭐️ <input type="radio" name="rating" value="4">
+                            </label>
+                            
+                            <label class="radio-label">
+                                5 ⭐️ <input type="radio" name="rating" value="5">
+                            </label>
+                        </div>
+                    </div>
 
-                <div class="card-recensione">
-                    <div class="nome">L. Bianchi <br><span class="time">pubblicato 2 settimane fa</span></div>
-                    <div class="star">⭐⭐⭐⭐</div>
-                    <div class="commento">Ringrazio la Dott.ssa Rossi per la sua professionalità...</div>
-                    <button onclick="toggle(this)">Mostra di più</button>
-                    <div class="full-c">Ringrazio la Dott.ssa Rossi per la sua professionalità e la gentilezza
-                        dimostrata durante tutto il trattamento.</div>
-                </div>
+                    <div class="booking-form-full">
+                        <label for="review-text">La tua esperienza</label>
+                        <textarea id="review-text" rows="4" required
+                            placeholder="Raccontaci come ti sei trovato con i nostri dottori e i trattamenti..."></textarea>
+                    </div>
 
-                <div class="card-recensione">
-                    <div class="nome">John Smith <br><span class="time">pubblicato 3 mesi fa</span></div>
-                    <div class="star">⭐⭐⭐</div>
-                    <div class="commento">Ho avuto la fortuna di aver conosciuto il Dott. Bianchi...</div>
-                    <button onclick="toggle(this)">Mostra di più</button>
-                    <div class="full-c">Ho avuto la fortuna di aver conosciuto il Dott. Bianchi uno dei migliori esperti
-                        nel campo, e grazie alla sua squadra che non mi hanno fatto sentire a disagio.</div>
-                </div>
-
-                <div class="card-recensione">
-                    <div class="nome">Lisa R. <br><span class="time">pubblicato 4 giorni fa</span></div>
-                    <div class="star">⭐⭐⭐⭐⭐</div>
-                    <div class="commento">Lo studio dentistico CGJ è un posto che consiglio ...</div>
-                    <button onclick="toggle(this)">Mostra di più</button>
-                    <div class="full-c">Lo studio dentistico CGJ è un posto che consiglio caldamente a tutti coloro che
-                        desiderano farsi controllare i denti in totale serenità.</div>
-                </div>
-
-                <div class="card-recensione">
-                    <div class="nome">G.B. <br><span class="time">pubblicato 1 settimana fa</span></div>
-                    <div class="star">⭐⭐⭐⭐</div>
-                    <div class="commento">Sono rimasto molto colpito dal servizio ricevuto...</div>
-                    <button onclick="toggle(this)">Mostra di più</button>
-                    <div class="full-c">Sono rimasto molto colpito dal servizio ricevuto, la professionalità del dottore
-                        e dello staff è davvero impressionante.</div>
-                </div>
-
+                    <div style="text-align: center;">
+                        <button type="submit" class="btn-conferma">Invia Recensione</button>
+                    </div>
+                </form>
             </div>
         </section>
 
-        <section class="content-container">
-            <h2 class="richiesta" style="color: var(--primary-blue);">La tua valutazione contribuirà a migliorare il
-                nostro servizio</h2>
-            <div class="votaz">
-                <label><input type="radio" name="rating" value="5"> 5⭐</label>
-                <label><input type="radio" name="rating" value="4"> 4⭐</label>
-                <label><input type="radio" name="rating" value="3"> 3⭐</label>
-                <label><input type="radio" name="rating" value="2"> 2⭐</label>
-                <label><input type="radio" name="rating" value="1"> 1⭐</label>
-            </div>
-        </section>
-
-        <section class="riepilogo-affiancato">
+        <div class="riepilogo-affiancato fade-in">
             <div class="col-left">
-                <h3>La vostra fiducia,<br> il nostro migliore risultato</h3>
-                <p>ogni recensione è un impegno a fare sempre meglio</p>
+                <h3>Recensioni eccellenti</h3>
+                <p>Oltre <strong>200 pazienti</strong> hanno valutato positivamente il nostro lavoro negli ultimi mesi.
+                    La vostra fiducia ci spinge a migliorare ogni giorno.</p>
             </div>
             <div class="col-right">
-                <div class="rating-row"><span class="stars">5 ⭐</span>
+                <div class="rating-row">
+                    <div class="stars">5 stelle</div>
                     <div class="bar-container">
-                        <div class="bar" style="width: 70%;"></div>
-                    </div><span class="percent">70%</span>
+                        <div class="bar" style="width: 85%;"></div>
+                    </div>
+                    <div class="percent">85%</div>
                 </div>
-                <div class="rating-row"><span class="stars">4 ⭐</span>
+                <div class="rating-row">
+                    <div class="stars">4 stelle</div>
                     <div class="bar-container">
-                        <div class="bar" style="width: 20%;"></div>
-                    </div><span class="percent">20%</span>
+                        <div class="bar" style="width: 10%;"></div>
+                    </div>
+                    <div class="percent">10%</div>
                 </div>
-                <div class="rating-row"><span class="stars">3 ⭐</span>
+                <div class="rating-row">
+                    <div class="stars">3 stelle</div>
                     <div class="bar-container">
-                        <div class="bar" style="width: 7%;"></div>
-                    </div><span class="percent">7%</span>
+                        <div class="bar" style="width: 3%;"></div>
+                    </div>
+                    <div class="percent">3%</div>
                 </div>
-                <div class="rating-row"><span class="stars">2 ⭐</span>
-                    <div class="bar-container">
-                        <div class="bar" style="width: 2%;"></div>
-                    </div><span class="percent">2%</span>
-                </div>
-                <div class="rating-row"><span class="stars">1 ⭐</span>
+                <div class="rating-row">
+                    <div class="stars">2 stelle</div>
                     <div class="bar-container">
                         <div class="bar" style="width: 1%;"></div>
-                    </div><span class="percent">1%</span>
+                    </div>
+                    <div class="percent">1%</div>
+                </div>
+                <div class="rating-row">
+                    <div class="stars">1 stella</div>
+                    <div class="bar-container">
+                        <div class="bar" style="width: 1%;"></div>
+                    </div>
+                    <div class="percent">1%</div>
                 </div>
             </div>
-        </section>
+        </div>
+
+        <div class="s-container fade-in">
+            <label for="ordina">Ordina recensioni:</label>
+            <select id="ordina">
+                <option value="recenti">Meno recenti - Più recenti</option>
+                <option value="valutazione">Più alte - Più basse</option>
+            </select>
+
+            <div class="container-c">
+                <div class="card-recensione">
+                    <div class="nome">Mario Rossi</div>
+                    <div class="star">⭐⭐⭐⭐⭐</div>
+                    <div class="commento">
+                        Studio fantastico, personale molto gentile e disponibile! Consiglio a tutti di farsi visitare
+                        qui...
+                        <div class="full-c">...perché sono estremamente professionali. L'ambiente è molto rilassante e
+                            pulito. Ottima esperienza!</div>
+                        <button onclick="toggle(this)">Mostra di più</button>
+                    </div>
+                    <div class="time">5 giorni fa</div>
+                </div>
+
+                <div class="card-recensione">
+                    <div class="nome">Giulia Neri</div>
+                    <div class="star">⭐⭐⭐⭐</div>
+                    <div class="commento">
+                        Mi sono trovata bene, ma ho aspettato un po' in sala d'attesa.
+                        <div class="full-c">Il dottore è stato comunque bravissimo e mi ha spiegato tutto nei dettagli.
+                            Nel complesso, consigliato.</div>
+                        <button onclick="toggle(this)">Mostra di più</button>
+                    </div>
+                    <div class="time">1 settimana fa</div>
+                </div>
+
+                <div class="card-recensione">
+                    <div class="nome">Paolo Bianchi</div>
+                    <div class="star">⭐⭐⭐⭐⭐</div>
+                    <div class="commento">
+                        Competenza e pulizia al top!
+                        <div class="full-c">Ho fatto un impianto e non ho sentito alcun dolore. Veramente dei
+                            professionisti dell'odontoiatria.</div>
+                        <button onclick="toggle(this)">Mostra di più</button>
+                    </div>
+                    <div class="time">2 mesi fa</div>
+                </div>
+
+                <div class="card-recensione">
+                    <div class="nome">Elena Verdi</div>
+                    <div class="star">⭐⭐⭐</div>
+                    <div class="commento">
+                        Trattamento normale, prezzi un po' alti.
+                        <div class="full-c">Il lavoro è stato fatto bene, ma rispetto ad altri studi i prezzi sono
+                            leggermente sopra la media.</div>
+                        <button onclick="toggle(this)">Mostra di più</button>
+                    </div>
+                    <div class="time">6 mesi fa</div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer class="custom-footer">
-        <div class="container text-center">
-            <p>&copy; 2026 Studio Dentistico CGJ. Tutti i diritti riservati.</p>
+        <div class="container">
+            <div class="row text-md-start">
+                <div class="col-md-4 mb-3">
+                    <h5>Dove Siamo</h5>
+                    <p><span class="footer-icon">📍</span> Via Tiburtina, 546</p>
+                    <p style="margin-left: 24px;">Roma (RM) - 00159</p>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5>Contatti</h5>
+                    <p><span class="footer-icon">📞</span> +39 334 6209473</p>
+                    <p><span class="footer-icon">📱</span> +39 331 7102753</p>
+                    <p><span class="footer-icon">✉️</span> <a
+                            href="mailto:studio.dentistico.CGJ@gmail.com">studio.dentistico.CGJ@gmail.com</a></p>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5>Orari di Apertura</h5>
+                    <p><span class="footer-icon">🕒</span> Lunedì - Venerdì:</p>
+                    <p style="margin-left: 24px;">08:30 - 13:30 | 14:30 - 19:30</p>
+                    <p style="margin-left: 24px; font-weight: bold;">Riceviamo solo su appuntamento</p>
+                    <p style="margin-left: 24px; color: #ff6b6b; font-weight: bold;">Sabato e Domenica: Chiuso</p>
+                </div>
+            </div>
+            <hr class="mt-3 mb-2" style="border-color: rgba(255, 255, 255, 0.3);">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.7); margin: 0;">&copy; 2026 Studio
+                        Dentistico CGJ. Tutti i diritti riservati.</p>
+                </div>
+            </div>
         </div>
     </footer>
 
