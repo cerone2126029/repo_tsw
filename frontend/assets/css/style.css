@@ -1239,6 +1239,31 @@ hr {
     accent-color: var(--accent-mint); 
 }
 
+/* --- ANIMAZIONI DI ENTRATA --- */
+
+/* Stato iniziale: invisibile */
+.reveal {
+    opacity: 0;
+    transition: all 1s ease-out;
+    pointer-events: none; /* Evita interazioni prima dell'animazione */
+}
+
+/* Direzioni di provenienza */
+.from-left {
+    transform: translateX(-100px);
+}
+
+.from-right {
+    transform: translateX(100px);
+}
+
+/* Stato finale: visibile e in posizione originale */
+.reveal.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
 /* --- RESPONSIVE MOBILE GLOBALE --- */
 @media (max-width: 992px) {
     .booking-form-grid {

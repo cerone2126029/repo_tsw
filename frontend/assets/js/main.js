@@ -180,51 +180,93 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     }
+
+    // --- 7. FILTRO PER I COMMENTI (Protetto per evitare errori su altre pagine) ---
+    const ordinaSelect = document.getElementById("ordina");
+    if (ordinaSelect) {
+        ordinaSelect.addEventListener("change", function () {
+            const valore = this.value;
+            const container = document.querySelector(".container-c");
+            const recensioni = Array.from(document.querySelectorAll(".card-recensione"));
+
+            if (valore === "recenti") {
+                recensioni.sort((a, b) => {
+                    return getTimeValue(a) - getTimeValue(b);
+                });
+            }
+
+            if (valore === "valutazione") {
+                recensioni.sort((a, b) => {
+                    return getStars(b) - getStars(a);
+                });
+            }
+
+            // svuota e riaggiunge in ordine
+            recensioni.forEach(rec => container.appendChild(rec));
+        });
+    }
+
+    // --- 8. ANIMAZIONI AL CARICAMENTO/SCROLL (REVEAL DA DESTRA/SINISTRA) ---
+    const observerOptions = {
+        threshold: 0.15 // L'animazione parte quando il 15% dell'elemento entra nello schermo
+    };
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                // Smette di osservare l'elemento una volta che l'animazione è scattata
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Seleziona tutti gli elementi con la classe "reveal" e li fa osservare
+    const revealElements = document.querySelectorAll('.reveal');
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // --- 9. INVIO NUOVA RECENSIONE (Opzionale: aggiunto se vuoi gestire la nuova form) ---
+    const reviewForm = document.getElementById("review-form");
+    if (reviewForm) {
+        reviewForm.onsubmit = async function (e) {
+            e.preventDefault();
+            const currentUser = sessionStorage.getItem("activeUser");
+            if (!currentUser) return alert("⚠️ Devi accedere o registrarti per poter lasciare una recensione.");
+
+            const selectedStar = document.querySelector('input[name="rating"]:checked');
+            if (!selectedStar) return alert("Per favore, seleziona una valutazione in stelle.");
+
+            alert(`Grazie per la tua recensione da ${selectedStar.value} stelle!\nIl tuo feedback è prezioso per noi.`);
+            reviewForm.reset();
+        };
+    }
 });
 
-// --- 7. FUNZIONE RECENSIONI GLOBALE ---
+// --- FUNZIONI GLOBALI (Fuori dal DOMContentLoaded) ---
+
+// Funzione Toggle (Mostra di più/meno)
 window.toggle = function (btn) {
     const full = btn.nextElementSibling;
     if (full.style.display === "block") { full.style.display = "none"; btn.textContent = "Mostra di più"; }
     else { full.style.display = "block"; btn.textContent = "Mostra meno"; }
 };
-// --- codice per far funzionare il filtro per i commenti ---
-document.getElementById("ordina").addEventListener("change", function () {
-    const valore = this.value;
-    const container = document.querySelector(".container-c");
-    const recensioni = Array.from(document.querySelectorAll(".card-recensione"));
 
-    if (valore === "recenti") {
-        recensioni.sort((a, b) => {
-            return getTimeValue(a) - getTimeValue(b);
-        });
-    }
-
-    if (valore === "valutazione") {
-        recensioni.sort((a, b) => {
-            return getStars(b) - getStars(a);
-        });
-    }
-
-    // svuota e riaggiunge in ordine
-    recensioni.forEach(rec => container.appendChild(rec));
-});
-
-
-// 🔹 funzione per leggere le stelle
+// Funzione per leggere le stelle
 function getStars(recensione) {
     const stelle = recensione.querySelector(".star").textContent;
     return stelle.length; // conta le ⭐
 }
 
-// 🔹 funzione per leggere il tempo
+// Funzione per leggere il tempo
 function getTimeValue(recensione) {
-    const testo = recensione.querySelector(".time").textContent;
-
+    // Controllo extra per evitare errori se la data non c'è
+    const timeEl = recensione.querySelector(".time");
+    if (!timeEl) return 100;
+    
+    const testo = timeEl.textContent;
     if (testo.includes("giorni")) return 1;
     if (testo.includes("settimana")) return 7;
     if (testo.includes("mesi")) return 30;
 
     return 100;
 }
-
