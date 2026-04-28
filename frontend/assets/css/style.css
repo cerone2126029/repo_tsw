@@ -965,6 +965,23 @@ label[for="ordina"] {
     transform: translateY(-5px);
     box-shadow: var(--shadow-hover);
 }
+/* linea colorata sotto la card  */
+.card-consiglio::after{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--accent-mint);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+
+}
+/* quando passo con il mosu la linea verde si espande da sinistra a destra */
+.card-consiglio:hover::after {
+    transform: scaleX(1);
+}
 
 /* TITOLO */
 .card-consiglio h2 {
