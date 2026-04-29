@@ -45,7 +45,6 @@ app.post('/api/login', async (req, res) => {
 });
 
 // 3. ROTTA: CREA PRENOTAZIONE
-
 app.post('/api/prenotazioni', async (req, res) => {
     const { email, dataVisita, oraVisita, motivo } = req.body;
 
@@ -95,6 +94,54 @@ app.get('/api/prenotazioni', async (req, res) => {
 
     res.status(200).json(data);
 });
+
+// --- ROTTA: INSERISCI UNA NUOVA RECENSIONE ---
+app.post('/api/recensioni', async (req, res) => {
+    // Estraiamo i dati in arrivo dal frontend
+    const { user_mail, data, valutazione, messaggio } = req.body;
+
+    // Controllo di sicurezza base
+    if (!user_mail || !data || !valutazione || !messaggio) {
+        return res.status(400).json({ error: 'Tutti i campi sono obbligatori' });
+    }
+
+    // Inviamo i dati alla tabella 'recensioni' di Supabase
+    const { error } = await supabase
+        .from('recensioni')
+        .insert([
+            { 
+                user_mail: user_mail, 
+                data: data, 
+                valutazione: valutazione, 
+                messaggio: messaggio 
+            }
+        ]);
+
+    if (error) {
+        console.error("Errore salvataggio recensione:", error.message);
+        return res.status(500).json({ error: "Impossibile salvare la recensione nel database." });
+    }
+
+    res.status(200).json({ message: 'Recensione salvata con successo!' });
+});
+
+// --- ROTTA: OTTIENI TUTTE LE RECENSIONI ---
+app.get('/api/recensioni', async (req, res) => {
+    // Chiediamo a Supabase tutti i campi della tabella 'recensioni'
+    const { data, error } = await supabase
+        .from('recensioni')
+        .select('*')
+        .order('data', { ascending: false }); // Le ordiniamo dalla più recente alla più vecchia
+
+    if (error) {
+        console.error("Errore recupero recensioni:", error.message);
+        return res.status(500).json({ error: "Errore nel recupero delle recensioni." });
+    }
+
+    // Inviamo i dati al sito web
+    res.status(200).json(data);
+});
+
 // AVVIO DEL SERVER (Con il trucco per lo smartphone)
 const PORT = process.env.PORT || 3000;
 const HOST = '0.0.0.0';

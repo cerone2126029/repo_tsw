@@ -22,7 +22,7 @@
         <nav class="nav-links">
             <a href="chi-siamo.html">Chi siamo</a>
             <a href="trattamenti.html">Trattamenti</a>
-            <a href="recensioni.html" style="color: var(--white); font-weight: 700;">Recensioni</a>
+            <a href="recensioni.html">Recensioni</a>
             <a href="consigli.html">Consigli</a>
         </nav>
 
@@ -49,7 +49,7 @@
     <main>
         <section class="hero-recensioni">
             <h2>Cosa dicono <strong>di noi</strong></h2>
-            <p style="font-size: 1.1rem; opacity: 0.8; max-width: 600px;">La tua opinione è fondamentale. Leggi le
+            <p style="font-size: 1.1rem; max-width: 600px;">La tua opinione è fondamentale. Leggi le
                 esperienze dei nostri pazienti o condividi la tua.</p>
         </section>
 
@@ -63,19 +63,19 @@
                             <label class="radio-label">
                                 1 ⭐️ <input type="radio" name="rating" value="1" required>
                             </label>
-                            
+
                             <label class="radio-label">
                                 2 ⭐️ <input type="radio" name="rating" value="2">
                             </label>
-                            
+
                             <label class="radio-label">
                                 3 ⭐️ <input type="radio" name="rating" value="3">
                             </label>
-                            
+
                             <label class="radio-label">
                                 4 ⭐️ <input type="radio" name="rating" value="4">
                             </label>
-                            
+
                             <label class="radio-label">
                                 5 ⭐️ <input type="radio" name="rating" value="5">
                             </label>
@@ -83,8 +83,8 @@
                     </div>
 
                     <div class="booking-form-full">
-                        <label for="review-text">La tua esperienza</label>
-                        <textarea id="review-text" rows="4" required
+                        <label for="review-text">La tua esperienza (Max 100 caratteri)</label>
+                        <textarea id="review-text" rows="4" required maxlength="100"
                             placeholder="Raccontaci come ti sei trovato con i nostri dottori e i trattamenti..."></textarea>
                     </div>
 
@@ -98,44 +98,44 @@
         <div class="riepilogo-affiancato fade-in">
             <div class="col-left">
                 <h3>Recensioni eccellenti</h3>
-                <p>Oltre <strong>200 pazienti</strong> hanno valutato positivamente il nostro lavoro negli ultimi mesi.
+                <p>Basato su <strong id="totale-recensioni">0</strong> recensioni dei nostri pazienti.
                     La vostra fiducia ci spinge a migliorare ogni giorno.</p>
             </div>
             <div class="col-right">
                 <div class="rating-row">
                     <div class="stars">5 stelle</div>
                     <div class="bar-container">
-                        <div class="bar" style="width: 85%;"></div>
+                        <div class="bar" id="bar-5" style="width: 0%; transition: width 1s ease-in-out;"></div>
                     </div>
-                    <div class="percent">85%</div>
+                    <div class="percent" id="percent-5">0%</div>
                 </div>
                 <div class="rating-row">
                     <div class="stars">4 stelle</div>
                     <div class="bar-container">
-                        <div class="bar" style="width: 10%;"></div>
+                        <div class="bar" id="bar-4" style="width: 0%; transition: width 1s ease-in-out;"></div>
                     </div>
-                    <div class="percent">10%</div>
+                    <div class="percent" id="percent-4">0%</div>
                 </div>
                 <div class="rating-row">
                     <div class="stars">3 stelle</div>
                     <div class="bar-container">
-                        <div class="bar" style="width: 3%;"></div>
+                        <div class="bar" id="bar-3" style="width: 0%; transition: width 1s ease-in-out;"></div>
                     </div>
-                    <div class="percent">3%</div>
+                    <div class="percent" id="percent-3">0%</div>
                 </div>
                 <div class="rating-row">
                     <div class="stars">2 stelle</div>
                     <div class="bar-container">
-                        <div class="bar" style="width: 1%;"></div>
+                        <div class="bar" id="bar-2" style="width: 0%; transition: width 1s ease-in-out;"></div>
                     </div>
-                    <div class="percent">1%</div>
+                    <div class="percent" id="percent-2">0%</div>
                 </div>
                 <div class="rating-row">
                     <div class="stars">1 stella</div>
                     <div class="bar-container">
-                        <div class="bar" style="width: 1%;"></div>
+                        <div class="bar" id="bar-1" style="width: 0%; transition: width 1s ease-in-out;"></div>
                     </div>
-                    <div class="percent">1%</div>
+                    <div class="percent" id="percent-1">0%</div>
                 </div>
             </div>
         </div>
@@ -147,55 +147,11 @@
                 <option value="valutazione">Più alte - Più basse</option>
             </select>
 
-            <div class="container-c">
-                <div class="card-recensione">
-                    <div class="nome">Mario Rossi</div>
-                    <div class="star">⭐⭐⭐⭐⭐</div>
-                    <div class="commento">
-                        Studio fantastico, personale molto gentile e disponibile! Consiglio a tutti di farsi visitare
-                        qui...
-                        <div class="full-c">...perché sono estremamente professionali. L'ambiente è molto rilassante e
-                            pulito. Ottima esperienza!</div>
-                        <button onclick="toggle(this)">Mostra di più</button>
-                    </div>
-                    <div class="time">5 giorni fa</div>
-                </div>
-
-                <div class="card-recensione">
-                    <div class="nome">Giulia Neri</div>
-                    <div class="star">⭐⭐⭐⭐</div>
-                    <div class="commento">
-                        Mi sono trovata bene, ma ho aspettato un po' in sala d'attesa.
-                        <div class="full-c">Il dottore è stato comunque bravissimo e mi ha spiegato tutto nei dettagli.
-                            Nel complesso, consigliato.</div>
-                        <button onclick="toggle(this)">Mostra di più</button>
-                    </div>
-                    <div class="time">1 settimana fa</div>
-                </div>
-
-                <div class="card-recensione">
-                    <div class="nome">Paolo Bianchi</div>
-                    <div class="star">⭐⭐⭐⭐⭐</div>
-                    <div class="commento">
-                        Competenza e pulizia al top!
-                        <div class="full-c">Ho fatto un impianto e non ho sentito alcun dolore. Veramente dei
-                            professionisti dell'odontoiatria.</div>
-                        <button onclick="toggle(this)">Mostra di più</button>
-                    </div>
-                    <div class="time">2 mesi fa</div>
-                </div>
-
-                <div class="card-recensione">
-                    <div class="nome">Elena Verdi</div>
-                    <div class="star">⭐⭐⭐</div>
-                    <div class="commento">
-                        Trattamento normale, prezzi un po' alti.
-                        <div class="full-c">Il lavoro è stato fatto bene, ma rispetto ad altri studi i prezzi sono
-                            leggermente sopra la media.</div>
-                        <button onclick="toggle(this)">Mostra di più</button>
-                    </div>
-                    <div class="time">6 mesi fa</div>
-                </div>
+            <div class="container-c" id="reviews-container">
+                <p id="loading-reviews"
+                    style="text-align: center; width: 100%; color: var(--primary-blue); font-weight: 600;">
+                    Caricamento recensioni in corso...
+                </p>
             </div>
         </div>
     </main>

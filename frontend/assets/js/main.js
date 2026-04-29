@@ -1,4 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // --- HIGHLIGHT PAGINA ATTIVA ---
+    // Capisce su che pagina sei (es. "chi-siamo.html") e le assegna la classe "active-link"
+    const currentPage = window.location.pathname.split("/").pop() || "home.html";
+    const navLinksElems = document.querySelectorAll(".nav-links a");
+    navLinksElems.forEach(link => {
+        if (link.getAttribute("href") === currentPage) {
+            link.classList.add("active-link");
+        }
+    });
+
     // --- 1. CONFIGURAZIONE API ---
     const currentIP = window.location.hostname;
     const API_URL = `http://${currentIP}:3000/api`;
@@ -124,16 +134,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (displayUsername) {
         const currentUser = sessionStorage.getItem("activeUser");
 
-        // Protezione: se non sei loggato e provi ad accedere all'area personale, vieni cacciato in Home
         if (!currentUser) {
             window.location.href = "home.html";
         } else {
-            // Mostra nome utente
             displayUsername.textContent = currentUser;
             const initialIcon = document.getElementById("user-initial");
             if (initialIcon) initialIcon.textContent = currentUser.charAt(0).toUpperCase();
 
-            // Richiesta delle prenotazioni a Node.js / Supabase
             const listContainer = document.getElementById("bookings-list");
             const noBookingsMsg = document.getElementById("no-bookings");
             const table = document.getElementById("bookings-table");
@@ -147,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     } else {
                         userBookings.forEach(book => {
                             const dataFormattata = new Date(book.data).toLocaleDateString('it-IT');
-                            const oraFormattata = book.ora.substring(0, 5); // Es. 10:30:00 -> 10:30
+                            const oraFormattata = book.ora.substring(0, 5);
 
                             const row = `
                                 <tr>
@@ -170,7 +177,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 });
 
-            // Bottone Logout specifico per la Navbar dell'Area Personale
             const btnLogoutTop = document.getElementById("btn-logout-top");
             if (btnLogoutTop) {
                 btnLogoutTop.onclick = () => {
@@ -181,92 +187,185 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // --- 7. FILTRO PER I COMMENTI (Protetto per evitare errori su altre pagine) ---
+    // --- 7. FILTRO PER I COMMENTI AGGIORNATO ---
     const ordinaSelect = document.getElementById("ordina");
     if (ordinaSelect) {
         ordinaSelect.addEventListener("change", function () {
             const valore = this.value;
-            const container = document.querySelector(".container-c");
+            const container = document.getElementById("reviews-container");
             const recensioni = Array.from(document.querySelectorAll(".card-recensione"));
 
             if (valore === "recenti") {
-                recensioni.sort((a, b) => {
-                    return getTimeValue(a) - getTimeValue(b);
-                });
+                // Ordina dalla data più vecchia alla più nuova
+                recensioni.sort((a, b) => getTimeValue(a) - getTimeValue(b));
+            } else if (valore === "valutazione") {
+                // Ordina per stelle dalla più alta alla più bassa
+                recensioni.sort((a, b) => getStars(b) - getStars(a));
             }
 
-            if (valore === "valutazione") {
-                recensioni.sort((a, b) => {
-                    return getStars(b) - getStars(a);
-                });
-            }
-
-            // svuota e riaggiunge in ordine
+            // Riappende le card in ordine (Senza doverle ricaricare dal database)
             recensioni.forEach(rec => container.appendChild(rec));
         });
     }
 
     // --- 8. ANIMAZIONI AL CARICAMENTO/SCROLL (REVEAL DA DESTRA/SINISTRA) ---
     const observerOptions = {
-        threshold: 0.15 // L'animazione parte quando il 15% dell'elemento entra nello schermo
+        threshold: 0.15
     };
 
     const revealObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
-                // Smette di osservare l'elemento una volta che l'animazione è scattata
                 observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    // Seleziona tutti gli elementi con la classe "reveal" e li fa osservare
     const revealElements = document.querySelectorAll('.reveal');
     revealElements.forEach(el => revealObserver.observe(el));
 
-    // --- 9. INVIO NUOVA RECENSIONE (Opzionale: aggiunto se vuoi gestire la nuova form) ---
+    // --- 9. INVIO NUOVA RECENSIONE ---
     const reviewForm = document.getElementById("review-form");
     if (reviewForm) {
         reviewForm.onsubmit = async function (e) {
             e.preventDefault();
+
             const currentUser = sessionStorage.getItem("activeUser");
             if (!currentUser) return alert("⚠️ Devi accedere o registrarti per poter lasciare una recensione.");
 
             const selectedStar = document.querySelector('input[name="rating"]:checked');
             if (!selectedStar) return alert("Per favore, seleziona una valutazione in stelle.");
 
-            alert(`Grazie per la tua recensione da ${selectedStar.value} stelle!\nIl tuo feedback è prezioso per noi.`);
-            reviewForm.reset();
+            const stars = parseInt(selectedStar.value);
+            const text = document.getElementById("review-text").value;
+
+            const today = new Date();
+            const dataOdierna = today.toISOString().split('T')[0];
+
+            try {
+                const res = await fetch(`${API_URL}/recensioni`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        user_mail: currentUser,
+                        data: dataOdierna,
+                        valutazione: stars,
+                        messaggio: text
+                    })
+                });
+
+                const dataRes = await res.json();
+
+                if (res.ok) {
+                    alert(dataRes.message);
+                    reviewForm.reset();
+                    if (typeof loadReviews === 'function') loadReviews();
+                } else {
+                    alert("Errore: " + dataRes.error);
+                }
+            } catch (error) {
+                alert("Errore di connessione al database. Riprova più tardi.");
+            }
         };
+    }
+
+    // --- 10. CARICAMENTO RECENSIONI DAL DATABASE ---
+    const reviewsContainer = document.getElementById("reviews-container");
+    if (reviewsContainer) {
+        window.loadReviews = async function () {
+            try {
+                const response = await fetch(`${API_URL}/recensioni`);
+                const recensioni = await response.json();
+
+                // ==========================================
+                // NUOVO BLOCCO: CALCOLO STATISTICHE BARRE
+                // ==========================================
+                const totaleRecensioniEl = document.getElementById("totale-recensioni");
+                if (totaleRecensioniEl) {
+                    const totale = recensioni.length;
+                    totaleRecensioniEl.textContent = totale; // Aggiorna il numero totale
+
+                    // Prepariamo i contatori per ogni stella
+                    let conteggioStelle = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+
+                    // Contiamo quante recensioni ci sono per ogni valutazione
+                    recensioni.forEach(rec => {
+                        if (conteggioStelle[rec.valutazione] !== undefined) {
+                            conteggioStelle[rec.valutazione]++;
+                        }
+                    });
+
+                    // Calcoliamo le percentuali e aggiorniamo l'HTML
+                    for (let i = 1; i <= 5; i++) {
+                        const bar = document.getElementById(`bar-${i}`);
+                        const percentText = document.getElementById(`percent-${i}`);
+                        
+                        let percentuale = 0;
+                        if (totale > 0) {
+                            percentuale = Math.round((conteggioStelle[i] / totale) * 100);
+                        }
+
+                        if (bar && percentText) {
+                            // setTimeout serve a far partire la fluidità dell'animazione CSS
+                            setTimeout(() => {
+                                bar.style.width = `${percentuale}%`;
+                                percentText.textContent = `${percentuale}%`;
+                            }, 100);
+                        }
+                    }
+                }
+                // ==========================================
+
+                const loadingMsg = document.getElementById("loading-reviews");
+                if (loadingMsg) loadingMsg.remove();
+
+                if (recensioni.length === 0) {
+                    reviewsContainer.innerHTML = "<p style='text-align:center; width:100%;'>Non ci sono ancora recensioni. Lascia la prima!</p>";
+                    return;
+                }
+
+                reviewsContainer.innerHTML = ""; // Svuota il contenitore
+
+                recensioni.forEach(rec => {
+                    const stelle = "⭐".repeat(rec.valutazione);
+                    const nomeUtente = rec.user_mail.split('@')[0]; // Prende la prima parte dell'email
+                    const dataFormattata = new Date(rec.data).toLocaleDateString('it-IT');
+
+                    // Stampa diretta della card: niente testi tagliati e niente bottoni!
+                    const cardHTML = `
+                        <div class="card-recensione">
+                            <div class="nome">${nomeUtente}</div>
+                            <div class="star" data-val="${rec.valutazione}">${stelle}</div>
+                            <div class="commento">
+                                ${rec.messaggio}
+                            </div>
+                            <div class="time" data-date="${rec.data}" style="margin-top:10px;">Scritta il ${dataFormattata}</div>
+                        </div>
+                    `;
+                    reviewsContainer.insertAdjacentHTML('beforeend', cardHTML);
+                });
+            } catch (error) {
+                reviewsContainer.innerHTML = "<p style='color:red; text-align:center; width:100%;'>Errore di connessione al database.</p>";
+            }
+        }
+
+        loadReviews(); // Lancia la funzione appena apri la pagina
     }
 });
 
 // --- FUNZIONI GLOBALI (Fuori dal DOMContentLoaded) ---
 
-// Funzione Toggle (Mostra di più/meno)
-window.toggle = function (btn) {
-    const full = btn.nextElementSibling;
-    if (full.style.display === "block") { full.style.display = "none"; btn.textContent = "Mostra di più"; }
-    else { full.style.display = "block"; btn.textContent = "Mostra meno"; }
-};
-
-// Funzione per leggere le stelle
+// Funzione per leggere le stelle dal tag "data-val"
 function getStars(recensione) {
-    const stelle = recensione.querySelector(".star").textContent;
-    return stelle.length; // conta le ⭐
+    const starEl = recensione.querySelector(".star");
+    return starEl ? parseInt(starEl.getAttribute("data-val")) || 0 : 0;
 }
 
-// Funzione per leggere il tempo
+// Funzione per leggere la data esatta dal tag "data-date"
 function getTimeValue(recensione) {
-    // Controllo extra per evitare errori se la data non c'è
     const timeEl = recensione.querySelector(".time");
-    if (!timeEl) return 100;
-    
-    const testo = timeEl.textContent;
-    if (testo.includes("giorni")) return 1;
-    if (testo.includes("settimana")) return 7;
-    if (testo.includes("mesi")) return 30;
-
-    return 100;
+    if (!timeEl) return 0;
+    const dateStr = timeEl.getAttribute("data-date");
+    return new Date(dateStr).getTime();
 }

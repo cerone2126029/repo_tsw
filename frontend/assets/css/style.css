@@ -91,6 +91,12 @@ main {
     transform: scale(1.08) translateY(-2px);
 }
 
+/* La classe che accende il link della pagina attiva */
+.nav-links a.active-link {
+    color: var(--white) !important;
+    font-weight: 700;
+}
+
 /* --- LOGIN E AREA UTENTE --- */
 #auth-form {
     display: flex;
@@ -415,9 +421,10 @@ section.fade-in {
     justify-content: center;
     text-align: center;
 }
+
 /* css per sezione studio e storia  */
 /* --- SEZIONE STUDIO (CHI SIAMO) --- */
- .section-studio {
+.section-studio {
     display: flex;
     gap: 50px;
     align-items: flex-start;
@@ -468,23 +475,26 @@ section.fade-in {
     transform: translateY(-6px);
     box-shadow: var(--shadow-hover);
 }
-/*  animazione per test e immagini sezione storia e studio*/
+
+/* animazione per test e immagini sezione storia e studio*/
 .fade-in {
-    opacity: 0; /* no testo dopo metto la sua po. iniz e appare nel tempo specificato nella transition */
+    opacity: 0;
+    /* no testo dopo metto la sua po. iniz e appare nel tempo specificato nella transition */
     transform: translateY(40px);
     transition: opacity 0.8s ease, transform 0.8s ease;
-    will-change: opacity, transform; /* ottimizzo animazione */
+    will-change: opacity, transform;
+    /* ottimizzo animazione */
 }
 
 /* questo e la situazione finale ovvero quadno il testo appare dopo l animazione */
 .fade-in.show {
-    opacity: 1;   /*qui il testo diventa visibile e nell' istante dopo torna nella posizone normale */
+    opacity: 1;
+    /*qui il testo diventa visibile e nell' istante dopo torna nella posizone normale */
     transform: translateY(0);
 }
 
-
 /* sezione filosofia*/
-.fil-container{
+.fil-container {
     background-image: linear-gradient(rgba(0, 0, 0, 0.90), rgba(0, 20, 40, 0.8)), url('../img/ddd.jpg');
     background-size: cover;
     background-position: center;
@@ -499,7 +509,6 @@ section.fade-in {
 }
 
 /* fine sezione filosofia */
-
 
 /* --- SEZIONE VALORI --- */
 .container-valori {
@@ -551,71 +560,71 @@ section.fade-in {
     color: var(--primary-blue);
     letter-spacing: 0.5px;
 }
-/* fine codice css delle card dei valori*/
 
+/* fine codice css delle card dei valori*/
 
 /* --- SEZIONE tecnologie - chi siamo --- */
 .section-tec {
-  padding: 40px 20px;
+    padding: 40px 20px;
 }
 
 .section-tec h2 {
-  text-align: center;
-  margin-bottom: 30px;
+    text-align: center;
+    margin-bottom: 30px;
 }
 
 .tec-div {
-  display: flex;
-  gap: 30px; /* spazio tra le due colonne */
+    display: flex;
+    gap: 30px;
+    /* spazio tra le due colonne */
 }
 
 /* ogni colonna */
 .tec-1 {
-  flex: 1;              /* colonne uguali */
-  display: flex;
-  flex-direction: column;
-  gap: 15px;            /* spazio tra gli elem */
-
+    flex: 1;
+    /* colonne uguali */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    /* spazio tra gli elem */
 }
-.tec-2 {
-  flex: 1;              /* colonne uguali */
-  display: flex;
-  flex-direction: column;
-  gap: 15px;            /* spazio tra gli elem */
 
+.tec-2 {
+    flex: 1;
+    /* colonne uguali */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    /* spazio tra gli elem */
 }
 
 /* singolo elemento */
 .elem {
-  
-  padding: 15px;
-  border-radius: 10px;
-
-
+    padding: 15px;
+    border-radius: 10px;
 }
-
 
 /* titolo tecnologia */
 .elem h4 {
-  margin: 0 0 8px 0;
-  color: var(--primary-blue);
-  font-weight: 700;
-  font-size: 1.1rem;
+    margin: 0 0 8px 0;
+    color: var(--primary-blue);
+    font-weight: 700;
+    font-size: 1.1rem;
 }
 
 /* descrizione */
 .elem p {
-  margin: 0;
-  color: var(--text-main);
-  font-size: 1.05rem;
-  line-height: 1.8;
-}
-.image-t {
-  width: 50px;
-  height: 50px;
-  object-fit: contain;
+    margin: 0;
+    color: var(--text-main);
+    font-size: 1.05rem;
+    line-height: 1.8;
 }
 
+.image-t {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
 
 /*fine sezione tecnologie- chi siamo */
 
@@ -645,7 +654,7 @@ section.fade-in {
     padding: 30px 20px;
     box-shadow: var(--shadow-soft);
     transition: all 0.3s ease;
-    border-bottom: 4px solid transparent; 
+    border-bottom: 4px solid transparent;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -656,7 +665,7 @@ section.fade-in {
 .treatment-card:hover {
     transform: translateY(-10px);
     box-shadow: var(--shadow-hover);
-    border-bottom: 4px solid var(--accent-mint); 
+    border-bottom: 4px solid var(--accent-mint);
 }
 
 .treatment-icon {
@@ -687,6 +696,7 @@ section.fade-in {
     margin-top: 60px;
     border-left: 5px solid var(--accent-mint);
 }
+
 /* --- HERO TRATTAMENTI --- */
 .hero-trattamenti {
     background-image: linear-gradient(rgba(0, 46, 96, 0.7), rgba(0, 46, 96, 0.7)), url('../img/team.avif');
@@ -702,8 +712,17 @@ section.fade-in {
 .hero-content h1 {
     font-size: 3.5rem;
     font-weight: 800;
-    text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
 }
+
+.hero-content p {
+    font-size: 1.1rem;
+    opacity: 1;
+    max-width: 600px;
+    margin: 0 auto;
+    font-weight: 300;
+}
+
 /* --- RECENSIONI E STATISTICHE --- */
 .hero-recensioni {
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../img/ddd.jpg');
@@ -720,9 +739,15 @@ section.fade-in {
 }
 
 .hero-recensioni h2 {
-    font-weight: 300;
     font-size: 3.5rem;
+    font-weight: 800;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
     margin-bottom: 15px;
+    letter-spacing: -1px;
+}
+
+.hero-recensioni h2 strong {
+    font-weight: 800;
 }
 
 /* Card delle singole recensioni */
@@ -915,24 +940,33 @@ label[for="ordina"] {
     background-position: center;
     height: 60vh;
     display: flex;
-    align-items: center;    /* Centra verticalmente il container */
-    justify-content: center; /* Centra orizzontalmente il container */
+    align-items: center;
+    /* Centra verticalmente il container */
+    justify-content: center;
+    /* Centra orizzontalmente il container */
     text-align: center;
     color: var(--white);
 }
 
 /* Applichiamo lo stile del font all'H2 che sta dentro il container */
 .hero-consigli .container h2 {
-    font-weight: 300;
+    font-weight: 800;
     font-size: 3.5rem;
     margin-bottom: 15px;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+    letter-spacing: -1px;
+}
+
+.hero-consigli .container h2 strong {
+    font-weight: 800;
 }
 
 /* Per rimpicciolire il paragrafo sottostante */
 .hero-consigli .container p {
     font-size: 1.2rem;
     max-width: 800px;
-    margin: 0 auto; /* Lo centra se il testo va su più righe */
+    margin: 0 auto;
+    /* Lo centra se il testo va su più righe */
 }
 
 /* CONTAINER GENERALE */
@@ -965,8 +999,9 @@ label[for="ordina"] {
     transform: translateY(-5px);
     box-shadow: var(--shadow-hover);
 }
+
 /* linea colorata sotto la card  */
-.card-consiglio::after{
+.card-consiglio::after {
     content: "";
     position: absolute;
     bottom: 0;
@@ -976,8 +1011,8 @@ label[for="ordina"] {
     background: var(--accent-mint);
     transform: scaleX(0);
     transition: transform 0.3s ease;
-
 }
+
 /* quando passo con il mosu la linea verde si espande da sinistra a destra */
 .card-consiglio:hover::after {
     transform: scaleX(1);
@@ -996,6 +1031,7 @@ label[for="ordina"] {
     color: var(--text-main);
     line-height: 1.5;
 }
+
 /* --- NUOVE AGGIUNTE PER CONSIGLI --- */
 
 .checklist-box {
@@ -1029,8 +1065,13 @@ label[for="ordina"] {
 
 /* Responsive */
 @media (max-width: 768px) {
-    .hero-consigli h2 { font-size: 1.5rem; }
-    .checklist-box { margin-top: 20px; }
+    .hero-consigli h2 {
+        font-size: 1.5rem;
+    }
+
+    .checklist-box {
+        margin-top: 20px;
+    }
 }
 
 /*fine css card consigli */
@@ -1110,6 +1151,7 @@ label[for="ordina"] {
 .btn-logout-red:hover {
     background-color: #fa5252;
 }
+
 /* --- FAQ CON FRECCIA ANIMATA --- */
 .faq-item {
     margin-bottom: 15px;
@@ -1128,9 +1170,9 @@ label[for="ordina"] {
     list-style: none;
     outline: none;
     font-size: 1.05rem;
-    display: flex;                
-    justify-content: space-between; 
-    align-items: center;          
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .faq-item summary::-webkit-details-marker {
@@ -1138,10 +1180,10 @@ label[for="ordina"] {
 }
 
 .faq-item summary::after {
-    content: '▼';                 
+    content: '▼';
     font-size: 0.8rem;
-    color: var(--accent-mint);    
-    transition: transform 0.3s ease; 
+    color: var(--accent-mint);
+    transition: transform 0.3s ease;
 }
 
 .faq-item[open] summary::after {
@@ -1202,21 +1244,27 @@ hr {
     margin: 15px 0;
     border-color: rgba(255, 255, 255, 0.3);
 }
+
 /* --- SISTEMA A STELLE CON PALLINI (AGGIORNATO E CENTRATO) --- */
 .radio-rating-group {
     display: flex;
-    gap: 30px; /* Aumentato lo spazio tra le opzioni */
-    margin: 20px 0; /* Spazio sopra e sotto */
+    gap: 30px;
+    /* Aumentato lo spazio tra le opzioni */
+    margin: 20px 0;
+    /* Spazio sopra e sotto */
     align-items: center;
-    justify-content: center; /* ACCENTRA LE STELLE */
+    justify-content: center;
+    /* ACCENTRA LE STELLE */
     flex-wrap: wrap;
 }
 
 .radio-label {
     display: flex !important;
     align-items: center;
-    gap: 10px; /* Spazio tra stella e pallino */
-    font-size: 1.6rem !important; /* STELLE PIÙ GRANDI */
+    gap: 10px;
+    /* Spazio tra stella e pallino */
+    font-size: 1.6rem !important;
+    /* STELLE PIÙ GRANDI */
     font-weight: 700;
     color: var(--primary-blue);
     cursor: pointer;
@@ -1226,17 +1274,18 @@ hr {
 }
 
 .radio-label:hover {
-    transform: scale(1.1); /* Effetto leggero ingrandimento al passaggio */
+    transform: scale(1.1);
+    /* Effetto leggero ingrandimento al passaggio */
 }
 
 /* Rende i pallini (radio buttons) più grandi e visibili */
 .radio-label input[type="radio"] {
-    width: 22px; 
+    width: 22px;
     height: 22px;
     cursor: pointer;
     margin: 0;
     display: inline-block !important;
-    accent-color: var(--accent-mint); 
+    accent-color: var(--accent-mint);
 }
 
 /* --- ANIMAZIONI DI ENTRATA --- */
@@ -1245,7 +1294,8 @@ hr {
 .reveal {
     opacity: 0;
     transition: all 1s ease-out;
-    pointer-events: none; /* Evita interazioni prima dell'animazione */
+    pointer-events: none;
+    /* Evita interazioni prima dell'animazione */
 }
 
 /* Direzioni di provenienza */
@@ -1336,14 +1386,22 @@ hr {
         width: 100%;
     }
 
-    /* Fix Recensioni Mobile */
-    .hero-recensioni h2 {
-        font-size: 2.2rem;
-    }
-
     .riepilogo-affiancato {
         flex-direction: column;
         text-align: center;
+        align-items: stretch;
+        /* Forza gli elementi a non schiacciarsi */
+    }
+
+    .col-left,
+    .col-right {
+        width: 100%;
+        /* Si prendono tutto lo schermo del telefono */
+    }
+
+    .col-right {
+        margin-top: 20px;
+        /* Aggiunge un po' di respiro tra la scritta e le barre */
     }
 
     .col-left h3 {
@@ -1366,5 +1424,35 @@ hr {
 
     .custom-footer p {
         margin-left: 0 !important;
+    }
+
+    .reveal.from-left {
+        text-align: center;
+    }
+
+    /* Centra anche il badge all'interno del contenitore text-align: center */
+    .reveal.from-left .reveal.from-right {
+        display: flex;
+        justify-content: center;
+    }
+
+    /* --- UNIFORMITÀ TITOLI HERO SU MOBILE --- */
+    /* Questa regola imposta la STESSA grandezza per i titoli di tutte le pagine sui telefoni */
+    .hero-content h1,
+    .hero-recensioni h2,
+    .hero-consigli .container h2,
+    .hero-section h2 {
+        font-size: 2.4rem;
+        /* Scegli la grandezza che preferisci, 2.4rem è un buon compromesso */
+    }
+
+    /* Rimpiccioliamo leggermente anche i sottotitoli per non farli sbordare */
+    .hero-content p,
+    .hero-recensioni p,
+    .hero-consigli .container p,
+    .hero-section p {
+        font-size: 1rem;
+        padding: 0 10px;
+        /* Evita che il testo tocchi i bordi dello schermo */
     }
 }
