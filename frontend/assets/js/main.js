@@ -197,7 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (valore === "recenti") {
                 // Ordina dalla data più vecchia alla più nuova
-                recensioni.sort((a, b) => getTimeValue(a) - getTimeValue(b));
+                recensioni.sort((a, b) => getTimeValue(b) - getTimeValue(a));
             } else if (valore === "valutazione") {
                 // Ordina per stelle dalla più alta alla più bassa
                 recensioni.sort((a, b) => getStars(b) - getStars(a));
