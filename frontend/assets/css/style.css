@@ -470,6 +470,7 @@ section.fade-in {
     color: white;
     justify-content: center;
     text-align: center;
+    margin-bottom: 10px;
 }
 
 /* css per sezione studio e storia  */
@@ -556,6 +557,7 @@ section.fade-in {
     color: white;
     justify-content: center;
     text-align: center;
+    margin-bottom: 60px;  /*ho aggiunto margine tra immagine sezione filosofia e il titolo (h2) nostri valori */
 }
 
 /* fine sezione filosofia */
