@@ -1571,8 +1571,15 @@ hr {
     }
     .tec-1, .tec-2 { /* le "card tecnologie" occupano tutta la larghezza disponibile*/
     width: 100%;
+    align-items: center;  /*in questo modo i contenuti sono centrati*/
+    }
+    .elem {
+        width: 90%;
+        max-width: 400px;
+        text-align: center;
     }
     /*fine aggiunta modifiche sezione tecnologie pagina chi siamo*/
+
 
     /* Rimpiccioliamo leggermente anche i sottotitoli per non farli sbordare */
     .hero-content p,
