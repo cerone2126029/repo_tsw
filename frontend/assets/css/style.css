@@ -1119,46 +1119,6 @@ label[for="ordina"] {
     transform: scale(1.1) rotate(5deg);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .hero-consigli h2 {
-        font-size: 1.5rem;
-    }
-
-    .checklist-box {
-        margin-top: 20px;
-    }
-    /* aggiunta modifiche css pagina chi siamo */
-    .section-studio {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 30px;
-    padding: 30px 15px;
-    }
-
-    .left-noi,
-    .right-noi {
-        width: 100%;
-    }
-
-    .left-noi p {
-        font-size: 1rem;
-        line-height: 1.6;
-    }
-
-    .right-noi {
-        align-items: center;
-    }
-
-    .im {
-        width: 90%;
-        max-width: 350px;
-    }
-    /*fine modifiche pagina chi siamo */
-}
-
-
 /*fine css card consigli */
 
 /* --- AREA PERSONALE & CONSIGLI --- */
@@ -1434,18 +1394,46 @@ hr {
     background-color: var(--accent-mint); /* Verde successo */
 }
 
-/* --- RESPONSIVE MOBILE GLOBALE --- */
-@media (max-width: 992px) {
-    .booking-form-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .col-left h3 {
-        font-size: 1.5rem;
-    }
+/* --- SEZIONE PARTNER E TECNOLOGIE (HOME) --- */
+.partners-section {
+    background-color: var(--white);
+    padding: 50px 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    margin-bottom: 60px;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
 }
 
-@media (max-width: 768px) {
+.partners-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px; /* Spazio tra i loghi */
+    flex-wrap: wrap; /* Se lo schermo è piccolo, vanno a capo da soli */
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.partner-logo {
+    max-height: 45px;
+    max-width: 160px;
+    object-fit: contain;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    
+    /* Le due righe "nucleari" che forzano il colore originale */
+    opacity: 1 !important; 
+    filter: none !important; 
+}
+
+/* Magia: al passaggio del mouse torna a colori! */
+.partner-logo:hover {
+    transform: scale(1.08);
+}
+
+
+/* --- MENU HAMBURGER (TABLET E SMARTPHONE fino a 1150px) --- */
+@media (max-width: 1150px) {
     .navbar {
         padding: 15px 20px;
     }
@@ -1455,12 +1443,12 @@ hr {
     }
 
     .menu-toggle {
-        display: block;
+        display: block; /* Mostra il bottone hamburger */
     }
 
     .nav-links,
     .login-section {
-        display: none;
+        display: none; /* Nasconde gli elementi per fare spazio */
         width: 100%;
         flex-direction: column;
         text-align: center;
@@ -1470,7 +1458,7 @@ hr {
 
     .navbar.active .nav-links,
     .navbar.active .login-section {
-        display: flex;
+        display: flex; /* Li mostra quando clicchi sull'hamburger */
     }
 
     #logged-in-area {
@@ -1481,10 +1469,12 @@ hr {
     .inputs {
         flex-direction: column;
         width: 100%;
+        align-items: center;
     }
 
     .inputs input {
         width: 100%;
+        max-width: 300px; /* Evita che i form siano giganti su iPad */
         text-align: center;
     }
 
@@ -1492,7 +1482,36 @@ hr {
         justify-content: center;
         margin-top: 5px;
     }
+}
 
+/* --- RESPONSIVE LAYOUT (da 992px in giù) --- */
+@media (max-width: 992px) {
+    .booking-form-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .col-left h3 {
+        font-size: 1.5rem;
+    }
+
+    /* --- Fix Footer per tutti i Tablet e Smartphone --- */
+    .custom-footer .row {
+        flex-direction: column;
+        text-align: center !important; /* L'!important vince sulla regola di Bootstrap */
+        align-items: center;
+    }
+
+    .custom-footer .col-md-4 {
+        margin-bottom: 25px;
+    }
+
+    .custom-footer p {
+        margin-left: 0 !important;
+    }
+}
+
+/* --- RESPONSIVE MOBILE (da 768px in giù) --- */
+@media (max-width: 768px) {
     .booking-form-grid {
         grid-template-columns: 1fr;
     }
@@ -1510,18 +1529,15 @@ hr {
         flex-direction: column;
         text-align: center;
         align-items: stretch;
-        /* Forza gli elementi a non schiacciarsi */
     }
 
     .col-left,
     .col-right {
         width: 100%;
-        /* Si prendono tutto lo schermo del telefono */
     }
 
     .col-right {
         margin-top: 20px;
-        /* Aggiunge un po' di respiro tra la scritta e le barre */
     }
 
     .col-left h3 {
@@ -1532,62 +1548,80 @@ hr {
         margin: 0 5px;
     }
 
-    /* Fix Footer Mobile */
-    .custom-footer .row {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .custom-footer .col-md-4 {
-        margin-bottom: 25px;
-    }
-
-    .custom-footer p {
-        margin-left: 0 !important;
-    }
-
     .reveal.from-left {
         text-align: center;
     }
 
-    /* Centra anche il badge all'interno del contenitore text-align: center */
     .reveal.from-left .reveal.from-right {
         display: flex;
         justify-content: center;
     }
 
-    /* --- UNIFORMITÀ TITOLI HERO SU MOBILE --- */
-    /* Questa regola imposta la STESSA grandezza per i titoli di tutte le pagine sui telefoni */
     .hero-content h1,
     .hero-recensioni h2,
     .hero-consigli .container h2,
     .hero-section h2 {
         font-size: 2.4rem;
-        /* Scegli la grandezza che preferisci, 2.4rem è un buon compromesso */
     }
-    /* sezione tecnologie pagina chi siamo*/
-    .tec-div{
-    flex-direction: column; /*li metto in colonna le tecnologie*/
+
+    .hero-consigli h2 {
+        font-size: 1.5rem;
     }
-    .tec-1, .tec-2 { /* le "card tecnologie" occupano tutta la larghezza disponibile*/
-    width: 100%;
-    align-items: center;  /*in questo modo i contenuti sono centrati*/
+
+    .checklist-box {
+        margin-top: 20px;
     }
+
+    .section-studio {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 30px;
+        padding: 30px 15px;
+    }
+
+    .left-noi,
+    .right-noi {
+        width: 100%;
+    }
+
+    .left-noi p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .right-noi {
+        align-items: center;
+    }
+
+    .im {
+        width: 90%;
+        max-width: 350px;
+    }
+
+    .tec-div {
+        flex-direction: column;
+    }
+
+    .tec-1, .tec-2 {
+        width: 100%;
+        align-items: center;
+    }
+
     .elem {
         width: 90%;
         max-width: 400px;
         text-align: center;
     }
-    /*fine aggiunta modifiche sezione tecnologie pagina chi siamo*/
 
-
-    /* Rimpiccioliamo leggermente anche i sottotitoli per non farli sbordare */
     .hero-content p,
     .hero-recensioni p,
     .hero-consigli .container p,
     .hero-section p {
         font-size: 1rem;
         padding: 0 10px;
-        /* Evita che il testo tocchi i bordi dello schermo */
     }
+
+    .partners-grid { gap: 30px; }
+    .partner-logo { max-height: 35px; }
 }
