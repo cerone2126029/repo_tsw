@@ -329,7 +329,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 recensioni.forEach(rec => {
                     const stelle = "⭐".repeat(rec.valutazione);
-                    const nomeUtente = rec.user_mail.split('@')[0]; // Prende la prima parte dell'email
+                    const nomeUtente = rec.user_email.split('@')[0]; // Prende la prima parte dell'email
                     const dataFormattata = new Date(rec.data).toLocaleDateString('it-IT');
 
                     // Stampa diretta della card: niente testi tagliati e niente bottoni!
