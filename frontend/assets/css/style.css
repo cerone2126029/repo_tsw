@@ -389,6 +389,12 @@ main {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
 }
 
+.team-card:hover {
+    transform: scale(1.05); 
+    box-shadow: var(--shadow-hover); 
+    z-index: 2; 
+}
+
 .team-avatar {
     width: 70px;
     height: 70px;
