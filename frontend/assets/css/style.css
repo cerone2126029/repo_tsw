@@ -1398,10 +1398,16 @@ hr {
 .partners-section {
     background-color: var(--white);
     padding: 50px 20px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-    margin-bottom: 60px;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
+    margin: 0 auto 60px auto; /* Centra la scatola e lascia spazio sotto */
+    max-width: 1100px; /* Limita la larghezza per non farla espandere all'infinito */
+    width: 92%; /* Su mobile garantisce che ci sia spazio ai lati dello schermo */
+    
+    /* --- L'EFFETTO CORNICE --- */
+    /* border: 2px solid var(--primary-blue); Colore e spessore della cornice */
+    border-radius: 20px; /* Angoli morbidamente arrotondati */
+    box-shadow: var(--shadow-hover); /* Un'ombra più marcata per farla "sollevare" dal fondo */
+    
+    overflow: hidden; /* Evita scroll orizzontali durante le animazioni */
 }
 
 .partners-grid {
