@@ -154,6 +154,12 @@
         </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+  // Usiamo 'window.' così la variabile sarà leggibile anche dentro il tuo main.js
+  const supabaseUrl = 'https://vpslqdoaofggimvqygpo.supabase.co';
+  const supabaseKey = 'sb_publishable_KycwbYdkZi7dzPLtDa6hew_8C5pt3Dv';
+  window.supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+</script>
 <script src="assets/js/main.js"></script>
 </body>
 

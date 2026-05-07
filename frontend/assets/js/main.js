@@ -389,18 +389,18 @@ if (formRecruitment) {
         try {
             // Caricamento nello Storage
             const nomeFile = `${Date.now()}_${nome}_${cognome}.pdf`;
-            const { data: uploadData, error: uploadError } = await supabase.storage
+            const { data: uploadData, error: uploadError } = await window.supabaseClient.storage
                 .from('curriculums')
                 .upload(nomeFile, file);
 
             if (uploadError) throw uploadError;
 
             // Ottenimento URL
-            const { data: linkData } = supabase.storage.from('curriculums').getPublicUrl(nomeFile);
+            const { data: linkData } = window.supabaseClient.storage.from('curriculums').getPublicUrl(nomeFile);
             const publicUrl = linkData.publicUrl;
 
             // Salvataggio nel Database
-            const { error: dbError } = await supabase
+            const { error: dbError } = await window.supabaseClient
                 .from('candidature')
                 .insert([{ nome, cognome, email, cv_url: publicUrl }]);
 
