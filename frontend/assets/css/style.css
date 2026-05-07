@@ -1637,3 +1637,78 @@ hr {
     .partners-grid { gap: 30px; }
     .partner-logo { max-height: 35px; }
 }
+/* --- DASHBOARD RESPONSIVE AREA PERSONALE (TABLET) --- */
+    .info-card {
+        padding: 20px; /* Riduciamo il padding interno */
+        margin-bottom: 20px;
+    }
+
+    .custom-table th, 
+    .custom-table td {
+        padding: 12px 10px; /* Stringiamo le celle per far stare più dati */
+        font-size: 0.85rem;
+    }
+    /* --- DASHBOARD RESPONSIVE AREA PERSONALE (MOBILE) --- */
+    .dashboard-main {
+        padding-top: 20px;
+    }
+
+    .info-card {
+        text-align: center; /* Centriamo i testi dei messaggi di benvenuto */
+        border-left: none;
+        border-top: 5px solid var(--accent-mint); /* Spostiamo il bordo colorato in alto */
+    }
+
+    /* Rendiamo la tabella scorrevole lateralmente */
+    .table-container {
+        overflow-x: auto; /* Permette lo swipe laterale se la tabella è larga */
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .custom-table {
+        min-width: 600px; /* Forza la tabella a mantenere una larghezza minima per non schiacciare i testi */
+    }
+
+    .status-badge {
+        font-size: 0.75rem;
+        padding: 3px 8px;
+    }
+
+    /* Centriamo il pulsante di logout su mobile */
+    .btn-logout-red {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+        display: block;
+    }
+    
+    .empty-state {
+        padding: 20px 10px;
+    }
+    /* Stile specifico per l'input file nel form candidatura AREA PERSONALE*/
+#work-cv::-webkit-file-upload-button {
+    background: var(--primary-blue);
+    color: white;
+    border: none;
+    padding: 5px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+    font-size: 0.8rem;
+    transition: 0.3s;
+}
+
+#work-cv::-webkit-file-upload-button:hover {
+    background: var(--dark-blue);
+}
+
+/* Responsività per la sezione candidatura */
+@media (max-width: 768px) {
+    .booking-form-grid {
+        grid-template-columns: 1fr !important; /* Forza una colonna sola su mobile */
+    }
+    
+    #recruitment-form .btn-conferma {
+        width: 100%; /* Il tasto occupa tutta la larghezza su smartphone */
+    }
+}

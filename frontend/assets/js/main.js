@@ -369,3 +369,49 @@ function getTimeValue(recensione) {
     const dateStr = timeEl.getAttribute("data-date");
     return new Date(dateStr).getTime();
 }
+// --- GESTIONE INVIO CANDIDATURE ---
+const formRecruitment = document.getElementById('recruitment-form');
+
+if (formRecruitment) {
+    formRecruitment.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const nome = document.getElementById('work-name').value;
+        const cognome = document.getElementById('work-surname').value;
+        const email = document.getElementById('work-email').value;
+        const file = document.getElementById('work-cv').files[0];
+
+        if (!file) {
+            alert("Per favore, seleziona un file PDF per il tuo CV.");
+            return;
+        }
+
+        try {
+            // Caricamento nello Storage
+            const nomeFile = `${Date.now()}_${nome}_${cognome}.pdf`;
+            const { data: uploadData, error: uploadError } = await supabase.storage
+                .from('curriculums')
+                .upload(nomeFile, file);
+
+            if (uploadError) throw uploadError;
+
+            // Ottenimento URL
+            const { data: linkData } = supabase.storage.from('curriculums').getPublicUrl(nomeFile);
+            const publicUrl = linkData.publicUrl;
+
+            // Salvataggio nel Database
+            const { error: dbError } = await supabase
+                .from('candidature')
+                .insert([{ nome, cognome, email, cv_url: publicUrl }]);
+
+            if (dbError) throw dbError;
+
+            alert("Candidatura inviata con successo! Ti contatteremo presto.");
+            formRecruitment.reset();
+
+        } catch (err) {
+            console.error("Errore completo:", err);
+            alert("Errore durante l'invio: " + (err.message || "riprova più tardi"));
+        }
+    });
+}
