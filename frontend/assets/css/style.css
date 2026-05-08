@@ -13,7 +13,8 @@
 }
 
 html {
-    scroll-behavior: smooth; /* Rende lo scorrimento verso l'ancora fluido e non a scatto */
+    scroll-behavior: smooth;
+    /* Rende lo scorrimento verso l'ancora fluido e non a scatto */
 }
 
 body {
@@ -143,8 +144,15 @@ main {
 }
 
 @keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* --- LOGIN E AREA UTENTE --- */
@@ -390,9 +398,9 @@ main {
 }
 
 .team-card:hover {
-    transform: scale(1.05); 
-    box-shadow: var(--shadow-hover); 
-    z-index: 2; 
+    transform: scale(1.05);
+    box-shadow: var(--shadow-hover);
+    z-index: 2;
 }
 
 .team-avatar {
@@ -488,7 +496,7 @@ section.fade-in {
     justify-content: center;
     max-width: 1100px;
     margin: 0 auto;
-    padding:40px 20px;
+    padding: 40px 20px;
 }
 
 /* TESTO SEMPLICE (NO BOX) */
@@ -563,7 +571,8 @@ section.fade-in {
     color: white;
     justify-content: center;
     text-align: center;
-    margin-bottom: 60px;  /*ho aggiunto margine tra immagine sezione filosofia e il titolo (h2) nostri valori */
+    margin-bottom: 60px;
+    /*ho aggiunto margine tra immagine sezione filosofia e il titolo (h2) nostri valori */
 }
 
 /* fine sezione filosofia */
@@ -706,8 +715,10 @@ section.fade-in {
     margin-bottom: 50px;
 }
 
-.treatment-card, .sezione-trattamento {
-    scroll-margin-top: 100px; /* Lascia spazio in alto per la navbar quando si salta all'ancora */
+.treatment-card,
+.sezione-trattamento {
+    scroll-margin-top: 100px;
+    /* Lascia spazio in alto per la navbar quando si salta all'ancora */
 }
 
 .treatment-card {
@@ -1371,7 +1382,8 @@ hr {
     border-radius: 15px;
     box-shadow: var(--shadow-soft);
     transition: all 0.3s ease;
-    overflow: hidden; /* Arrotonda anche gli angoli delle immagini */
+    overflow: hidden;
+    /* Arrotonda anche gli angoli delle immagini */
     height: 100%;
 }
 
@@ -1380,7 +1392,8 @@ hr {
     box-shadow: var(--shadow-hover);
 }
 
-.badge-prima, .badge-dopo {
+.badge-prima,
+.badge-dopo {
     color: var(--white);
     padding: 4px 10px;
     font-size: 0.75rem;
@@ -1388,40 +1401,51 @@ hr {
     border-radius: 6px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    z-index: 2; /* Mantiene l'etichetta sopra la foto */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    z-index: 2;
+    /* Mantiene l'etichetta sopra la foto */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .badge-prima {
-    background-color: #6c757d; /* Grigio neutrale */
+    background-color: #6c757d;
+    /* Grigio neutrale */
 }
 
 .badge-dopo {
-    background-color: var(--accent-mint); /* Verde successo */
+    background-color: var(--accent-mint);
+    /* Verde successo */
 }
 
 /* --- SEZIONE PARTNER E TECNOLOGIE (HOME) --- */
 .partners-section {
     background-color: var(--white);
     padding: 50px 20px;
-    margin: 0 auto 60px auto; /* Centra la scatola e lascia spazio sotto */
-    max-width: 1100px; /* Limita la larghezza per non farla espandere all'infinito */
-    width: 92%; /* Su mobile garantisce che ci sia spazio ai lati dello schermo */
-    
+    margin: 0 auto 60px auto;
+    /* Centra la scatola e lascia spazio sotto */
+    max-width: 1100px;
+    /* Limita la larghezza per non farla espandere all'infinito */
+    width: 92%;
+    /* Su mobile garantisce che ci sia spazio ai lati dello schermo */
+
     /* --- L'EFFETTO CORNICE --- */
     /* border: 2px solid var(--primary-blue); Colore e spessore della cornice */
-    border-radius: 20px; /* Angoli morbidamente arrotondati */
-    box-shadow: var(--shadow-hover); /* Un'ombra più marcata per farla "sollevare" dal fondo */
-    
-    overflow: hidden; /* Evita scroll orizzontali durante le animazioni */
+    border-radius: 20px;
+    /* Angoli morbidamente arrotondati */
+    box-shadow: var(--shadow-hover);
+    /* Un'ombra più marcata per farla "sollevare" dal fondo */
+
+    overflow: hidden;
+    /* Evita scroll orizzontali durante le animazioni */
 }
 
 .partners-grid {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 60px; /* Spazio tra i loghi */
-    flex-wrap: wrap; /* Se lo schermo è piccolo, vanno a capo da soli */
+    gap: 60px;
+    /* Spazio tra i loghi */
+    flex-wrap: wrap;
+    /* Se lo schermo è piccolo, vanno a capo da soli */
     max-width: 1000px;
     margin: 0 auto;
 }
@@ -1432,10 +1456,10 @@ hr {
     object-fit: contain;
     transition: all 0.3s ease;
     cursor: pointer;
-    
+
     /* Le due righe "nucleari" che forzano il colore originale */
-    opacity: 1 !important; 
-    filter: none !important; 
+    opacity: 1 !important;
+    filter: none !important;
 }
 
 /* Magia: al passaggio del mouse torna a colori! */
@@ -1443,6 +1467,164 @@ hr {
     transform: scale(1.08);
 }
 
+/* --- POPUP PASSWORD DIMENTICATA --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 46, 96, 0.8);
+    /* Sfondo blu scuro semitrasparente */
+    z-index: 2000;
+    /* Lo fa stare sopra a TUTTO il sito */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 400px;
+    width: 90%;
+    position: relative;
+    box-shadow: var(--shadow-hover);
+    text-align: center;
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: 0.3s;
+}
+
+.close-modal:hover {
+    color: #ff6b6b;
+    /* Diventa rosso se ci passi sopra */
+}
+
+.modal-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-top: 15px;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+/* --- POPUP E MODALI --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 46, 96, 0.8);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 400px;
+    width: 90%;
+    position: relative;
+    box-shadow: var(--shadow-hover);
+    text-align: center;
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--text-muted);
+}
+
+.modal-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-top: 15px;
+    box-sizing: border-box;
+}
+
+/* --- PAGINA IMPOSTA PASSWORD --- */
+.reset-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+}
+
+.reset-box {
+    background: var(--white);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-hover);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+}
+
+.reset-input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+/* Stile per il link "Password dimenticata?" */
+.forgot-link {
+    font-size: 0.75rem;
+    color: var(--accent-mint);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+
+    /* TRUCCO PER LA CENTRATURA OTTICA */
+    margin-top: 4px;
+    /* Lo spingiamo leggermente verso il basso */
+    line-height: 1;
+    /* Riduce lo spazio invisibile sopra il testo */
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+    opacity: 0.8;
+}
+
+#auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.login-section .buttons {
+    display: flex;
+    align-items: center;
+    /* Centratura verticale automatica */
+    gap: 15px;
+    /* Un po' più di respiro tra bottoni e link */
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
 
 /* --- MENU HAMBURGER (TABLET E SMARTPHONE fino a 1150px) --- */
 @media (max-width: 1150px) {
@@ -1455,12 +1637,14 @@ hr {
     }
 
     .menu-toggle {
-        display: block; /* Mostra il bottone hamburger */
+        display: block;
+        /* Mostra il bottone hamburger */
     }
 
     .nav-links,
     .login-section {
-        display: none; /* Nasconde gli elementi per fare spazio */
+        display: none;
+        /* Nasconde gli elementi per fare spazio */
         width: 100%;
         flex-direction: column;
         text-align: center;
@@ -1468,9 +1652,20 @@ hr {
         padding-top: 20px;
     }
 
+    .login-section .buttons {
+        display: flex;
+        align-items: center;
+        /* Centratura verticale automatica */
+        gap: 15px;
+        /* Un po' più di respiro tra bottoni e link */
+        margin-top: 10px;
+        flex-wrap: wrap;
+    }
+
     .navbar.active .nav-links,
     .navbar.active .login-section {
-        display: flex; /* Li mostra quando clicchi sull'hamburger */
+        display: flex;
+        /* Li mostra quando clicchi sull'hamburger */
     }
 
     #logged-in-area {
@@ -1486,7 +1681,8 @@ hr {
 
     .inputs input {
         width: 100%;
-        max-width: 300px; /* Evita che i form siano giganti su iPad */
+        max-width: 300px;
+        /* Evita che i form siano giganti su iPad */
         text-align: center;
     }
 
@@ -1509,7 +1705,8 @@ hr {
     /* --- Fix Footer per tutti i Tablet e Smartphone --- */
     .custom-footer .row {
         flex-direction: column;
-        text-align: center !important; /* L'!important vince sulla regola di Bootstrap */
+        text-align: center !important;
+        /* L'!important vince sulla regola di Bootstrap */
         align-items: center;
     }
 
@@ -1615,7 +1812,8 @@ hr {
         flex-direction: column;
     }
 
-    .tec-1, .tec-2 {
+    .tec-1,
+    .tec-2 {
         width: 100%;
         align-items: center;
     }
@@ -1634,58 +1832,72 @@ hr {
         padding: 0 10px;
     }
 
-    .partners-grid { gap: 30px; }
-    .partner-logo { max-height: 35px; }
+    .partners-grid {
+        gap: 30px;
+    }
+
+    .partner-logo {
+        max-height: 35px;
+    }
 }
+
 /* --- DASHBOARD RESPONSIVE AREA PERSONALE (TABLET) --- */
-    .info-card {
-        padding: 20px; /* Riduciamo il padding interno */
-        margin-bottom: 20px;
-    }
+.info-card {
+    padding: 20px;
+    /* Riduciamo il padding interno */
+    margin-bottom: 20px;
+}
 
-    .custom-table th, 
-    .custom-table td {
-        padding: 12px 10px; /* Stringiamo le celle per far stare più dati */
-        font-size: 0.85rem;
-    }
-    /* --- DASHBOARD RESPONSIVE AREA PERSONALE (MOBILE) --- */
-    .dashboard-main {
-        padding-top: 20px;
-    }
+.custom-table th,
+.custom-table td {
+    padding: 12px 10px;
+    /* Stringiamo le celle per far stare più dati */
+    font-size: 0.85rem;
+}
 
-    .info-card {
-        text-align: center; /* Centriamo i testi dei messaggi di benvenuto */
-        border-left: none;
-        border-top: 5px solid var(--accent-mint); /* Spostiamo il bordo colorato in alto */
-    }
+/* --- DASHBOARD RESPONSIVE AREA PERSONALE (MOBILE) --- */
+.dashboard-main {
+    padding-top: 20px;
+}
 
-    /* Rendiamo la tabella scorrevole lateralmente */
-    .table-container {
-        overflow-x: auto; /* Permette lo swipe laterale se la tabella è larga */
-        -webkit-overflow-scrolling: touch;
-    }
+.info-card {
+    text-align: center;
+    /* Centriamo i testi dei messaggi di benvenuto */
+    border-left: none;
+    border-top: 5px solid var(--accent-mint);
+    /* Spostiamo il bordo colorato in alto */
+}
 
-    .custom-table {
-        min-width: 600px; /* Forza la tabella a mantenere una larghezza minima per non schiacciare i testi */
-    }
+/* Rendiamo la tabella scorrevole lateralmente */
+.table-container {
+    overflow-x: auto;
+    /* Permette lo swipe laterale se la tabella è larga */
+    -webkit-overflow-scrolling: touch;
+}
 
-    .status-badge {
-        font-size: 0.75rem;
-        padding: 3px 8px;
-    }
+.custom-table {
+    min-width: 600px;
+    /* Forza la tabella a mantenere una larghezza minima per non schiacciare i testi */
+}
 
-    /* Centriamo il pulsante di logout su mobile */
-    .btn-logout-red {
-        width: 100%;
-        max-width: 300px;
-        margin: 0 auto;
-        display: block;
-    }
-    
-    .empty-state {
-        padding: 20px 10px;
-    }
-    /* Stile specifico per l'input file nel form candidatura AREA PERSONALE*/
+.status-badge {
+    font-size: 0.75rem;
+    padding: 3px 8px;
+}
+
+/* Centriamo il pulsante di logout su mobile */
+.btn-logout-red {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    display: block;
+}
+
+.empty-state {
+    padding: 20px 10px;
+}
+
+/* Stile specifico per l'input file nel form candidatura AREA PERSONALE*/
 #work-cv::-webkit-file-upload-button {
     background: var(--primary-blue);
     color: white;
@@ -1705,10 +1917,12 @@ hr {
 /* Responsività per la sezione candidatura */
 @media (max-width: 768px) {
     .booking-form-grid {
-        grid-template-columns: 1fr !important; /* Forza una colonna sola su mobile */
+        grid-template-columns: 1fr !important;
+        /* Forza una colonna sola su mobile */
     }
-    
+
     #recruitment-form .btn-conferma {
-        width: 100%; /* Il tasto occupa tutta la larghezza su smartphone */
+        width: 100%;
+        /* Il tasto occupa tutta la larghezza su smartphone */
     }
 }

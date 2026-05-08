@@ -45,9 +45,11 @@
                     <input type="email" id="username" placeholder="Email" required>
                     <input type="password" id="password" placeholder="Password" required>
                 </div>
+
                 <div class="buttons">
-                    <button type="submit" id="btn-login" class="custom-btn custom-primary">Accedi</button>
-                    <button type="button" id="btn-register" class="custom-btn custom-secondary">Registrati</button>
+                    <button type="submit" class="custom-btn custom-primary" id="btn-login">Accedi</button>
+                    <button type="button" class="custom-btn custom-secondary" id="btn-register">Registrati</button>
+                    <a href="#" id="forgot-pwd-link" class="forgot-link">Password dimenticata?</a>
                 </div>
             </form>
 
@@ -250,11 +252,18 @@
             </details>
             <details class="faq-item reveal from-right">
                 <summary>I trattamenti odontoiatrici sono dolorosi?</summary>
-                <p>Assolutamente no. Il comfort del paziente è la nostra massima priorità. Utilizziamo tecniche all'avanguardia e anestesie locali di ultima generazione per garantire che ogni seduta sia indolore e rilassante. Il nostro team è specializzato nel mettere a proprio agio anche i pazienti più timorosi.</p>
+                <p>Assolutamente no. Il comfort del paziente è la nostra massima priorità. Utilizziamo tecniche
+                    all'avanguardia e anestesie locali di ultima generazione per garantire che ogni seduta sia indolore
+                    e rilassante. Il nostro team è specializzato nel mettere a proprio agio anche i pazienti più
+                    timorosi.</p>
             </details>
             <details class="faq-item reveal from-left">
                 <summary>Ogni quanto tempo è consigliato fare un controllo e la pulizia dei denti?</summary>
-                <p>In generale, consigliamo di effettuare una visita di controllo e una seduta di igiene dentale professionale ogni 6 mesi. Tuttavia, questa frequenza può variare in base alle tue specifiche esigenze cliniche: ad esempio, se porti l'apparecchio ortodontico o soffri di infiammazioni gengivali, potremmo concordare richiami più ravvicinati. La prevenzione regolare è il modo migliore, e meno costoso, per mantenere il tuo sorriso sano e bello nel tempo!</p>
+                <p>In generale, consigliamo di effettuare una visita di controllo e una seduta di igiene dentale
+                    professionale ogni 6 mesi. Tuttavia, questa frequenza può variare in base alle tue specifiche
+                    esigenze cliniche: ad esempio, se porti l'apparecchio ortodontico o soffri di infiammazioni
+                    gengivali, potremmo concordare richiami più ravvicinati. La prevenzione regolare è il modo migliore,
+                    e meno costoso, per mantenere il tuo sorriso sano e bello nel tempo!</p>
             </details>
         </section>
     </main>
@@ -293,6 +302,20 @@
     </footer>
 
     <script src="assets/js/main.js"></script>
+
+    <div id="forgot-password-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <span class="close-modal" id="close-modal">&times;</span>
+            <h3 style="color: var(--primary-blue); margin-top: 0;">Password dimenticata?</h3>
+            <p style="font-size: 0.95rem; color: var(--text-muted);">Inserisci l'email con cui ti sei registrato. Ti
+                invieremo le istruzioni per reimpostare la password.</p>
+            <form id="forgot-password-form">
+                <input type="email" id="reset-email" placeholder="La tua email" required class="modal-input">
+                <button type="submit" class="custom-btn custom-primary"
+                    style="width: 100%; margin-top: 15px; padding: 10px;">Invia link di recupero</button>
+            </form>
+        </div>
+    </div>
 </body>
 
 </html>

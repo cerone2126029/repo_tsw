@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conferma Account - Studio Dentistico CGJ</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="reset-page">
+
+    <main class="reset-container">
+        <div class="reset-box">
+            <h2 style="color: var(--primary-blue); margin-bottom: 10px;">Email Verificata! ✅</h2>
+            <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 0.9rem;">
+                Il tuo account è stato sbloccato. Effettua l'accesso per iniziare a operare sul sito.
+            </p>
+            
+            <form id="confirm-login-form">
+                <input type="email" id="confirm-email" class="reset-input" placeholder="La tua email" required>
+                <input type="password" id="confirm-pwd" class="reset-input" placeholder="La tua password" required>
+                <button type="submit" class="custom-btn custom-primary" style="width: 100%; margin-top: 10px;">Accedi e Inizia</button>
+            </form>
+            
+            <p id="status-msg" style="margin-top: 15px; font-weight: bold; font-size: 0.9rem;"></p>
+        </div>
+    </main>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

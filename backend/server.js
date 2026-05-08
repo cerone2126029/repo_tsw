@@ -15,18 +15,23 @@ const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+// ==========================================
 // 1. ROTTA: REGISTRAZIONE UTENTE
+// ==========================================
 app.post('/api/register', async (req, res) => {
     const { email, password } = req.body;
 
-    // Chiama l'autenticazione di Supabase
     const { data, error } = await supabase.auth.signUp({
         email: email,
         password: password,
+        options: {
+            // Mettiamo il link alla nuova pagina di conferma
+            emailRedirectTo: 'http://127.0.0.1:5500/frontend/conferma-registrazione.html'
+        }
     });
 
     if (error) return res.status(400).json({ error: error.message });
-    res.status(201).json({ message: 'Registrazione completata!' });
+    res.status(201).json({ message: 'Ti abbiamo inviato un\'email! Clicca sul link contenuto per attivare il tuo account.' });
 });
 
 // ==========================================
@@ -40,11 +45,20 @@ app.post('/api/login', async (req, res) => {
         password: password,
     });
 
-    if (error) return res.status(401).json({ error: 'Credenziali errate' });
+    if (error) {
+        // Se l'errore è specifico sulla mail non confermata
+        if (error.message.includes("Email not confirmed")) {
+            return res.status(401).json({ error: 'Devi prima confermare la tua email per accedere!' });
+        }
+        return res.status(401).json({ error: 'Email o password errati' });
+    }
+    
     res.status(200).json({ message: 'Login effettuato', user: data.user.email });
 });
 
+// ==========================================
 // 3. ROTTA: CREA PRENOTAZIONE
+// ==========================================
 app.post('/api/prenotazioni', async (req, res) => {
     const { email, dataVisita, oraVisita, motivo } = req.body;
 
@@ -74,7 +88,9 @@ app.post('/api/prenotazioni', async (req, res) => {
     res.status(201).json({ message: 'Prenotazione confermata con successo!' });
 });
 
-// --- ROTTA PER LEGGERE LE PRENOTAZIONI DELL'UTENTE ---
+// ==========================================
+// 4. ROTTA: LEGGI PRENOTAZIONI UTENTE
+// ==========================================
 app.get('/api/prenotazioni', async (req, res) => {
     const emailUtente = req.query.email;
 
@@ -86,7 +102,7 @@ app.get('/api/prenotazioni', async (req, res) => {
     const { data, error } = await supabase
         .from('prenotazioni')
         .select('*')
-        .eq('user_email', emailUtente); // Assicurati che la colonna si chiami così nel tuo database
+        .eq('user_email', emailUtente);
 
     if (error) {
         return res.status(500).json({ error: error.message });
@@ -95,13 +111,15 @@ app.get('/api/prenotazioni', async (req, res) => {
     res.status(200).json(data);
 });
 
-// --- ROTTA: INSERISCI UNA NUOVA RECENSIONE ---
+// ==========================================
+// 5. ROTTA: INSERISCI NUOVA RECENSIONE
+// ==========================================
 app.post('/api/recensioni', async (req, res) => {
-    // Estraiamo i dati in arrivo dal frontend
-    const { user_mail, data, valutazione, messaggio } = req.body;
+    // Estraiamo i dati in arrivo dal frontend (corretto in user_email!)
+    const { user_email, data, valutazione, messaggio } = req.body;
 
     // Controllo di sicurezza base
-    if (!user_mail || !data || !valutazione || !messaggio) {
+    if (!user_email || !data || !valutazione || !messaggio) {
         return res.status(400).json({ error: 'Tutti i campi sono obbligatori' });
     }
 
@@ -109,11 +127,11 @@ app.post('/api/recensioni', async (req, res) => {
     const { error } = await supabase
         .from('recensioni')
         .insert([
-            { 
-                user_mail: user_mail, 
-                data: data, 
-                valutazione: valutazione, 
-                messaggio: messaggio 
+            {
+                user_email: user_email,
+                data: data,
+                valutazione: valutazione,
+                messaggio: messaggio
             }
         ]);
 
@@ -125,7 +143,9 @@ app.post('/api/recensioni', async (req, res) => {
     res.status(200).json({ message: 'Recensione salvata con successo!' });
 });
 
-// --- ROTTA: OTTIENI TUTTE LE RECENSIONI ---
+// ==========================================
+// 6. ROTTA: OTTIENI TUTTE LE RECENSIONI
+// ==========================================
 app.get('/api/recensioni', async (req, res) => {
     // Chiediamo a Supabase tutti i campi della tabella 'recensioni'
     const { data, error } = await supabase
@@ -142,7 +162,103 @@ app.get('/api/recensioni', async (req, res) => {
     res.status(200).json(data);
 });
 
-// AVVIO DEL SERVER (Con il trucco per lo smartphone)
+// ==========================================
+// 7. ROTTA: INVIA LINK RECUPERO PASSWORD
+// ==========================================
+app.post('/api/recupero-password', async (req, res) => {
+    const { email } = req.body;
+
+    if (!email) {
+        return res.status(400).json({ error: "L'email è obbligatoria." });
+    }
+
+    try {
+        // Chiediamo a Supabase di inviare l'email di reset
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+            // Indirizzo della pagina dove l'utente atterrerà dopo aver cliccato il link nell'email
+            redirectTo: 'http://127.0.0.1:5500/frontend/imposta-password.html',
+        });
+
+        if (error) {
+            return res.status(400).json({ error: error.message });
+        }
+
+        // Risposta di successo
+        res.json({ message: "Link di recupero inviato correttamente." });
+    } catch (err) {
+        console.error("Errore server:", err);
+        res.status(500).json({ error: "Errore interno del server." });
+    }
+});
+
+// ==========================================
+// 8. ROTTA: SALVA LA NUOVA PASSWORD
+// ==========================================
+app.post('/api/aggiorna-password', async (req, res) => {
+    const { access_token, refresh_token, new_password } = req.body;
+
+    if (!access_token || !new_password) {
+        return res.status(400).json({ error: "Dati mancanti per l'aggiornamento." });
+    }
+
+    try {
+        // 1. Accediamo temporaneamente come se fossimo l'utente che ha cliccato il link
+        const { error: sessionError } = await supabase.auth.setSession({
+            access_token: access_token,
+            refresh_token: refresh_token
+        });
+
+        if (sessionError) throw sessionError;
+
+        // 2. Aggiorniamo la password
+        const { error: updateError } = await supabase.auth.updateUser({
+            password: new_password
+        });
+
+        if (updateError) throw updateError;
+
+        // 3. "Slogghiamo" l'utente dal server per pulire la sessione ed evitare accavallamenti
+        await supabase.auth.signOut();
+
+        // 4. Diamo l'ok al sito web
+        res.json({ message: "Password aggiornata con successo." });
+
+    } catch (err) {
+        console.error("Errore salvataggio password:", err);
+        res.status(400).json({ error: "Impossibile aggiornare la password. Il link potrebbe essere scaduto." });
+    }
+});
+
+// ==========================================
+// 9. ROTTA: COMPLETA PROFILO (NOME E COGNOME)
+// ==========================================
+app.post('/api/completa-registrazione', async (req, res) => {
+    const { access_token, refresh_token, full_name } = req.body;
+
+    try {
+        // 1. Validiamo la sessione arrivata dal link
+        const { error: sessionError } = await supabase.auth.setSession({
+            access_token: access_token,
+            refresh_token: refresh_token
+        });
+        if (sessionError) throw sessionError;
+
+        // 2. Aggiorniamo i metadati dell'utente con il nome completo
+        const { error: updateError } = await supabase.auth.updateUser({
+            data: { full_name: full_name }
+        });
+        if (updateError) throw updateError;
+
+        res.json({ message: "Profilo aggiornato con successo." });
+    } catch (err) {
+        console.error("Errore completamento profilo:", err);
+        res.status(400).json({ error: "Impossibile completare la registrazione." });
+    }
+});
+
+// ==========================================
+// AVVIO DEL SERVER
+// ==========================================
 const PORT = process.env.PORT || 3000;
 const HOST = '0.0.0.0';
 

@@ -19,7 +19,7 @@
         </div>
 
         <nav class="nav-links">
-            <a href="chi-siamo.html">Chi Siamo</a>
+            <a href="chi-siamo.html">Chi siamo</a>
             
             <!-- MENU A TENDINA TRATTAMENTI -->
             <div class="dropdown">
@@ -41,12 +41,14 @@
         <div class="login-section" id="user-area">
             <form id="auth-form">
                 <div class="inputs">
-                    <input type="text" id="username" placeholder="Username" required>
+                    <input type="email" id="username" placeholder="Email" required>
                     <input type="password" id="password" placeholder="Password" required>
                 </div>
+
                 <div class="buttons">
-                    <button type="submit" id="btn-login" class="custom-btn custom-primary">Accedi</button>
-                    <button type="button" id="btn-register" class="custom-btn custom-secondary">Registrati</button>
+                    <button type="submit" class="custom-btn custom-primary" id="btn-login">Accedi</button>
+                    <button type="button" class="custom-btn custom-secondary" id="btn-register">Registrati</button>
+                    <a href="#" id="forgot-pwd-link" class="forgot-link">Password dimenticata?</a>
                 </div>
             </form>
             <div id="logged-in-area" style="display: none;">
@@ -262,6 +264,17 @@
     </footer>
 
     <script src="assets/js/main.js"></script>
+    <div id="forgot-password-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+        <span class="close-modal" id="close-modal">×</span>
+        <h3 style="color: var(--primary-blue); margin-top: 0;">Password dimenticata?</h3>
+        <p style="font-size: 0.95rem; color: var(--text-muted);">Inserisci l'email con cui ti sei registrato. Ti invieremo le istruzioni per reimpostare la password.</p>
+        <form id="forgot-password-form">
+            <input type="email" id="reset-email" placeholder="La tua email" required class="modal-input">
+            <button type="submit" class="custom-btn custom-primary" style="width: 100%; margin-top: 15px; padding: 10px;">Invia link di recupero</button>
+        </form>
+    </div>
+</div>
 </body>
 
 </html>

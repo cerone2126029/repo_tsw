@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
     // --- HIGHLIGHT PAGINA ATTIVA ---
-    // Capisce su che pagina sei (es. "chi-siamo.html") e le assegna la classe "active-link"
     const currentPage = window.location.pathname.split("/").pop() || "home.html";
     const navLinksElems = document.querySelectorAll(".nav-links a");
     navLinksElems.forEach(link => {
@@ -63,9 +62,23 @@ document.addEventListener("DOMContentLoaded", () => {
         btnRegister.onclick = async () => {
             if (!usernameInput.value || !passwordInput.value) return alert("Inserisci email e password.");
             try {
-                const res = await fetch(`${API_URL}/register`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: usernameInput.value, password: passwordInput.value }) });
+                const res = await fetch(`${API_URL}/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: usernameInput.value, password: passwordInput.value })
+                });
+
                 const data = await res.json();
-                alert(res.ok ? "Registrato con successo! Ora puoi accedere." : "Errore: " + data.error);
+
+                if (res.ok) {
+                    // Mostra il messaggio del server (Ti abbiamo inviato un'email...)
+                    alert(data.message);
+                    // Pulisce i campi per comodità
+                    usernameInput.value = '';
+                    passwordInput.value = '';
+                } else {
+                    alert("Errore: " + data.error);
+                }
             } catch (err) { alert("Server backend non raggiungibile."); }
         };
     }
@@ -196,14 +209,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const recensioni = Array.from(document.querySelectorAll(".card-recensione"));
 
             if (valore === "recenti") {
-                // Ordina dalla data più vecchia alla più nuova
                 recensioni.sort((a, b) => getTimeValue(b) - getTimeValue(a));
             } else if (valore === "valutazione") {
-                // Ordina per stelle dalla più alta alla più bassa
                 recensioni.sort((a, b) => getStars(b) - getStars(a));
             }
 
-            // Riappende le card in ordine (Senza doverle ricaricare dal database)
             recensioni.forEach(rec => container.appendChild(rec));
         });
     }
@@ -248,7 +258,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        user_mail: currentUser,
+                        user_email: currentUser,
                         data: dataOdierna,
                         valutazione: stars,
                         messaggio: text
@@ -279,35 +289,31 @@ document.addEventListener("DOMContentLoaded", () => {
                 const recensioni = await response.json();
 
                 // ==========================================
-                // NUOVO BLOCCO: CALCOLO STATISTICHE BARRE
+                // CALCOLO STATISTICHE BARRE
                 // ==========================================
                 const totaleRecensioniEl = document.getElementById("totale-recensioni");
                 if (totaleRecensioniEl) {
                     const totale = recensioni.length;
-                    totaleRecensioniEl.textContent = totale; // Aggiorna il numero totale
+                    totaleRecensioniEl.textContent = totale;
 
-                    // Prepariamo i contatori per ogni stella
                     let conteggioStelle = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
 
-                    // Contiamo quante recensioni ci sono per ogni valutazione
                     recensioni.forEach(rec => {
                         if (conteggioStelle[rec.valutazione] !== undefined) {
                             conteggioStelle[rec.valutazione]++;
                         }
                     });
 
-                    // Calcoliamo le percentuali e aggiorniamo l'HTML
                     for (let i = 1; i <= 5; i++) {
                         const bar = document.getElementById(`bar-${i}`);
                         const percentText = document.getElementById(`percent-${i}`);
-                        
+
                         let percentuale = 0;
                         if (totale > 0) {
                             percentuale = Math.round((conteggioStelle[i] / totale) * 100);
                         }
 
                         if (bar && percentText) {
-                            // setTimeout serve a far partire la fluidità dell'animazione CSS
                             setTimeout(() => {
                                 bar.style.width = `${percentuale}%`;
                                 percentText.textContent = `${percentuale}%`;
@@ -325,14 +331,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     return;
                 }
 
-                reviewsContainer.innerHTML = ""; // Svuota il contenitore
+                reviewsContainer.innerHTML = "";
 
                 recensioni.forEach(rec => {
                     const stelle = "⭐".repeat(rec.valutazione);
-                    const nomeUtente = rec.user_email.split('@')[0]; // Prende la prima parte dell'email
+                    const nomeUtente = rec.user_email.split('@')[0];
                     const dataFormattata = new Date(rec.data).toLocaleDateString('it-IT');
 
-                    // Stampa diretta della card: niente testi tagliati e niente bottoni!
                     const cardHTML = `
                         <div class="card-recensione">
                             <div class="nome">${nomeUtente}</div>
@@ -350,68 +355,198 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        loadReviews(); // Lancia la funzione appena apri la pagina
+        loadReviews();
+    }
+
+    // --- 11. GESTIONE RECUPERO PASSWORD (POPUP + RESET) ---
+    // GESTIONE POPUP (Nella Home)
+    const forgotPwdLink = document.getElementById("forgot-pwd-link");
+    const forgotPwdModal = document.getElementById("forgot-password-modal");
+    const closeModalBtn = document.getElementById("close-modal");
+    const forgotForm = document.getElementById("forgot-password-form");
+    const loginEmailInput = document.getElementById("username"); // L'input email del login
+    const resetEmailInput = document.getElementById("reset-email"); // L'input email del popup
+
+    if (forgotPwdLink && forgotPwdModal) {
+        forgotPwdLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            forgotPwdModal.style.display = "flex";
+            if (loginEmailInput && loginEmailInput.value) {
+                resetEmailInput.value = loginEmailInput.value;
+            }
+        });
+
+        if (closeModalBtn) {
+            closeModalBtn.addEventListener("click", () => forgotPwdModal.style.display = "none");
+        }
+
+        window.addEventListener("click", (e) => {
+            if (e.target === forgotPwdModal) forgotPwdModal.style.display = "none";
+        });
+
+        if (forgotForm) {
+            forgotForm.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const emailToReset = resetEmailInput.value;
+                try {
+                    const res = await fetch(`${API_URL}/recupero-password`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email: emailToReset })
+                    });
+
+                    const data = await res.json();
+
+                    if (res.ok) {
+                        alert("Se l'email è registrata, riceverai a breve un link di ripristino.");
+                        forgotPwdModal.style.display = "none";
+                    } else {
+                        alert("Errore: " + data.error);
+                    }
+                } catch (err) { alert("Errore di connessione al server."); }
+            });
+        }
+    }
+
+    // GESTIONE FORM DI RESET (Nella pagina imposta-password.html)
+    const newPwdForm = document.getElementById('new-password-form');
+    if (newPwdForm) {
+        newPwdForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const pwd1 = document.getElementById('pwd1').value;
+            const pwd2 = document.getElementById('pwd2').value;
+            const msgEl = document.getElementById('status-msg');
+
+            if (pwd1 !== pwd2) {
+                msgEl.style.color = 'red';
+                msgEl.textContent = 'Le password non coincidono!';
+                return;
+            }
+
+            const hash = window.location.hash.substring(1);
+            const params = new URLSearchParams(hash);
+            const accessToken = params.get("access_token");
+            const refreshToken = params.get("refresh_token");
+
+            try {
+                const res = await fetch(`${API_URL}/aggiorna-password`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        access_token: accessToken,
+                        refresh_token: refreshToken,
+                        new_password: pwd1
+                    })
+                });
+
+                if (res.ok) {
+                    msgEl.style.color = 'green';
+                    msgEl.textContent = '✅ Password aggiornata! Reindirizzamento...';
+                    setTimeout(() => window.location.href = 'home.html', 3000);
+                } else {
+                    msgEl.style.color = 'red';
+                    msgEl.textContent = 'Errore: Link scaduto o non valido.';
+                }
+            } catch (err) { alert("Errore di connessione al server."); }
+        });
+    }
+
+    // --- 12. GESTIONE INVIO CANDIDATURE ---
+    const formRecruitment = document.getElementById('recruitment-form');
+    if (formRecruitment) {
+        formRecruitment.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const nome = document.getElementById('work-name').value;
+            const cognome = document.getElementById('work-surname').value;
+            const email = document.getElementById('work-email').value;
+            const file = document.getElementById('work-cv').files[0];
+
+            if (!file) {
+                alert("Per favore, seleziona un file PDF per il tuo CV.");
+                return;
+            }
+
+            try {
+                // Caricamento nello Storage
+                const nomeFile = `${Date.now()}_${nome}_${cognome}.pdf`;
+                const { data: uploadData, error: uploadError } = await window.supabaseClient.storage
+                    .from('curriculums')
+                    .upload(nomeFile, file);
+
+                if (uploadError) throw uploadError;
+
+                // Ottenimento URL
+                const { data: linkData } = window.supabaseClient.storage.from('curriculums').getPublicUrl(nomeFile);
+                const publicUrl = linkData.publicUrl;
+
+                // Salvataggio nel Database
+                const { error: dbError } = await window.supabaseClient
+                    .from('candidature')
+                    .insert([{ nome, cognome, email, cv_url: publicUrl }]);
+
+                if (dbError) throw dbError;
+
+                alert("Candidatura inviata con successo! Ti contatteremo presto.");
+                formRecruitment.reset();
+
+            } catch (err) {
+                console.error("Errore completo:", err);
+                alert("Errore durante l'invio: " + (err.message || "riprova più tardi"));
+            }
+        });
+    }
+// --- 13. GESTIONE LOGIN DA PAGINA DI CONFERMA ---
+    const confirmLoginForm = document.getElementById('confirm-login-form');
+    if (confirmLoginForm) {
+        confirmLoginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('confirm-email').value;
+            const password = document.getElementById('confirm-pwd').value;
+            const msgEl = document.getElementById('status-msg');
+
+            try {
+                // Usiamo la TUA rotta di login standard!
+                const res = await fetch(`${API_URL}/login`, { 
+                    method: 'POST', 
+                    headers: { 'Content-Type': 'application/json' }, 
+                    body: JSON.stringify({ email: email, password: password }) 
+                });
+                
+                const data = await res.json();
+                
+                if (res.ok) {
+                    msgEl.style.color = 'green';
+                    msgEl.textContent = '✅ Accesso effettuato! Reindirizzamento in corso...';
+                    
+                    // Salviamo l'utente in sessione proprio come nel login normale
+                    sessionStorage.setItem("activeUser", email); 
+                    
+                    // Lo rimandiamo alla home dopo un secondo
+                    setTimeout(() => window.location.href = 'home.html', 1500);
+                } else {
+                    msgEl.style.color = 'red';
+                    // Se sbaglia a scrivere, gli diamo errore
+                    msgEl.textContent = "Errore: " + data.error; 
+                }
+            } catch (err) { 
+                msgEl.style.color = 'red';
+                msgEl.textContent = 'Errore di connessione al server.'; 
+            }
+        });
     }
 });
-
 // --- FUNZIONI GLOBALI (Fuori dal DOMContentLoaded) ---
 
-// Funzione per leggere le stelle dal tag "data-val"
 function getStars(recensione) {
     const starEl = recensione.querySelector(".star");
     return starEl ? parseInt(starEl.getAttribute("data-val")) || 0 : 0;
 }
 
-// Funzione per leggere la data esatta dal tag "data-date"
 function getTimeValue(recensione) {
     const timeEl = recensione.querySelector(".time");
     if (!timeEl) return 0;
     const dateStr = timeEl.getAttribute("data-date");
     return new Date(dateStr).getTime();
-}
-// --- GESTIONE INVIO CANDIDATURE ---
-const formRecruitment = document.getElementById('recruitment-form');
-
-if (formRecruitment) {
-    formRecruitment.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const nome = document.getElementById('work-name').value;
-        const cognome = document.getElementById('work-surname').value;
-        const email = document.getElementById('work-email').value;
-        const file = document.getElementById('work-cv').files[0];
-
-        if (!file) {
-            alert("Per favore, seleziona un file PDF per il tuo CV.");
-            return;
-        }
-
-        try {
-            // Caricamento nello Storage
-            const nomeFile = `${Date.now()}_${nome}_${cognome}.pdf`;
-            const { data: uploadData, error: uploadError } = await window.supabaseClient.storage
-                .from('curriculums')
-                .upload(nomeFile, file);
-
-            if (uploadError) throw uploadError;
-
-            // Ottenimento URL
-            const { data: linkData } = window.supabaseClient.storage.from('curriculums').getPublicUrl(nomeFile);
-            const publicUrl = linkData.publicUrl;
-
-            // Salvataggio nel Database
-            const { error: dbError } = await window.supabaseClient
-                .from('candidature')
-                .insert([{ nome, cognome, email, cv_url: publicUrl }]);
-
-            if (dbError) throw dbError;
-
-            alert("Candidatura inviata con successo! Ti contatteremo presto.");
-            formRecruitment.reset();
-
-        } catch (err) {
-            console.error("Errore completo:", err);
-            alert("Errore durante l'invio: " + (err.message || "riprova più tardi"));
-        }
-    });
 }
