@@ -817,10 +817,29 @@ section.fade-in {
     text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
     margin-bottom: 15px;
     letter-spacing: -1px;
+    /*animazione fade in dall' alto*/
+    opacity: 0;
+    transform: translateY(-50px);
+    transition: all 1s ease;
 }
+
+.hero-recensioni h2.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 
 .hero-recensioni h2 strong {
     font-weight: 800;
+}
+.hero-recensioni p{
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 1s ease;
+}
+.hero-recensioni p.active {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* Card delle singole recensioni */
@@ -1028,6 +1047,7 @@ label[for="ordina"] {
     margin-bottom: 15px;
     text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
     letter-spacing: -1px;
+
 }
 
 .hero-consigli .container h2 strong {
@@ -1040,6 +1060,10 @@ label[for="ordina"] {
     max-width: 800px;
     margin: 0 auto;
     /* Lo centra se il testo va su più righe */
+
+}
+.hero-consigli .container {
+    transform: translateY(-40px);
 }
 
 /* CONTAINER GENERALE */
@@ -1106,7 +1130,18 @@ label[for="ordina"] {
 }
 
 /* --- NUOVE AGGIUNTE PER CONSIGLI --- */
-
+/*sistemo didascalia " i nostri consigli per una prevenzione efficace */
+.didascalia-prevenzione {
+    color: var(--primary-blue);
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    /*text-transform: uppercase;*/
+    line-height: 1.2; /*evito cosi che le due righe si sovrappongono*/
+    margin-bottom: 15px;
+    
+}
+/**/
 .checklist-box {
     border-radius: 15px;
     background-color: #f8f9fa;
@@ -1116,7 +1151,161 @@ label[for="ordina"] {
     margin-bottom: 10px;
     font-size: 1.1rem;
 }
+/*sezione warning*/
+/* --- SEZIONE "QUANDO VENIRE DA NOI" (consigli.html) --- */
 
+/* Contenitore generale della sezione */
+.warning {
+    max-width: 900px;          
+    margin: 40px auto 20px auto; /* centra la sezione e aggiunge spazio sopra e sotto */
+    padding: 0 20px;           /* spazio laterale su mobile */
+    text-align: center;
+}
+
+.warning h5 {
+    color: var(--primary-blue); /*  blu principale */
+    font-weight: 800;
+    font-size: 1.8rem;          
+    letter-spacing: -0.5px;     
+    margin-bottom: 10px;
+}
+
+.warning p {
+    color: var(--text-muted);   /* grigio già definito */
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 650px;
+    margin: 0 auto;             /* centra il paragrafo */
+}
+
+/* La box con la lista */
+.warning-box {
+    max-width: 900px;
+    margin: 0 auto 60px auto;   /* centra e aggiunge spazio sotto */
+    padding: 30px;
+    background-color: var(--white);
+    border-radius: 12px;        /* stesso valore delle .card-consiglio */
+    box-shadow: var(--shadow-soft); /* la tua ombra leggera */
+
+}
+
+/* Titolo dentro la box */
+.legenda-segnali {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.leg-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.leg-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.dot-urgente { background-color: #dc3545; }
+.dot-avviso  { background-color: #fd7e14; }
+
+.warning-title {
+    color: var(--primary-blue);
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-bottom: 20px;
+}
+.signal-list li {
+    padding: 12px 15px;
+    border-radius: 10px;
+    transition: all 0.25s ease;
+}
+/* Contenitore testo */
+.segnale-warning {
+    display: flex;
+    flex-direction: column; /* metto in questo modo gli elementi in verticale */
+    gap: 5px;
+}
+
+/* Titolo */
+.segnale-warning h6 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+}
+
+/* Paragrafo */
+.segnale-warning p {
+    margin: 0;
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+
+
+/* Azzera gli stili di default del browser sulla lista */
+/*.signal-list {
+    list-style: none; /* rimuove i pallini default */
+  /*  padding: 0;       /* rimuove il padding default del <ul> */
+   /* margin: 0;        /* rimuove il margin default del <ul> */
+/*}
+
+/* Ogni voce della lista */
+.signal-list li {
+    padding: 12px 0;
+    border-bottom: 1px solid #eee; /* linea separatrice leggera tra le voci */
+    font-size: 0.95rem;
+    color: var(--text-main);       /* il tuo colore testo principale */
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+    gap: 10px;                     /* spazio tra l'icona/pallino e il testo */
+}
+
+/* Toglie il bordo all'ultima voce */
+.signal-list li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+/* Pallino rosso per le voci urgenti */
+.signal-list li.danger::before {
+    content: "";               /* crea un elemento vuoto prima del testo */
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;        /* lo rende cerchio */
+    background-color: #dc3545; /* rosso */
+    flex-shrink: 0;            /* non si restringe mai */
+}
+
+/* Pallino arancione per le voci di avviso */
+.signal-list li.avviso::before {
+    content: "";
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background-color: #fd7e14; /* arancione */
+    flex-shrink: 0;
+}
+.signal-list li:hover {
+    background-color: #f1f6ff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 64, 133, 0.08);
+}
+
+/*fine sezione warning*/
 /* Stile Tabella */
 .table thead {
     background: var(--primary-blue);
@@ -1135,6 +1324,7 @@ label[for="ordina"] {
 .card-consiglio:hover .card-image {
     transform: scale(1.1) rotate(5deg);
 }
+
 
 /*fine css card consigli */
 
@@ -1717,6 +1907,31 @@ hr {
     .custom-footer p {
         margin-left: 0 !important;
     }
+    /*resposive box warning*/
+        .warning {
+        margin: 35px auto 15px auto;
+        padding: 0 18px;
+    }
+
+    .warning h5 {
+        font-size: 1.6rem;
+    }
+
+    .warning p {
+        font-size: 0.95rem;
+        max-width: 600px;
+    }
+
+    .warning-box {
+        padding: 25px;
+    }
+
+    .signal-list li {
+        font-size: 0.92rem;
+        padding: 12px 10px;
+    }
+
+    /**/
 }
 
 /* --- RESPONSIVE MOBILE (da 768px in giù) --- */
@@ -1840,6 +2055,43 @@ hr {
         max-height: 35px;
     }
 }
+/*box warning responsive*/
+    .warning {
+        margin: 30px auto 10px auto;
+    }
+
+    .warning h5 {
+        font-size: 1.4rem;
+    }
+
+    .warning p {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        padding: 0 10px;
+    }
+
+    .warning-box {
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .warning-title {
+        font-size: 1rem;
+    }
+
+    .signal-list li {
+        font-size: 0.9rem;
+        padding: 12px 8px;
+        gap: 8px;
+    }
+
+    .legenda-segnali {
+        font-size: 0.75rem;
+        gap: 10px;
+    }
+
+
+/**/
 
 /* --- DASHBOARD RESPONSIVE AREA PERSONALE (TABLET) --- */
 .info-card {
@@ -1913,6 +2165,9 @@ hr {
 #work-cv::-webkit-file-upload-button:hover {
     background: var(--dark-blue);
 }
+
+
+
 
 /* Responsività per la sezione candidatura */
 @media (max-width: 768px) {

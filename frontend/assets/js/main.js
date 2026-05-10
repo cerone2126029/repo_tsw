@@ -550,3 +550,17 @@ function getTimeValue(recensione) {
     const dateStr = timeEl.getAttribute("data-date");
     return new Date(dateStr).getTime();
 }
+// -- animazione fade in della pagina recensione--
+window.addEventListener("load", () => {
+    document.querySelector(".hero-recensioni h2")
+        .classList.add("active");
+});
+
+// -- animazione dal basso per p della hero recensione --
+window.addEventListener("load", () => {
+    document.querySelector(".hero-recensioni h2")
+        .classList.add("active");
+
+    document.querySelector(".hero-recensioni p")
+        .classList.add("active");
+});
