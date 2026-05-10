@@ -542,21 +542,21 @@ section.fade-in {
 }
 
 /* animazione per test e immagini sezione storia e studio*/
-.fade-in {
+/*.fade-in {
     opacity: 0;
     /* no testo dopo metto la sua po. iniz e appare nel tempo specificato nella transition */
-    transform: translateY(40px);
+  /*  transform: translateY(40px);
     transition: opacity 0.8s ease, transform 0.8s ease;
     will-change: opacity, transform;
     /* ottimizzo animazione */
-}
+/*}
 
 /* questo e la situazione finale ovvero quadno il testo appare dopo l animazione */
-.fade-in.show {
+/*.fade-in.show {
     opacity: 1;
     /*qui il testo diventa visibile e nell' istante dopo torna nella posizone normale */
-    transform: translateY(0);
-}
+  /*  transform: translateY(0);
+/*}
 
 /* sezione filosofia*/
 .fil-container {
@@ -818,21 +818,21 @@ section.fade-in {
     margin-bottom: 15px;
     letter-spacing: -1px;
     /*animazione fade in dall' alto*/
-    opacity: 0;
+    /*opacity: 0;
     transform: translateY(-50px);
-    transition: all 1s ease;
+    transition: all 1s ease;*/
 }
 
-.hero-recensioni h2.active {
+/*.hero-recensioni h2.active {
     opacity: 1;
     transform: translateY(0);
-}
+}*/
 
 
 .hero-recensioni h2 strong {
     font-weight: 800;
 }
-.hero-recensioni p{
+/*.hero-recensioni p{
     opacity: 0;
     transform: translateY(50px);
     transition: all 1s ease;
@@ -840,7 +840,7 @@ section.fade-in {
 .hero-recensioni p.active {
     opacity: 1;
     transform: translateY(0);
-}
+} */
 
 /* Card delle singole recensioni */
 .s-container {
@@ -1558,6 +1558,14 @@ hr {
 .from-right {
     transform: translateX(100px);
 }
+/*animazioni verticali*/
+.from-top{
+    transform: translateY(-100px);
+}
+.from-bottom{
+    transform: translateY(100px);
+}
+/*fine animazioni verticali*/
 
 /* Stato finale: visibile e in posizione originale */
 .reveal.active {
