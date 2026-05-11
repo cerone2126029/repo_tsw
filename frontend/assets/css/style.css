@@ -14,7 +14,6 @@
 
 html {
     scroll-behavior: smooth;
-    /* Rende lo scorrimento verso l'ancora fluido e non a scatto */
 }
 
 body {
@@ -87,7 +86,6 @@ main {
     color: rgba(255, 255, 255, 0.85);
     font-weight: 500;
     font-size: 0.95rem;
-    display: inline-block;
     transition: 0.2s ease;
 }
 
@@ -96,13 +94,12 @@ main {
     transform: scale(1.08) translateY(-2px);
 }
 
-/* La classe che accende il link della pagina attiva */
 .nav-links a.active-link {
     color: var(--white) !important;
     font-weight: 700;
 }
 
-/* --- MENU A TENDINA (DROPDOWN) --- */
+/* --- MENU DROPDOWN --- */
 .dropdown {
     position: relative;
     display: inline-block;
@@ -130,11 +127,9 @@ main {
 .dropdown-content a {
     color: var(--primary-blue) !important;
     padding: 10px 20px;
-    text-decoration: none;
     display: block;
-    font-size: 0.95rem;
     font-weight: 500;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s ease;
     transform: none !important;
 }
 
@@ -155,7 +150,7 @@ main {
     }
 }
 
-/* --- LOGIN E AREA UTENTE --- */
+/* --- LOGIN FORMS --- */
 #auth-form {
     display: flex;
     flex-direction: column;
@@ -190,8 +185,11 @@ main {
 
 .buttons {
     display: flex;
-    gap: 6px;
+    gap: 12px;
     justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
 }
 
 .custom-btn {
@@ -230,6 +228,21 @@ main {
 
 .custom-danger:hover {
     color: #ff6b6b;
+}
+
+.forgot-link {
+    font-size: 0.75rem;
+    color: var(--accent-mint);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    margin-top: 4px;
+    line-height: 1;
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+    opacity: 0.8;
 }
 
 #logged-in-area {
@@ -278,7 +291,7 @@ main {
     letter-spacing: -0.5px;
 }
 
-/* --- SEZIONE PRENOTAZIONE (HOME) --- */
+/* --- HOME: HERO & BOOKING --- */
 .hero-section {
     background-image: linear-gradient(to bottom, rgba(0, 64, 133, 0.85), rgba(0, 46, 96, 0.95)), url('../img/background-home.jpg');
     background-size: cover;
@@ -379,7 +392,7 @@ main {
     box-shadow: 0 8px 20px rgba(32, 201, 151, 0.25);
 }
 
-/* --- EQUIPE (HOME) --- */
+/* --- HOME: EQUIPE --- */
 .team-scroll {
     display: flex;
     gap: 25px;
@@ -439,40 +452,47 @@ main {
     margin-top: 6px;
 }
 
-/* --- ANIMAZIONI CHI SIAMO --- */
+/* --- HOME: PARTNER E TECNOLOGIE --- */
+.partners-section {
+    background-color: var(--white);
+    padding: 50px 20px;
+    margin: 0 auto 60px auto;
+    max-width: 1100px;
+    width: 92%;
+    border-radius: 20px;
+    box-shadow: var(--shadow-hover);
+    overflow: hidden;
+}
+
+.partners-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.partner-logo {
+    max-height: 45px;
+    max-width: 160px;
+    object-fit: contain;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    opacity: 1 !important;
+    filter: none !important;
+}
+
+.partner-logo:hover {
+    transform: scale(1.08);
+}
+
+/* --- CHI SIAMO --- */
 #rotating-words {
     font-weight: bold;
 }
 
-.fade-in {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 0.8s ease-out;
-}
-
-.fade-in.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-section.fade-in {
-    display: flex;
-    gap: 40px;
-    align-items: center;
-}
-
-.text {
-    width: 60%;
-}
-
-.images {
-    width: 40%;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-/* --- HERO CHI SIAMO --- */
 .hero-chisiamo {
     background-image: linear-gradient(rgba(0, 46, 96, 0.7), rgba(0, 46, 96, 0.7)), url('../img/studio8.webp');
     background-size: cover;
@@ -487,8 +507,6 @@ section.fade-in {
     margin-bottom: 10px;
 }
 
-/* css per sezione studio e storia  */
-/* --- SEZIONE STUDIO (CHI SIAMO) --- */
 .section-studio {
     display: flex;
     gap: 50px;
@@ -499,7 +517,6 @@ section.fade-in {
     padding: 40px 20px;
 }
 
-/* TESTO SEMPLICE (NO BOX) */
 .left-noi {
     flex: 1;
 }
@@ -511,7 +528,6 @@ section.fade-in {
     line-height: 1.8;
 }
 
-/* IMMAGINI */
 .right-noi {
     flex: 1;
     display: flex;
@@ -519,13 +535,12 @@ section.fade-in {
     gap: 20px;
 }
 
-/* CARD IMMAGINI */
 .im {
     width: 50%;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: var(--shadow-soft);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: 0.3s ease;
     background: var(--white);
 }
 
@@ -541,24 +556,6 @@ section.fade-in {
     box-shadow: var(--shadow-hover);
 }
 
-/* animazione per test e immagini sezione storia e studio*/
-/*.fade-in {
-    opacity: 0;
-    /* no testo dopo metto la sua po. iniz e appare nel tempo specificato nella transition */
-  /*  transform: translateY(40px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-    will-change: opacity, transform;
-    /* ottimizzo animazione */
-/*}
-
-/* questo e la situazione finale ovvero quadno il testo appare dopo l animazione */
-/*.fade-in.show {
-    opacity: 1;
-    /*qui il testo diventa visibile e nell' istante dopo torna nella posizone normale */
-  /*  transform: translateY(0);
-/*}
-
-/* sezione filosofia*/
 .fil-container {
     background-image: linear-gradient(rgba(0, 0, 0, 0.90), rgba(0, 20, 40, 0.8)), url('../img/sfondo_dent.jpg');
     background-size: cover;
@@ -572,12 +569,8 @@ section.fade-in {
     justify-content: center;
     text-align: center;
     margin-bottom: 60px;
-    /*ho aggiunto margine tra immagine sezione filosofia e il titolo (h2) nostri valori */
 }
 
-/* fine sezione filosofia */
-
-/* --- SEZIONE VALORI --- */
 .container-valori {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -585,7 +578,6 @@ section.fade-in {
     padding: 0 20px;
 }
 
-/* CARD SINGOLA */
 .card-valore {
     background: var(--white);
     border-radius: 12px;
@@ -597,13 +589,11 @@ section.fade-in {
     overflow: hidden;
 }
 
-/* EFFETTO HOVER (coerente con il resto del sito) */
 .card-valore:hover {
     transform: translateY(-8px);
     box-shadow: var(--shadow-hover);
 }
 
-/* LINEA COLORATA SOTTO  */
 .card-valore::after {
     content: "";
     position: absolute;
@@ -620,7 +610,6 @@ section.fade-in {
     transform: scaleX(1);
 }
 
-/* TESTO VALORE */
 .valore {
     font-size: 1.2rem;
     font-weight: 700;
@@ -628,9 +617,6 @@ section.fade-in {
     letter-spacing: 0.5px;
 }
 
-/* fine codice css delle card dei valori*/
-
-/* --- SEZIONE tecnologie - chi siamo --- */
 .section-tec {
     padding: 40px 20px;
 }
@@ -643,35 +629,21 @@ section.fade-in {
 .tec-div {
     display: flex;
     gap: 30px;
-    /* spazio tra le due colonne */
 }
 
-/* ogni colonna */
-.tec-1 {
-    flex: 1;
-    /* colonne uguali */
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    /* spazio tra gli elem */
-}
-
+.tec-1,
 .tec-2 {
     flex: 1;
-    /* colonne uguali */
     display: flex;
     flex-direction: column;
     gap: 15px;
-    /* spazio tra gli elem */
 }
 
-/* singolo elemento */
 .elem {
     padding: 15px;
     border-radius: 10px;
 }
 
-/* titolo tecnologia */
 .elem h4 {
     margin: 0 0 8px 0;
     color: var(--primary-blue);
@@ -679,7 +651,6 @@ section.fade-in {
     font-size: 1.1rem;
 }
 
-/* descrizione */
 .elem p {
     margin: 0;
     color: var(--text-main);
@@ -693,9 +664,32 @@ section.fade-in {
     object-fit: contain;
 }
 
-/*fine sezione tecnologie- chi siamo */
+/* --- TRATTAMENTI --- */
+.hero-trattamenti {
+    background-image: linear-gradient(rgba(0, 46, 96, 0.7), rgba(0, 46, 96, 0.7)), url('../img/team.avif');
+    background-size: cover;
+    background-position: center;
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
 
-/* --- SEZIONE TRATTAMENTI --- */
+.hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.hero-content p {
+    font-size: 1.1rem;
+    opacity: 1;
+    max-width: 600px;
+    margin: 0 auto;
+    font-weight: 300;
+}
+
 .treatment-section {
     padding: 60px 20px;
 }
@@ -718,7 +712,6 @@ section.fade-in {
 .treatment-card,
 .sezione-trattamento {
     scroll-margin-top: 100px;
-    /* Lascia spazio in alto per la navbar quando si salta all'ancora */
 }
 
 .treatment-card {
@@ -760,7 +753,6 @@ section.fade-in {
     line-height: 1.5;
 }
 
-/* Call to Action finale */
 .treatment-cta {
     background: var(--white);
     border-radius: 12px;
@@ -770,33 +762,7 @@ section.fade-in {
     border-left: 5px solid var(--accent-mint);
 }
 
-/* --- HERO TRATTAMENTI --- */
-.hero-trattamenti {
-    background-image: linear-gradient(rgba(0, 46, 96, 0.7), rgba(0, 46, 96, 0.7)), url('../img/team.avif');
-    background-size: cover;
-    background-position: center;
-    height: 50vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-}
-
-.hero-content h1 {
-    font-size: 3.5rem;
-    font-weight: 800;
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
-}
-
-.hero-content p {
-    font-size: 1.1rem;
-    opacity: 1;
-    max-width: 600px;
-    margin: 0 auto;
-    font-weight: 300;
-}
-
-/* --- RECENSIONI E STATISTICHE --- */
+/* --- RECENSIONI --- */
 .hero-recensioni {
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../img/studio2.jpg');
     background-size: cover;
@@ -817,32 +783,12 @@ section.fade-in {
     text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
     margin-bottom: 15px;
     letter-spacing: -1px;
-    /*animazione fade in dall' alto*/
-    /*opacity: 0;
-    transform: translateY(-50px);
-    transition: all 1s ease;*/
 }
-
-/*.hero-recensioni h2.active {
-    opacity: 1;
-    transform: translateY(0);
-}*/
-
 
 .hero-recensioni h2 strong {
     font-weight: 800;
 }
-/*.hero-recensioni p{
-    opacity: 0;
-    transform: translateY(50px);
-    transition: all 1s ease;
-}
-.hero-recensioni p.active {
-    opacity: 1;
-    transform: translateY(0);
-} */
 
-/* Card delle singole recensioni */
 .s-container {
     max-width: 1000px;
     margin: 0 auto;
@@ -894,38 +840,13 @@ section.fade-in {
     font-size: 0.8rem;
 }
 
-.card-recensione button {
-    border: none;
-    background: var(--accent-mint);
-    color: var(--white);
-    padding: 8px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    transition: 0.3s;
-}
-
-.card-recensione button:hover {
-    background: var(--accent-hover);
-}
-
-.full-c {
-    display: none;
-    margin-top: 10px;
-    font-size: 0.9rem;
-    color: var(--text-muted);
-}
-
-/* Filtro Ordina Recensioni */
 #ordina {
     margin-top: 10px;
     margin-bottom: 25px;
     padding: 8px 12px;
     border-radius: 8px;
     border: 1px solid #ccc;
-    background-color: #fff;
     font-size: 14px;
-    transition: all 0.2s ease;
     cursor: pointer;
 }
 
@@ -936,17 +857,6 @@ label[for="ordina"] {
     color: var(--primary-blue);
 }
 
-#ordina:hover {
-    border-color: var(--primary-blue);
-}
-
-#ordina:focus {
-    outline: none;
-    border-color: var(--primary-blue);
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
-}
-
-/* Sezione Riepilogo e Barre (Recensioni) */
 .richiesta {
     text-align: center;
     color: var(--primary-blue);
@@ -954,13 +864,6 @@ label[for="ordina"] {
     font-size: 1.8rem;
     margin-bottom: 20px;
     letter-spacing: 0.5px;
-    line-height: 1.3;
-    padding: 0 20px;
-}
-
-.votaz {
-    text-align: center;
-    margin-bottom: 40px;
 }
 
 .riepilogo-affiancato {
@@ -976,17 +879,6 @@ label[for="ordina"] {
 .col-left {
     flex: 1;
     color: var(--primary-blue);
-    font-family: sans-serif;
-}
-
-.col-left h3 {
-    font-size: 1.8rem;
-    margin-bottom: 10px;
-}
-
-.col-left p {
-    font-size: 1rem;
-    color: var(--text-main);
 }
 
 .col-right {
@@ -1023,9 +915,37 @@ label[for="ordina"] {
     text-align: right;
 }
 
-/* card consigli css */
-/* HERO */
-/* Questa è la sezione esterna che comanda lo sfondo */
+.radio-rating-group {
+    display: flex;
+    gap: 30px;
+    margin: 20px 0;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.radio-label {
+    display: flex !important;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.6rem !important;
+    font-weight: 700;
+    color: var(--primary-blue);
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.radio-label:hover {
+    transform: scale(1.1);
+}
+
+.radio-label input[type="radio"] {
+    width: 22px;
+    height: 22px;
+    accent-color: var(--accent-mint);
+}
+
+/* --- CONSIGLI --- */
 .hero-consigli {
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../img/ddd.jpg');
     background-size: cover;
@@ -1033,53 +953,31 @@ label[for="ordina"] {
     height: 60vh;
     display: flex;
     align-items: center;
-    /* Centra verticalmente il container */
     justify-content: center;
-    /* Centra orizzontalmente il container */
     text-align: center;
     color: var(--white);
 }
 
-/* Applichiamo lo stile del font all'H2 che sta dentro il container */
 .hero-consigli .container h2 {
     font-weight: 800;
     font-size: 3.5rem;
     margin-bottom: 15px;
     text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
     letter-spacing: -1px;
-
 }
 
-.hero-consigli .container h2 strong {
-    font-weight: 800;
-}
-
-/* Per rimpicciolire il paragrafo sottostante */
 .hero-consigli .container p {
     font-size: 1.2rem;
     max-width: 800px;
     margin: 0 auto;
-    /* Lo centra se il testo va su più righe */
-
-}
-.hero-consigli .container {
-    transform: translateY(-40px);
 }
 
-/* CONTAINER GENERALE */
-.container-consigli {
-    margin: 0 auto;
-    padding: 20px;
-}
-
-/* GRID CARD */
 .container-card-consigli {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 25px;
 }
 
-/* SINGOLA CARD */
 .card-consiglio {
     background: var(--white);
     border-radius: 12px;
@@ -1089,15 +987,15 @@ label[for="ordina"] {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
+    overflow: hidden;
 }
 
-/* HOVER come le recensioni */
 .card-consiglio:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-hover);
 }
 
-/* linea colorata sotto la card  */
 .card-consiglio::after {
     content: "";
     position: absolute;
@@ -1107,41 +1005,28 @@ label[for="ordina"] {
     height: 4px;
     background: var(--accent-mint);
     transform: scaleX(0);
-    transition: transform 0.3s ease;
+    transition: 0.3s ease;
 }
 
-/* quando passo con il mosu la linea verde si espande da sinistra a destra */
 .card-consiglio:hover::after {
     transform: scaleX(1);
 }
 
-/* TITOLO */
 .card-consiglio h2 {
     color: var(--primary-blue);
     font-size: 1.2rem;
     margin-bottom: 10px;
 }
 
-/* TESTO */
-.card-consiglio p {
-    font-size: 0.95rem;
-    color: var(--text-main);
-    line-height: 1.5;
-}
-
-/* --- NUOVE AGGIUNTE PER CONSIGLI --- */
-/*sistemo didascalia " i nostri consigli per una prevenzione efficace */
 .didascalia-prevenzione {
     color: var(--primary-blue);
     font-size: 1.8rem;
     font-weight: 800;
     letter-spacing: -0.5px;
-    /*text-transform: uppercase;*/
-    line-height: 1.2; /*evito cosi che le due righe si sovrappongono*/
+    line-height: 1.2;
     margin-bottom: 15px;
-    
 }
-/**/
+
 .checklist-box {
     border-radius: 15px;
     background-color: #f8f9fa;
@@ -1151,45 +1036,40 @@ label[for="ordina"] {
     margin-bottom: 10px;
     font-size: 1.1rem;
 }
-/*sezione warning*/
-/* --- SEZIONE "QUANDO VENIRE DA NOI" (consigli.html) --- */
 
-/* Contenitore generale della sezione */
+/* --- CONSIGLI: WARNING --- */
 .warning {
-    max-width: 900px;          
-    margin: 40px auto 20px auto; /* centra la sezione e aggiunge spazio sopra e sotto */
-    padding: 0 20px;           /* spazio laterale su mobile */
+    max-width: 900px;
+    margin: 40px auto 20px auto;
+    padding: 0 20px;
     text-align: center;
 }
 
 .warning h5 {
-    color: var(--primary-blue); /*  blu principale */
+    color: var(--primary-blue);
     font-weight: 800;
-    font-size: 1.8rem;          
-    letter-spacing: -0.5px;     
+    font-size: 1.8rem;
+    letter-spacing: -0.5px;
     margin-bottom: 10px;
 }
 
 .warning p {
-    color: var(--text-muted);   /* grigio già definito */
+    color: var(--text-muted);
     font-size: 1rem;
     line-height: 1.6;
     max-width: 650px;
-    margin: 0 auto;             /* centra il paragrafo */
+    margin: 0 auto;
 }
 
-/* La box con la lista */
 .warning-box {
     max-width: 900px;
-    margin: 0 auto 60px auto;   /* centra e aggiunge spazio sotto */
+    margin: 0 auto 60px auto;
     padding: 30px;
     background-color: var(--white);
-    border-radius: 12px;        /* stesso valore delle .card-consiglio */
-    box-shadow: var(--shadow-soft); /* la tua ombra leggera */
-
+    border-radius: 12px;
+    box-shadow: var(--shadow-soft);
 }
 
-/* Titolo dentro la box */
 .legenda-segnali {
     display: flex;
     gap: 20px;
@@ -1214,8 +1094,13 @@ label[for="ordina"] {
     flex-shrink: 0;
 }
 
-.dot-urgente { background-color: #dc3545; }
-.dot-avviso  { background-color: #fd7e14; }
+.dot-urgente {
+    background-color: #dc3545;
+}
+
+.dot-avviso {
+    background-color: #fd7e14;
+}
 
 .warning-title {
     color: var(--primary-blue);
@@ -1223,19 +1108,53 @@ label[for="ordina"] {
     font-size: 1.05rem;
     margin-bottom: 20px;
 }
+
 .signal-list li {
     padding: 12px 15px;
     border-radius: 10px;
     transition: all 0.25s ease;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
-/* Contenitore testo */
+
+.signal-list li:last-child {
+    border-bottom: none;
+}
+
+.signal-list li.danger::before {
+    content: "";
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background-color: #dc3545;
+    flex-shrink: 0;
+}
+
+.signal-list li.avviso::before {
+    content: "";
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background-color: #fd7e14;
+    flex-shrink: 0;
+}
+
+.signal-list li:hover {
+    background-color: #f1f6ff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 64, 133, 0.08);
+}
+
 .segnale-warning {
     display: flex;
-    flex-direction: column; /* metto in questo modo gli elementi in verticale */
+    flex-direction: column;
     gap: 5px;
 }
 
-/* Titolo */
 .segnale-warning h6 {
     margin: 0;
     font-size: 1rem;
@@ -1243,96 +1162,138 @@ label[for="ordina"] {
     color: var(--primary-blue);
 }
 
-/* Paragrafo */
-.segnale-warning p {
-    margin: 0;
-    font-size: 0.92rem;
-    color: var(--text-muted);
-    line-height: 1.5;
-}
-
-
-
-/* Azzera gli stili di default del browser sulla lista */
-/*.signal-list {
-    list-style: none; /* rimuove i pallini default */
-  /*  padding: 0;       /* rimuove il padding default del <ul> */
-   /* margin: 0;        /* rimuove il margin default del <ul> */
-/*}
-
-/* Ogni voce della lista */
-.signal-list li {
-    padding: 12px 0;
-    border-bottom: 1px solid #eee; /* linea separatrice leggera tra le voci */
-    font-size: 0.95rem;
-    color: var(--text-main);       /* il tuo colore testo principale */
-    line-height: 1.5;
-    display: flex;
-    align-items: center;
-    gap: 10px;                     /* spazio tra l'icona/pallino e il testo */
-}
-
-/* Toglie il bordo all'ultima voce */
-.signal-list li:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-}
-
-/* Pallino rosso per le voci urgenti */
-.signal-list li.danger::before {
-    content: "";               /* crea un elemento vuoto prima del testo */
-    display: inline-block;
-    width: 11px;
-    height: 11px;
-    border-radius: 50%;        /* lo rende cerchio */
-    background-color: #dc3545; /* rosso */
-    flex-shrink: 0;            /* non si restringe mai */
-}
-
-/* Pallino arancione per le voci di avviso */
-.signal-list li.avviso::before {
-    content: "";
-    display: inline-block;
-    width: 11px;
-    height: 11px;
-    border-radius: 50%;
-    background-color: #fd7e14; /* arancione */
-    flex-shrink: 0;
-}
-.signal-list li:hover {
-    background-color: #f1f6ff;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 64, 133, 0.08);
-}
-
-/*fine sezione warning*/
-/* Stile Tabella */
-.table thead {
-    background: var(--primary-blue);
-    color: white;
-}
-
-.table-responsive {
-    border: 1px solid #dee2e6;
-}
-
-/* Fix per le immagini nelle card */
-.card-image {
-    transition: transform 0.3s ease;
-}
-
-.card-consiglio:hover .card-image {
-    transform: scale(1.1) rotate(5deg);
-}
-
-
-/*fine css card consigli */
-
-/* --- AREA PERSONALE & CONSIGLI --- */
+/* --- AREA PERSONALE (DASHBOARD) --- */
 .dashboard-main {
     padding-top: 40px;
 }
 
+.title-left {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.dashboard-subtitle {
+    color: var(--primary-blue);
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.center-cta {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.work-with-us-section {
+    margin-top: 60px;
+}
+
+.text-muted-desc {
+    color: var(--text-muted);
+    margin-bottom: 25px;
+}
+
+/* Profilo Area Personale */
+.profile-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 25px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    max-width: 100%;
+    /* Blocca la larghezza */
+    box-sizing: border-box;
+    overflow: hidden;
+    /* Nasconde gli eccessi */
+}
+
+.profile-user-details {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    min-width: 0;
+    /* CRITICO: Permette al flexbox di restringersi */
+    flex: 1;
+}
+
+.profile-avatar {
+    width: 70px;
+    height: 70px;
+    background: var(--primary-blue);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    font-weight: 800;
+    box-shadow: 0 4px 10px rgba(0, 64, 133, 0.15);
+    flex-shrink: 0;
+}
+
+.profile-text {
+    min-width: 0;
+    /* CRITICO per forzare l'a capo */
+    width: 100%;
+}
+
+.profile-text h4 {
+    margin: 0;
+    color: var(--primary-blue);
+    font-weight: 800;
+    font-size: 1.4rem;
+    /* La combo magica per tagliare le mail lunghe */
+    overflow-wrap: anywhere;
+    word-break: break-all;
+    white-space: normal;
+}
+
+.profile-text p {
+    margin: 5px 0 0 0;
+    color: #888;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    /* Manda a capo anche questo se serve */
+}
+
+.verified-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--accent-mint);
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.status-pill {
+    background: #fdfdfd;
+    border: 1px solid #eee;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.status-pill small {
+    display: block;
+    color: #aaa;
+    text-transform: uppercase;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.status-pill span {
+    color: var(--accent-mint);
+    font-weight: 700;
+}
+
+/* Tabelle e Card Dashboard */
 .info-card {
     background: var(--white);
     border-radius: 12px;
@@ -1340,11 +1301,6 @@ label[for="ordina"] {
     box-shadow: var(--shadow-soft);
     margin-bottom: 30px;
     border-left: 5px solid var(--accent-mint);
-}
-
-.info-card h3 {
-    color: var(--primary-blue);
-    margin-top: 0;
 }
 
 .table-container {
@@ -1383,12 +1339,6 @@ label[for="ordina"] {
     font-weight: 600;
 }
 
-.empty-state {
-    text-align: center;
-    padding: 40px;
-    color: var(--text-muted);
-}
-
 .btn-logout-red {
     background-color: #ff6b6b;
     color: white;
@@ -1404,14 +1354,37 @@ label[for="ordina"] {
     background-color: #fa5252;
 }
 
-/* --- FAQ CON FRECCIA ANIMATA --- */
+.btn-book-more {
+    text-decoration: none;
+    display: inline-block;
+    width: auto;
+    padding: 15px 40px;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(32, 201, 151, 0.3);
+}
+
+.file-input {
+    padding: 10px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    width: 100%;
+    border-radius: 8px;
+}
+
+.form-submit-right {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* --- FAQ E MODALI --- */
 .faq-item {
     margin-bottom: 15px;
     background-color: var(--white);
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: 0.3s ease;
 }
 
 .faq-item summary {
@@ -1420,15 +1393,9 @@ label[for="ordina"] {
     color: var(--primary-blue);
     padding: 20px;
     list-style: none;
-    outline: none;
-    font-size: 1.05rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.faq-item summary::-webkit-details-marker {
-    display: none;
 }
 
 .faq-item summary::after {
@@ -1449,223 +1416,6 @@ label[for="ordina"] {
     margin: 0;
 }
 
-/* --- HERO CONSIGLI --- */
-.hero-consigli {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../img/paziente.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
-    padding: 40px;
-    text-align: center;
-    color: var(--white);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-/* --- FOOTER --- */
-.custom-footer {
-    background-color: var(--primary-blue);
-    color: rgba(255, 255, 255, 0.85);
-    padding: 40px 0 15px 0;
-    margin-top: auto;
-    font-size: 0.85rem;
-    border-top: 4px solid var(--dark-blue);
-}
-
-.custom-footer h5 {
-    color: var(--white);
-    font-weight: 700;
-    font-size: 1rem;
-    margin-bottom: 15px;
-    text-transform: uppercase;
-}
-
-.custom-footer a {
-    color: rgba(255, 255, 255, 0.85);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.custom-footer a:hover {
-    color: var(--accent-mint);
-}
-
-hr {
-    margin: 15px 0;
-    border-color: rgba(255, 255, 255, 0.3);
-}
-
-/* --- SISTEMA A STELLE CON PALLINI (AGGIORNATO E CENTRATO) --- */
-.radio-rating-group {
-    display: flex;
-    gap: 30px;
-    /* Aumentato lo spazio tra le opzioni */
-    margin: 20px 0;
-    /* Spazio sopra e sotto */
-    align-items: center;
-    justify-content: center;
-    /* ACCENTRA LE STELLE */
-    flex-wrap: wrap;
-}
-
-.radio-label {
-    display: flex !important;
-    align-items: center;
-    gap: 10px;
-    /* Spazio tra stella e pallino */
-    font-size: 1.6rem !important;
-    /* STELLE PIÙ GRANDI */
-    font-weight: 700;
-    color: var(--primary-blue);
-    cursor: pointer;
-    margin: 0 !important;
-    text-transform: none !important;
-    transition: transform 0.2s ease;
-}
-
-.radio-label:hover {
-    transform: scale(1.1);
-    /* Effetto leggero ingrandimento al passaggio */
-}
-
-/* Rende i pallini (radio buttons) più grandi e visibili */
-.radio-label input[type="radio"] {
-    width: 22px;
-    height: 22px;
-    cursor: pointer;
-    margin: 0;
-    display: inline-block !important;
-    accent-color: var(--accent-mint);
-}
-
-/* --- ANIMAZIONI DI ENTRATA --- */
-
-/* Stato iniziale: invisibile */
-.reveal {
-    opacity: 0;
-    transition: all 1s ease-out;
-    pointer-events: none;
-    /* Evita interazioni prima dell'animazione */
-}
-
-/* Direzioni di provenienza */
-.from-left {
-    transform: translateX(-100px);
-}
-
-.from-right {
-    transform: translateX(100px);
-}
-/*animazioni verticali*/
-.from-top{
-    transform: translateY(-100px);
-}
-.from-bottom{
-    transform: translateY(100px);
-}
-/*fine animazioni verticali*/
-
-/* Stato finale: visibile e in posizione originale */
-.reveal.active {
-    opacity: 1;
-    transform: translateX(0);
-    pointer-events: auto;
-}
-
-/* --- CASI CLINICI (PRIMA E DOPO) --- */
-.caso-card {
-    background: var(--white);
-    border-radius: 15px;
-    box-shadow: var(--shadow-soft);
-    transition: all 0.3s ease;
-    overflow: hidden;
-    /* Arrotonda anche gli angoli delle immagini */
-    height: 100%;
-}
-
-.caso-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-hover);
-}
-
-.badge-prima,
-.badge-dopo {
-    color: var(--white);
-    padding: 4px 10px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    border-radius: 6px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    z-index: 2;
-    /* Mantiene l'etichetta sopra la foto */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-}
-
-.badge-prima {
-    background-color: #6c757d;
-    /* Grigio neutrale */
-}
-
-.badge-dopo {
-    background-color: var(--accent-mint);
-    /* Verde successo */
-}
-
-/* --- SEZIONE PARTNER E TECNOLOGIE (HOME) --- */
-.partners-section {
-    background-color: var(--white);
-    padding: 50px 20px;
-    margin: 0 auto 60px auto;
-    /* Centra la scatola e lascia spazio sotto */
-    max-width: 1100px;
-    /* Limita la larghezza per non farla espandere all'infinito */
-    width: 92%;
-    /* Su mobile garantisce che ci sia spazio ai lati dello schermo */
-
-    /* --- L'EFFETTO CORNICE --- */
-    /* border: 2px solid var(--primary-blue); Colore e spessore della cornice */
-    border-radius: 20px;
-    /* Angoli morbidamente arrotondati */
-    box-shadow: var(--shadow-hover);
-    /* Un'ombra più marcata per farla "sollevare" dal fondo */
-
-    overflow: hidden;
-    /* Evita scroll orizzontali durante le animazioni */
-}
-
-.partners-grid {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 60px;
-    /* Spazio tra i loghi */
-    flex-wrap: wrap;
-    /* Se lo schermo è piccolo, vanno a capo da soli */
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.partner-logo {
-    max-height: 45px;
-    max-width: 160px;
-    object-fit: contain;
-    transition: all 0.3s ease;
-    cursor: pointer;
-
-    /* Le due righe "nucleari" che forzano il colore originale */
-    opacity: 1 !important;
-    filter: none !important;
-}
-
-/* Magia: al passaggio del mouse torna a colori! */
-.partner-logo:hover {
-    transform: scale(1.08);
-}
-
-/* --- POPUP PASSWORD DIMENTICATA --- */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -1673,9 +1423,7 @@ hr {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 46, 96, 0.8);
-    /* Sfondo blu scuro semitrasparente */
     z-index: 2000;
-    /* Lo fa stare sopra a TUTTO il sito */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1704,51 +1452,6 @@ hr {
 
 .close-modal:hover {
     color: #ff6b6b;
-    /* Diventa rosso se ci passi sopra */
-}
-
-.modal-input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    margin-top: 15px;
-    font-family: inherit;
-    box-sizing: border-box;
-}
-
-/* --- POPUP E MODALI --- */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 46, 96, 0.8);
-    z-index: 2000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    background: var(--white);
-    padding: 30px;
-    border-radius: 12px;
-    max-width: 400px;
-    width: 90%;
-    position: relative;
-    box-shadow: var(--shadow-hover);
-    text-align: center;
-}
-
-.close-modal {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 1.8rem;
-    cursor: pointer;
-    color: var(--text-muted);
 }
 
 .modal-input {
@@ -1760,7 +1463,6 @@ hr {
     box-sizing: border-box;
 }
 
-/* --- PAGINA IMPOSTA PASSWORD --- */
 .reset-container {
     min-height: 100vh;
     display: flex;
@@ -1788,43 +1490,91 @@ hr {
     box-sizing: border-box;
 }
 
-/* Stile per il link "Password dimenticata?" */
-.forgot-link {
-    font-size: 0.75rem;
-    color: var(--accent-mint);
+/* --- REVEAL E ANIMAZIONI --- */
+.reveal {
+    opacity: 0;
+    transition: all 1s ease-out;
+    pointer-events: none;
+}
+
+.from-left {
+    transform: translateX(-100px);
+}
+
+.from-right {
+    transform: translateX(100px);
+}
+
+.from-top {
+    transform: translateY(-100px);
+}
+
+.from-bottom {
+    transform: translateY(100px);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translate(0);
+    pointer-events: auto;
+}
+
+/* --- FOOTER --- */
+.custom-footer {
+    background-color: var(--primary-blue);
+    color: rgba(255, 255, 255, 0.85);
+    padding: 40px 0 15px 0;
+    margin-top: auto;
+    font-size: 0.85rem;
+    border-top: 4px solid var(--dark-blue);
+}
+
+.custom-footer h5 {
+    color: var(--white);
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.custom-footer a {
+    color: rgba(255, 255, 255, 0.85);
     text-decoration: none;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-
-    /* TRUCCO PER LA CENTRATURA OTTICA */
-    margin-top: 4px;
-    /* Lo spingiamo leggermente verso il basso */
-    line-height: 1;
-    /* Riduce lo spazio invisibile sopra il testo */
+    transition: 0.3s ease;
 }
 
-.forgot-link:hover {
-    text-decoration: underline;
-    opacity: 0.8;
+.custom-footer a:hover {
+    color: var(--accent-mint);
 }
 
-#auth-form {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+.custom-footer hr {
+    margin: 15px 0;
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
-.login-section .buttons {
-    display: flex;
-    align-items: center;
-    /* Centratura verticale automatica */
-    gap: 15px;
-    /* Un po' più di respiro tra bottoni e link */
-    margin-top: 10px;
-    flex-wrap: wrap;
+.footer-indent {
+    margin-left: 24px;
 }
 
-/* --- MENU HAMBURGER (TABLET E SMARTPHONE fino a 1150px) --- */
+.font-weight-bold {
+    font-weight: bold;
+}
+
+.text-danger {
+    color: #ff6b6b;
+}
+
+.footer-copyright {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+}
+
+/* ==========================================================================
+   MEDIA QUERIES (Gestione per Tablet e Mobile)
+   ========================================================================== */
+
+/* --- TABLET E SMARTPHONE (fino a 1150px) --- */
 @media (max-width: 1150px) {
     .navbar {
         padding: 15px 20px;
@@ -1836,13 +1586,11 @@ hr {
 
     .menu-toggle {
         display: block;
-        /* Mostra il bottone hamburger */
     }
 
     .nav-links,
     .login-section {
         display: none;
-        /* Nasconde gli elementi per fare spazio */
         width: 100%;
         flex-direction: column;
         text-align: center;
@@ -1850,25 +1598,9 @@ hr {
         padding-top: 20px;
     }
 
-    .login-section .buttons {
-        display: flex;
-        align-items: center;
-        /* Centratura verticale automatica */
-        gap: 15px;
-        /* Un po' più di respiro tra bottoni e link */
-        margin-top: 10px;
-        flex-wrap: wrap;
-    }
-
     .navbar.active .nav-links,
     .navbar.active .login-section {
         display: flex;
-        /* Li mostra quando clicchi sull'hamburger */
-    }
-
-    #logged-in-area {
-        justify-content: center;
-        width: 100%;
     }
 
     .inputs {
@@ -1880,7 +1612,6 @@ hr {
     .inputs input {
         width: 100%;
         max-width: 300px;
-        /* Evita che i form siano giganti su iPad */
         text-align: center;
     }
 
@@ -1888,9 +1619,21 @@ hr {
         justify-content: center;
         margin-top: 5px;
     }
+
+    #logged-in-area {
+        justify-content: center;
+        width: 100%;
+    }
+
+    /* Area Personale: Navbar specifica */
+    .personal-nav {
+        align-items: center;
+        flex-direction: column;
+        gap: 15px;
+    }
 }
 
-/* --- RESPONSIVE LAYOUT (da 992px in giù) --- */
+/* --- TABLET PICCOLI (da 992px in giù) --- */
 @media (max-width: 992px) {
     .booking-form-grid {
         grid-template-columns: 1fr 1fr;
@@ -1900,11 +1643,22 @@ hr {
         font-size: 1.5rem;
     }
 
-    /* --- Fix Footer per tutti i Tablet e Smartphone --- */
+    /* Area Personale: Tabella e Card */
+    .info-card {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .custom-table th,
+    .custom-table td {
+        padding: 12px 10px;
+        font-size: 0.85rem;
+    }
+
+    /* Footer */
     .custom-footer .row {
         flex-direction: column;
         text-align: center !important;
-        /* L'!important vince sulla regola di Bootstrap */
         align-items: center;
     }
 
@@ -1912,11 +1666,13 @@ hr {
         margin-bottom: 25px;
     }
 
-    .custom-footer p {
+    .custom-footer p,
+    .footer-indent {
         margin-left: 0 !important;
     }
-    /*resposive box warning*/
-        .warning {
+
+    /* Consigli: Warning Box */
+    .warning {
         margin: 35px auto 15px auto;
         padding: 0 18px;
     }
@@ -1938,92 +1694,29 @@ hr {
         font-size: 0.92rem;
         padding: 12px 10px;
     }
-
-    /**/
 }
 
-/* --- RESPONSIVE MOBILE (da 768px in giù) --- */
+/* --- SMARTPHONE E DISPOSITIVI PICCOLI (da 768px in giù) --- */
 @media (max-width: 768px) {
+
+    /* Form e Griglie */
     .booking-form-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
     }
 
-    section.fade-in {
-        flex-direction: column;
-    }
-
-    .text,
-    .images {
-        width: 100%;
-    }
-
-    .riepilogo-affiancato {
-        flex-direction: column;
-        text-align: center;
-        align-items: stretch;
-    }
-
-    .col-left,
-    .col-right {
-        width: 100%;
-    }
-
-    .col-right {
-        margin-top: 20px;
-    }
-
-    .col-left h3 {
-        font-size: 1.8rem;
-    }
-
-    .bar-container {
-        margin: 0 5px;
-    }
-
-    .reveal.from-left {
-        text-align: center;
-    }
-
-    .reveal.from-left .reveal.from-right {
-        display: flex;
-        justify-content: center;
-    }
-
-    .hero-content h1,
-    .hero-recensioni h2,
-    .hero-consigli .container h2,
-    .hero-section h2 {
-        font-size: 2.4rem;
-    }
-
-    .hero-consigli h2 {
-        font-size: 1.5rem;
-    }
-
-    .checklist-box {
-        margin-top: 20px;
-    }
-
+    /* Chi Siamo */
+    section.fade-in,
     .section-studio {
         flex-direction: column;
         align-items: center;
         text-align: center;
-        gap: 30px;
-        padding: 30px 15px;
     }
 
+    .text,
+    .images,
     .left-noi,
     .right-noi {
         width: 100%;
-    }
-
-    .left-noi p {
-        font-size: 1rem;
-        line-height: 1.6;
-    }
-
-    .right-noi {
-        align-items: center;
     }
 
     .im {
@@ -2047,14 +1740,38 @@ hr {
         text-align: center;
     }
 
-    .hero-content p,
-    .hero-recensioni p,
-    .hero-consigli .container p,
-    .hero-section p {
-        font-size: 1rem;
-        padding: 0 10px;
+    /* Recensioni e Statistiche */
+    .riepilogo-affiancato {
+        flex-direction: column;
+        text-align: center;
+        align-items: stretch;
     }
 
+    .col-left,
+    .col-right {
+        width: 100%;
+    }
+
+    .col-right {
+        margin-top: 20px;
+    }
+
+    .col-left h3 {
+        font-size: 1.8rem;
+    }
+
+    .bar-container {
+        margin: 0 5px;
+    }
+
+    .hero-content h1,
+    .hero-recensioni h2,
+    .hero-consigli .container h2,
+    .hero-section h2 {
+        font-size: 2.4rem;
+    }
+
+    /* Partner */
     .partners-grid {
         gap: 30px;
     }
@@ -2062,8 +1779,8 @@ hr {
     .partner-logo {
         max-height: 35px;
     }
-}
-/*box warning responsive*/
+
+    /* Consigli: Warning Box */
     .warning {
         margin: 30px auto 10px auto;
     }
@@ -2074,17 +1791,12 @@ hr {
 
     .warning p {
         font-size: 0.9rem;
-        line-height: 1.5;
         padding: 0 10px;
     }
 
     .warning-box {
         padding: 20px;
         border-radius: 10px;
-    }
-
-    .warning-title {
-        font-size: 1rem;
     }
 
     .signal-list li {
@@ -2098,94 +1810,179 @@ hr {
         gap: 10px;
     }
 
+    /* --- DASHBOARD AREA PERSONALE (MOBILE) --- */
+    .dashboard-main {
+        padding-top: 20px;
+    }
 
-/**/
+    /* Profilo */
+    .profile-wrapper {
+        flex-direction: column;
+        text-align: center;
+        padding: 25px 15px;
+        width: 100%;
+        box-sizing: border-box;
+    }
 
-/* --- DASHBOARD RESPONSIVE AREA PERSONALE (TABLET) --- */
-.info-card {
-    padding: 20px;
-    /* Riduciamo il padding interno */
-    margin-bottom: 20px;
-}
+    .profile-user-details {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
 
-.custom-table th,
-.custom-table td {
-    padding: 12px 10px;
-    /* Stringiamo le celle per far stare più dati */
-    font-size: 0.85rem;
-}
+    .profile-text h4 {
+        font-size: 1.1rem;
+        line-height: 1.3;
+    }
 
-/* --- DASHBOARD RESPONSIVE AREA PERSONALE (MOBILE) --- */
-.dashboard-main {
-    padding-top: 20px;
-}
+    .profile-text p {
+        justify-content: center;
+    }
 
-.info-card {
-    text-align: center;
-    /* Centriamo i testi dei messaggi di benvenuto */
-    border-left: none;
-    border-top: 5px solid var(--accent-mint);
-    /* Spostiamo il bordo colorato in alto */
-}
+    .status-pill {
+        text-align: center;
+        width: 100%;
+        margin-top: 15px;
+        box-sizing: border-box;
+    }
 
-/* Rendiamo la tabella scorrevole lateralmente */
-.table-container {
-    overflow-x: auto;
-    /* Permette lo swipe laterale se la tabella è larga */
-    -webkit-overflow-scrolling: touch;
-}
+    /* Tabella Scrollabile */
+    .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
 
-.custom-table {
-    min-width: 600px;
-    /* Forza la tabella a mantenere una larghezza minima per non schiacciare i testi */
-}
+    .custom-table {
+        min-width: 600px;
+    }
 
-.status-badge {
-    font-size: 0.75rem;
-    padding: 3px 8px;
-}
+    .status-badge {
+        font-size: 0.75rem;
+        padding: 3px 8px;
+    }
 
-/* Centriamo il pulsante di logout su mobile */
-.btn-logout-red {
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
-    display: block;
-}
+    /* Form Candidatura */
+    .info-card {
+        border-left: none;
+        border-top: 5px solid var(--accent-mint);
+        text-align: center;
+    }
 
-.empty-state {
-    padding: 20px 10px;
-}
-
-/* Stile specifico per l'input file nel form candidatura AREA PERSONALE*/
-#work-cv::-webkit-file-upload-button {
-    background: var(--primary-blue);
-    color: white;
-    border: none;
-    padding: 5px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-right: 10px;
-    font-size: 0.8rem;
-    transition: 0.3s;
-}
-
-#work-cv::-webkit-file-upload-button:hover {
-    background: var(--dark-blue);
-}
-
-
-
-
-/* Responsività per la sezione candidatura */
-@media (max-width: 768px) {
-    .booking-form-grid {
-        grid-template-columns: 1fr !important;
-        /* Forza una colonna sola su mobile */
+    .form-submit-right {
+        text-align: center;
     }
 
     #recruitment-form .btn-conferma {
         width: 100%;
-        /* Il tasto occupa tutta la larghezza su smartphone */
+    }
+
+    /* Bottoni */
+    .btn-logout-red {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+        display: block;
+    }
+}
+
+/* =========================================================
+   FIX DEFINITIVO AREA PERSONALE (SMARTPHONE & TABLET)
+   Da incollare alla fine assoluta del file style.css
+   ========================================================= */
+
+/* 1. Previene che l'intera pagina sbordi lateralmente */
+body {
+    overflow-x: hidden;
+}
+
+.content-container {
+    box-sizing: border-box;
+    /* Impedisce ai padding di allargare i div */
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+
+    /* --- 1. LA CARD DEL PROFILO --- */
+    .profile-wrapper {
+        flex-direction: column !important;
+        padding: 20px 15px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        text-align: center !important;
+    }
+
+    .profile-user-details {
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 10px !important;
+    }
+
+    .profile-text {
+        width: 100% !important;
+    }
+
+    #display-username {
+        font-size: 1.1rem !important;
+        word-wrap: break-word !important;
+        word-break: break-word !important;
+        white-space: normal !important;
+    }
+
+    .status-pill {
+        width: 100% !important;
+        text-align: center !important;
+        margin-top: 10px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* --- 2. LA TABELLA DELLE PRENOTAZIONI --- */
+    .table-container {
+        width: 100% !important;
+        box-sizing: border-box !important;
+        overflow-x: auto !important;
+        /* Abilita lo swipe */
+        display: block !important;
+        /* Impedisce alla tabella di sfondare lo schermo */
+    }
+
+    .custom-table {
+        min-width: 500px !important;
+        /* Mantiene le scritte leggibili mentre scorri */
+    }
+
+    /* --- 3. IL FORM DELLE CANDIDATURE --- */
+    .work-with-us-section .info-card {
+        padding: 20px 15px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .booking-form-grid {
+        display: flex !important;
+        /* Annulla la griglia che causava problemi */
+        flex-direction: column !important;
+        gap: 15px !important;
+        width: 100% !important;
+    }
+
+    .booking-form-grid input {
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    #work-cv {
+        font-size: 0.8rem !important;
+        /* Rimpicciolisce il testo del pulsante 'Scegli file' */
+        padding: 8px !important;
+    }
+
+    .form-submit-right {
+        text-align: center !important;
+    }
+
+    .form-submit-right .btn-conferma {
+        width: 100% !important;
+        max-width: none !important;
     }
 }
