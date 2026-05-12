@@ -289,12 +289,40 @@ document.addEventListener("DOMContentLoaded", () => {
                 const recensioni = await response.json();
 
                 // ==========================================
-                // CALCOLO STATISTICHE BARRE
+                // CALCOLO STATISTICHE BARRE E MEDIA GLOBALE
                 // ==========================================
                 const totaleRecensioniEl = document.getElementById("totale-recensioni");
                 if (totaleRecensioniEl) {
                     const totale = recensioni.length;
                     totaleRecensioniEl.textContent = totale;
+
+                    // --- NUOVO: Calcolo Voto Medio ---
+                    if (totale > 0) {
+                        let sommaVoti = 0;
+                        recensioni.forEach(rec => sommaVoti += rec.valutazione);
+                        
+                        // Calcola la media e arrotonda a 1 decimale (es. 4.7)
+                        let media = (sommaVoti / totale).toFixed(1);
+                        
+                        // Inserisce il numero nel DOM
+                        const votoMedioEl = document.getElementById("voto-medio");
+                        if(votoMedioEl) votoMedioEl.textContent = media;
+
+                        // Calcola quante stelle piene mostrare
+                        const stelleMedieEl = document.getElementById("stelle-medie");
+                        if(stelleMedieEl) {
+                            let stelleHTML = "";
+                            for(let i=1; i<=5; i++) {
+                                if(i <= Math.round(media)) {
+                                    stelleHTML += "★"; // Stella piena
+                                } else {
+                                    stelleHTML += "☆"; // Stella vuota
+                                }
+                            }
+                            stelleMedieEl.textContent = stelleHTML;
+                        }
+                    }
+                    // ---------------------------------
 
                     let conteggioStelle = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
 
@@ -359,13 +387,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // --- 11. GESTIONE RECUPERO PASSWORD (POPUP + RESET) ---
-    // GESTIONE POPUP (Nella Home)
     const forgotPwdLink = document.getElementById("forgot-pwd-link");
     const forgotPwdModal = document.getElementById("forgot-password-modal");
     const closeModalBtn = document.getElementById("close-modal");
     const forgotForm = document.getElementById("forgot-password-form");
-    const loginEmailInput = document.getElementById("username"); // L'input email del login
-    const resetEmailInput = document.getElementById("reset-email"); // L'input email del popup
+    const loginEmailInput = document.getElementById("username");
+    const resetEmailInput = document.getElementById("reset-email");
 
     if (forgotPwdLink && forgotPwdModal) {
         forgotPwdLink.addEventListener("click", (e) => {
@@ -537,8 +564,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
-// --- FUNZIONI GLOBALI (Fuori dal DOMContentLoaded) ---
 
+// --- FUNZIONI GLOBALI (Fuori dal DOMContentLoaded) ---
 function getStars(recensione) {
     const starEl = recensione.querySelector(".star");
     return starEl ? parseInt(starEl.getAttribute("data-val")) || 0 : 0;
@@ -550,18 +577,3 @@ function getTimeValue(recensione) {
     const dateStr = timeEl.getAttribute("data-date");
     return new Date(dateStr).getTime();
 }
-// -- animazione fade in della pagina recensione--
-/*
-window.addEventListener("load", () => {
-    document.querySelector(".hero-recensioni h2")
-        .classList.add("active");
-});
-
-// -- animazione dal basso per p della hero recensione --
-window.addEventListener("load", () => {
-    document.querySelector(".hero-recensioni h2")
-        .classList.add("active");
-
-    document.querySelector(".hero-recensioni p")
-        .classList.add("active");
-});*/

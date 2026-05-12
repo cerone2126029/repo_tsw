@@ -1622,6 +1622,38 @@ label[for="ordina"] {
     margin: 0 auto 30px auto;
 }
 
+.step-circle {
+    width: 60px;
+    height: 60px;
+    background-color: var(--accent-mint);
+    color: var(--white);
+    font-size: 1.5rem;
+    font-weight: 800;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    box-shadow: 0 4px 15px rgba(32, 201, 151, 0.3);
+    position: relative;
+    z-index: 2;
+}
+
+.percorso-cura-section .text-muted {
+    padding-left: 15px;
+    padding-right: 15px;
+    line-height: 1.6; /* Aiuta la leggibilità */
+}
+
+.myth-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.myth-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover) !important;
+}
+
 /* ==========================================================================
    MEDIA QUERIES (Gestione per Tablet e Mobile)
    ========================================================================== */
@@ -1682,6 +1714,13 @@ label[for="ordina"] {
         align-items: center;
         flex-direction: column;
         gap: 15px;
+    }
+    .percorso-cura-section .treatment-title {
+        font-size: 2.2rem !important;
+    }
+    .percorso-cura-section .text-muted {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
     }
 }
 
@@ -1746,11 +1785,39 @@ label[for="ordina"] {
         font-size: 0.92rem;
         padding: 12px 10px;
     }
+    .percorso-cura-section .treatment-title {
+        font-size: 2.1rem !important;
+    }
+    .percorso-cura-section .text-muted {
+        padding-left: 22px !important;
+        padding-right: 22px !important;
+    }
 }
 
 /* --- SMARTPHONE E DISPOSITIVI PICCOLI (da 768px in giù) --- */
 @media (max-width: 768px) {
+/* 1. Nasconde forzatamente le righe grigie di fianco ai numeri su smartphone */
+    .step-circle::after {
+        display: none !important;
+    }
 
+    /* 2. Rimpicciolisce il titolo della sezione */
+    .percorso-cura-section .treatment-title {
+        font-size: 2rem !important; /* Originale era 2.5rem */
+        line-height: 1.2;
+        margin-bottom: 15px;
+    }
+
+    .percorso-cura-section .text-muted {
+        padding-left: 25px !important;
+        padding-right: 25px !important;
+        margin-bottom: 30px !important; /* Dà anche un po' di stacco dallo step successivo */
+    }
+    /* (Opzionale) Bilancia leggermente anche il sottotitolo per farlo scorrere meglio */
+    .percorso-cura-section .treatment-subtitle {
+        font-size: 1.05rem; 
+        padding: 0 10px;
+    }
     /* Form e Griglie */
     .booking-form-grid {
         grid-template-columns: 1fr !important;

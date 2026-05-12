@@ -61,7 +61,8 @@
     <main>
         <section class="hero-recensioni">
             <h2 class="reveal from-top">Cosa dicono <strong>di noi</strong></h2>
-            <p class="reveal from-bottom" style="font-size: 1.1rem; max-width: 600px;">La tua opinione è fondamentale. Leggi le
+            <p class="reveal from-bottom" style="font-size: 1.1rem; max-width: 600px;">La tua opinione è fondamentale.
+                Leggi le
                 esperienze dei nostri pazienti o condividi la tua.</p>
         </section>
 
@@ -108,8 +109,19 @@
         </section>
 
         <div class="riepilogo-affiancato fade-in">
-            <div class="col-left">
-                <h3>Recensioni eccellenti</h3>
+            <div class="col-left text-center text-md-start">
+                <h3 style="color: var(--primary-blue); font-weight: 800;">Recensioni eccellenti</h3>
+
+                <div
+                    style="display: flex; align-items: center; gap: 15px; margin: 20px 0; justify-content: center; flex-wrap: wrap;">
+                    <span id="voto-medio"
+                        style="font-size: 4.5rem; font-weight: 800; color: var(--accent-mint); line-height: 1;">0.0</span>
+                    <div style="text-align: left;">
+                        <div id="stelle-medie" style="color: gold; font-size: 1.5rem; letter-spacing: 2px;">★★★★★</div>
+                        <span style="color: var(--text-muted); font-size: 0.9rem; font-weight: 600;">su 5 stelle</span>
+                    </div>
+                </div>
+
                 <p>Basato su <strong id="totale-recensioni">0</strong> recensioni dei nostri pazienti.
                     La vostra fiducia ci spinge a migliorare ogni giorno.</p>
             </div>
@@ -203,16 +215,18 @@
 
     <script src="assets/js/main.js"></script>
     <div id="forgot-password-modal" class="modal-overlay" style="display: none;">
-    <div class="modal-content">
-        <span class="close-modal" id="close-modal">×</span>
-        <h3 style="color: var(--primary-blue); margin-top: 0;">Password dimenticata?</h3>
-        <p style="font-size: 0.95rem; color: var(--text-muted);">Inserisci l'email con cui ti sei registrato. Ti invieremo le istruzioni per reimpostare la password.</p>
-        <form id="forgot-password-form">
-            <input type="email" id="reset-email" placeholder="La tua email" required class="modal-input">
-            <button type="submit" class="custom-btn custom-primary" style="width: 100%; margin-top: 15px; padding: 10px;">Invia link di recupero</button>
-        </form>
+        <div class="modal-content">
+            <span class="close-modal" id="close-modal">×</span>
+            <h3 style="color: var(--primary-blue); margin-top: 0;">Password dimenticata?</h3>
+            <p style="font-size: 0.95rem; color: var(--text-muted);">Inserisci l'email con cui ti sei registrato. Ti
+                invieremo le istruzioni per reimpostare la password.</p>
+            <form id="forgot-password-form">
+                <input type="email" id="reset-email" placeholder="La tua email" required class="modal-input">
+                <button type="submit" class="custom-btn custom-primary"
+                    style="width: 100%; margin-top: 15px; padding: 10px;">Invia link di recupero</button>
+            </form>
+        </div>
     </div>
-</div>
 </body>
 
 </html>
