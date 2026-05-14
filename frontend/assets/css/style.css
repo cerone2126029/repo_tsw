@@ -555,7 +555,132 @@ main {
     transform: translateY(-6px);
     box-shadow: var(--shadow-hover);
 }
+/*css linea temporale   */
+.contenitore-temporale {
+    padding: 20px 0 10px;
+    overflow: hidden;
+}
 
+.riga-temporale {
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    padding: 0 10px;
+}
+
+.linea {
+    position: absolute;
+    top: 13px;
+    left: 10px;
+    right: 28px;
+    height: 2px;
+    background: #e2e8f0;
+    z-index: 0;
+}
+
+.riempimento {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 2px;
+    width: 0%;
+    background: var(--accent-mint);
+    transition: width 1.2s cubic-bezier(.4, 0, .2, 1);
+}
+
+.freccia {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 14px solid #e2e8f0;
+    z-index: 1;
+    transition: border-left-color 0.4s ease;
+}
+
+.freccia.attiva {
+    border-left-color: var(--accent-mint);
+}
+
+.tappa {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.pallino {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 2px solid #e2e8f0;
+    flex-shrink: 0;
+    transition: border-color 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
+    margin-bottom: 16px;
+}
+
+.pallino.attivo {
+    border-color: var(--accent-mint);
+    background: var(--accent-mint);
+    box-shadow: 0 0 0 4px rgba(32, 201, 151, 0.18);
+}
+
+.scheda {
+    background: var(--white);
+    border-left: 3px solid var(--accent-mint);
+    border-radius: 0 12px 12px 0;
+    box-shadow: var(--shadow-soft);
+    padding: 14px 14px 12px;
+    width: 100%;
+    max-width: 160px;
+    box-sizing: border-box;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s ease;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.scheda.visibile {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.scheda:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+.anno {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent-mint);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+
+.scheda h4 {
+    color: var(--primary-blue);
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin: 0 0 6px 0;
+    line-height: 1.3;
+}
+
+.scheda p {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/*fine css linea temporale*/
 .fil-container {
     background-image: linear-gradient(rgba(0, 0, 0, 0.90), rgba(0, 20, 40, 0.8)), url('../img/sfondo_dent.jpg');
     background-size: cover;

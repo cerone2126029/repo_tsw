@@ -577,3 +577,76 @@ function getTimeValue(recensione) {
     const dateStr = timeEl.getAttribute("data-date");
     return new Date(dateStr).getTime();
 }
+//javaScript della linea temporale 
+(function () {
+
+    const totale  = 5;
+    const ritardi = [0, 180, 360, 540, 720];
+
+    const riempimento = document.getElementById('riempimento');
+    const freccia     = document.getElementById('freccia');
+    const riga        = document.getElementById('riga-temporale');
+
+    if (!riempimento || !freccia || !riga) return;
+
+    function isMobile() {
+        return window.innerWidth <= 768;
+    }
+
+    function attiva(i) {
+        const pallino = document.getElementById('pallino-' + (i + 1));
+        const scheda  = document.getElementById('scheda-' + (i + 1));
+
+        if (pallino) pallino.classList.add('attivo');
+        if (scheda)  scheda.classList.add('visibile');
+
+        const percentuale = i === totale - 1 ? 100 : (i / (totale - 1)) * 100;
+
+        if (isMobile()) {
+            riempimento.style.height = percentuale + '%';
+            riempimento.style.width  = '2px';
+        } else {
+            riempimento.style.width  = percentuale + '%';
+        }
+
+        if (i === totale - 1) {
+            setTimeout(() => freccia.classList.add('attiva'), 1200);
+        }
+    }
+
+    function reset() {
+        riempimento.style.width  = '0%';
+        riempimento.style.height = '0%';
+        freccia.classList.remove('attiva');
+
+        for (let i = 1; i <= totale; i++) {
+            const pallino = document.getElementById('pallino-' + i);
+            const scheda  = document.getElementById('scheda-' + i);
+            if (pallino) pallino.classList.remove('attivo');
+            if (scheda)  scheda.classList.remove('visibile');
+        }
+    }
+
+    let avviato = false;
+
+    const osservatore = new IntersectionObserver(function (voci) {
+        voci.forEach(function (voce) {
+            if (voce.isIntersecting && !avviato) {
+                avviato = true;
+                ritardi.forEach(function (r, i) {
+                    setTimeout(function () { attiva(i); }, r);
+                });
+            }
+        });
+    }, { threshold: 0.3 });
+
+    osservatore.observe(riga);
+
+    window.addEventListener('resize', function () {
+        if (!avviato) return;
+        reset();
+        avviato = false;
+        osservatore.observe(riga);
+    });
+
+})();
