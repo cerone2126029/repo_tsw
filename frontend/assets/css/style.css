@@ -1859,6 +1859,23 @@ label[for="ordina"] {
         font-size: 1.5rem;
     }
 
+    /*immagini pag chi siamo*/
+    .section-studio {
+    flex-direction: column;
+}
+    .right-noi {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    width: 100%;
+}
+
+.im {
+    width: 100%;
+    max-width: 100%;
+
+}
+    /*fine immagini pag chi siamo*/
     /* Area Personale: Tabella e Card */
     .info-card {
         padding: 20px;
@@ -1952,8 +1969,8 @@ label[for="ordina"] {
     section.fade-in,
     .section-studio {
         flex-direction: column;
-        align-items: center;
-        text-align: center;
+        /* align-items: center; */
+        text-align: left;/*cosi tutte le righe iniziano da sinistra */
     }
 
     .text,
@@ -1963,10 +1980,18 @@ label[for="ordina"] {
         width: 100%;
     }
 
-    .im {
-        width: 90%;
-        max-width: 350px;
-    }
+/*.right-noi {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    gap: 15px;
+}
+
+.im {
+    width: 100%;
+    max-width: 100%;
+}*/
 
     .tec-div {
         flex-direction: column;
