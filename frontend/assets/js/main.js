@@ -52,7 +52,9 @@ document.addEventListener("DOMContentLoaded", () => {
             try {
                 const res = await fetch(`${API_URL}/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: usernameInput.value, password: passwordInput.value }) });
                 const data = await res.json();
-                if (res.ok) { sessionStorage.setItem("activeUser", usernameInput.value); updateUI(); } else { alert(data.error); }
+                if (res.ok) { sessionStorage.setItem("activeUser", usernameInput.value); updateUI();      if (typeof loadReviews === 'function') {
+        loadReviews();
+    }} else { alert(data.error); }
             } catch (err) { alert("Server backend non raggiungibile."); }
         };
     }
@@ -366,16 +368,43 @@ document.addEventListener("DOMContentLoaded", () => {
                     const nomeUtente = rec.user_email.split('@')[0];
                     const dataFormattata = new Date(rec.data).toLocaleDateString('it-IT');
 
-                    const cardHTML = `
-                        <div class="card-recensione">
-                            <div class="nome">${nomeUtente}</div>
-                            <div class="star" data-val="${rec.valutazione}">${stelle}</div>
-                            <div class="commento">
-                                ${rec.messaggio}
-                            </div>
-                            <div class="time" data-date="${rec.data}" style="margin-top:10px;">Scritta il ${dataFormattata}</div>
-                        </div>
-                    `;
+                    const currentUser = sessionStorage.getItem('activeUser');
+//const isMia = currentUser && rec.user_email === currentUser;
+                    const isMia = currentUser && rec.user_email.toLowerCase() === currentUser.toLowerCase();
+
+const cardHTML = `
+    <div class="card-recensione" id="card-${rec.id}">
+        <div class="nome">${nomeUtente}</div>
+        <div class="star" data-val="${rec.valutazione}">${stelle}</div>
+        <div class="commento" id="testo-${rec.id}">${rec.messaggio}</div>
+        <div class="time" data-date="${rec.data}" style="margin-top:10px;">Scritta il ${dataFormattata}</div>
+
+        ${isMia ? `
+        <button class="btn-modifica" style="margin-top:10px; background:none; border:1px solid var(--accent-mint); color:var(--accent-mint); padding:5px 14px; border-radius:6px; cursor:pointer; font-size:0.85rem;"
+            onclick="apriModifica(${rec.id}, ${rec.valutazione}, '${rec.messaggio.replace(/'/g, "\\'")}')">
+            ✏️ Modifica
+        </button>` : ''}
+
+        <div id="form-modifica-${rec.id}" style="display:none; margin-top:12px;">
+            <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px;">
+                ${[1,2,3,4,5].map(n => `
+                    <label style="font-size:1.1rem; cursor:pointer;">
+                        ${n}⭐ <input type="radio" name="rating-modifica-${rec.id}" value="${n}" ${rec.valutazione === n ? 'checked' : ''}>
+                    </label>
+                `).join('')}
+            </div>
+            <textarea id="testo-modifica-${rec.id}" maxlength="100" rows="3"
+                style="width:100%; padding:10px; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit; font-size:0.9rem; box-sizing:border-box;"
+            ></textarea>
+            <div style="display:flex; gap:10px; margin-top:8px;">
+                <button style="background:var(--accent-mint); color:white; border:none; padding:8px 18px; border-radius:6px; cursor:pointer; font-weight:600;"
+                    onclick="salvaModifica(${rec.id})">Salva</button>
+                <button style="background:#ccc; color:#333; border:none; padding:8px 18px; border-radius:6px; cursor:pointer;"
+                    onclick="chiudiModifica(${rec.id})">Annulla</button>
+            </div>
+        </div>
+    </div>
+`;
                     reviewsContainer.insertAdjacentHTML('beforeend', cardHTML);
                 });
             } catch (error) {
@@ -650,3 +679,48 @@ function getTimeValue(recensione) {
     });
 
 })();
+
+// FUNZIONI PER MODIFICA RECENSIONE
+function apriModifica(id, valutazione, messaggio) {
+    document.getElementById(`form-modifica-${id}`).style.display = 'block';
+    document.getElementById(`testo-modifica-${id}`).value = messaggio;
+}
+
+function chiudiModifica(id) {
+    document.getElementById(`form-modifica-${id}`).style.display = 'none';
+}
+
+async function salvaModifica(id) {
+    const emailUtente = sessionStorage.getItem('activeUser');
+    if (!emailUtente) { alert('Devi essere loggato!'); return; }
+
+    const valutazioneSelezionata = document.querySelector(`input[name="rating-modifica-${id}"]:checked`);
+    const nuovoTesto = document.getElementById(`testo-modifica-${id}`).value.trim();
+
+    if (!valutazioneSelezionata) { alert('Seleziona una valutazione!'); return; }
+    if (!nuovoTesto) { alert('Il messaggio non può essere vuoto!'); return; }
+
+    // ✅ Stesso sistema dinamico usato nel resto del file
+    const currentIP = window.location.hostname;
+    const API_URL = `http://${currentIP}:3000/api`;
+
+    try {
+        const risposta = await fetch(`${API_URL}/recensioni/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+            user_email: emailUtente.toLowerCase(),
+            valutazione: parseInt(valutazioneSelezionata.value),
+            messaggio: nuovoTesto
+})
+        });
+
+        const risultato = await risposta.json();
+        if (!risposta.ok) { alert('Errore: ' + risultato.error); return; }
+
+        alert('Recensione modificata con successo!');
+        loadReviews();
+    } catch (err) {
+        alert('Errore di connessione. Riprova.');
+    }
+}

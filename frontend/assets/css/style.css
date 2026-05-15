@@ -2126,8 +2126,56 @@ label[for="ordina"] {
         max-width: 300px;
         margin: 0 auto;
         display: block;
-    }  
+    } 
+    /*css responsive liena verticale temporale*/
+        .riga-temporale {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-left: 40px;
+        position: relative;
+    }
+
+    /* linea verticale base */
+    .linea {
+        top: 0;
+        left: 18px;
+        width: 2px;
+        height: 100%;
+    }
+
+    /* riempimento verticale */
+    .riempimento {
+        top: 0;
+        left: 18px;
+        width: 2px !important;
+        height: 0%;
+        transition: height 1.2s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .freccia {
+        display: none;
+    }
+
+    .tappa {
+        flex-direction: row;
+        align-items: flex-start;
+        margin-bottom: 25px;
+        width: 100%;
+    }
+
+    .pallino {
+        margin-bottom: 0;
+        margin-right: 12px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .scheda {
+        max-width: 100%;
+    }
 }
+    /*fine css responsive*/
+
 
 /* =========================================================
    FIX DEFINITIVO AREA PERSONALE (SMARTPHONE & TABLET)

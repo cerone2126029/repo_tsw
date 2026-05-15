@@ -163,6 +163,42 @@ app.get('/api/recensioni', async (req, res) => {
 });
 
 // ==========================================
+// 6.B ROTTA: MODIFICA RECENSIONE
+// ==========================================
+
+app.put('/api/recensioni/:id', async (req, res) => {
+    const { id } = req.params;
+    const { user_email, valutazione, messaggio } = req.body;
+
+    // Controllo recensione esistente
+    const { data: recensione, error: findError } = await supabase
+        .from('recensioni')
+        .select('*')
+        .eq('id', id)
+        .eq('user_email', user_email.toLowerCase());
+
+    if (findError || !recensione || recensione.length === 0) {
+        return res.status(403).json({ error: 'Non puoi modificare questa recensione.' });
+    }
+
+    // Update sicuro
+    const { error: updateError } = await supabase
+        .from('recensioni')
+        .update({
+            valutazione,
+            messaggio
+        })
+        .eq('id', id)
+        .eq('user_email', user_email.toLowerCase());
+
+    if (updateError) {
+        console.error(updateError);
+        return res.status(500).json({ error: 'Errore durante la modifica.' });
+    }
+
+    res.status(200).json({ message: 'Recensione modificata con successo!' });
+});
+// ==========================================
 // 7. ROTTA: INVIA LINK RECUPERO PASSWORD
 // ==========================================
 app.post('/api/recupero-password', async (req, res) => {
