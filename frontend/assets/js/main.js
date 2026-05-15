@@ -373,18 +373,26 @@ document.addEventListener("DOMContentLoaded", () => {
                     const isMia = currentUser && rec.user_email.toLowerCase() === currentUser.toLowerCase();
 
 const cardHTML = `
-    <div class="card-recensione" id="card-${rec.id}">
+    <div class="card-recensione" id="card-${rec.id}" style="position:relative;">
+
+        ${isMia ? `
+        <div style="position:absolute; top:10px; right:10px; display:flex; gap:6px;">
+            <button title="Modifica" style="background:none; border:none; cursor:pointer; font-size:1.2rem; padding:4px;"
+                onclick="apriModifica(${rec.id}, ${rec.valutazione}, '${rec.messaggio.replace(/'/g, "\\'")}')">
+                ✏️
+            </button>
+            <button title="Elimina" style="background:none; border:none; cursor:pointer; font-size:1.2rem; padding:4px;"
+                onclick="eliminaRecensione(${rec.id})">
+                🗑️
+            </button>
+        </div>` : ''}
+
         <div class="nome">${nomeUtente}</div>
         <div class="star" data-val="${rec.valutazione}">${stelle}</div>
         <div class="commento" id="testo-${rec.id}">${rec.messaggio}</div>
         <div class="time" data-date="${rec.data}" style="margin-top:10px;">Scritta il ${dataFormattata}</div>
 
         ${isMia ? `
-        <button class="btn-modifica" style="margin-top:10px; background:none; border:1px solid var(--accent-mint); color:var(--accent-mint); padding:5px 14px; border-radius:6px; cursor:pointer; font-size:0.85rem;"
-            onclick="apriModifica(${rec.id}, ${rec.valutazione}, '${rec.messaggio.replace(/'/g, "\\'")}')">
-            ✏️ Modifica
-        </button>` : ''}
-
         <div id="form-modifica-${rec.id}" style="display:none; margin-top:12px;">
             <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px;">
                 ${[1,2,3,4,5].map(n => `
@@ -402,7 +410,8 @@ const cardHTML = `
                 <button style="background:#ccc; color:#333; border:none; padding:8px 18px; border-radius:6px; cursor:pointer;"
                     onclick="chiudiModifica(${rec.id})">Annulla</button>
             </div>
-        </div>
+        </div>` : ''}
+
     </div>
 `;
                     reviewsContainer.insertAdjacentHTML('beforeend', cardHTML);
@@ -684,6 +693,9 @@ function getTimeValue(recensione) {
 function apriModifica(id, valutazione, messaggio) {
     document.getElementById(`form-modifica-${id}`).style.display = 'block';
     document.getElementById(`testo-modifica-${id}`).value = messaggio;
+
+//}
+
 }
 
 function chiudiModifica(id) {
@@ -691,6 +703,8 @@ function chiudiModifica(id) {
 }
 
 async function salvaModifica(id) {
+    if (!confirm('Sei sicuro di voler salvare le modifiche?')) return;
+
     const emailUtente = sessionStorage.getItem('activeUser');
     if (!emailUtente) { alert('Devi essere loggato!'); return; }
 
@@ -700,7 +714,6 @@ async function salvaModifica(id) {
     if (!valutazioneSelezionata) { alert('Seleziona una valutazione!'); return; }
     if (!nuovoTesto) { alert('Il messaggio non può essere vuoto!'); return; }
 
-    // ✅ Stesso sistema dinamico usato nel resto del file
     const currentIP = window.location.hostname;
     const API_URL = `http://${currentIP}:3000/api`;
 
@@ -709,10 +722,10 @@ async function salvaModifica(id) {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-            user_email: emailUtente.toLowerCase(),
-            valutazione: parseInt(valutazioneSelezionata.value),
-            messaggio: nuovoTesto
-})
+                user_email: emailUtente.toLowerCase(),
+                valutazione: parseInt(valutazioneSelezionata.value),
+                messaggio: nuovoTesto
+            })
         });
 
         const risultato = await risposta.json();
@@ -720,6 +733,33 @@ async function salvaModifica(id) {
 
         alert('Recensione modificata con successo!');
         loadReviews();
+    } catch (err) {
+        alert('Errore di connessione. Riprova.');
+    }
+}
+
+//elimina recensione 
+async function eliminaRecensione(id) {
+    if (!confirm('Sei sicuro di voler eliminare questa recensione?')) return;
+
+    const emailUtente = sessionStorage.getItem('activeUser');
+    if (!emailUtente) { alert('Devi essere loggato!'); return; }
+
+    const currentIP = window.location.hostname;
+    const API_URL = `http://${currentIP}:3000/api`;
+
+    try {
+        const risposta = await fetch(`${API_URL}/recensioni/${id}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ user_email: emailUtente })
+        });
+
+        const risultato = await risposta.json();
+        if (!risposta.ok) { alert('Errore: ' + risultato.error); return; }
+
+        alert('Recensione eliminata!');
+        loadReviews(); // Ricarica le recensioni aggiornate
     } catch (err) {
         alert('Errore di connessione. Riprova.');
     }

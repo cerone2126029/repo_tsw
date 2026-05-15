@@ -198,6 +198,48 @@ app.put('/api/recensioni/:id', async (req, res) => {
 
     res.status(200).json({ message: 'Recensione modificata con successo!' });
 });
+
+// ==========================================
+// 6.C ROTTA: ELIMINA RECENSIONE
+// ==========================================
+app.delete('/api/recensioni/:id', async (req, res) => {
+    const { id } = req.params;
+    const { user_email } = req.body;
+
+    if (!user_email) {
+        return res.status(400).json({ error: 'Email obbligatoria.' });
+    }
+
+    // Leggiamo la recensione per verificare che appartenga all'utente
+    const { data: recensione, error: findError } = await supabase
+        .from('recensioni')
+        .select('*')
+        .eq('id', id)
+        .single();
+
+    if (findError || !recensione) {
+        return res.status(404).json({ error: 'Recensione non trovata.' });
+    }
+
+    // Confronto email case-insensitive lato Node
+    if (recensione.user_email.toLowerCase() !== user_email.toLowerCase()) {
+        return res.status(403).json({ error: 'Non puoi eliminare questa recensione.' });
+    }
+
+    const { error: deleteError } = await supabase
+        .from('recensioni')
+        .delete()
+        .eq('id', id);
+
+    if (deleteError) {
+        console.error(deleteError);
+        return res.status(500).json({ error: 'Errore durante l\'eliminazione.' });
+    }
+
+    res.status(200).json({ message: 'Recensione eliminata con successo!' });
+});
+
+
 // ==========================================
 // 7. ROTTA: INVIA LINK RECUPERO PASSWORD
 // ==========================================
