@@ -52,9 +52,11 @@ document.addEventListener("DOMContentLoaded", () => {
             try {
                 const res = await fetch(`${API_URL}/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: usernameInput.value, password: passwordInput.value }) });
                 const data = await res.json();
-                if (res.ok) { sessionStorage.setItem("activeUser", usernameInput.value); updateUI();      if (typeof loadReviews === 'function') {
-        loadReviews();
-    }} else { alert(data.error); }
+                if (res.ok) {
+                    sessionStorage.setItem("activeUser", usernameInput.value); updateUI(); if (typeof loadReviews === 'function') {
+                        loadReviews();
+                    }
+                } else { alert(data.error); }
             } catch (err) { alert("Server backend non raggiungibile."); }
         };
     }
@@ -112,12 +114,28 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault();
             const currentUser = sessionStorage.getItem("activeUser");
             if (!currentUser) return alert("⚠️ Devi accedere o registrarti per prenotare.");
+
+            // Prendo tutti i valori dai campi HTML
             const dataInserita = document.getElementById("booking-date").value;
             const oraInserita = document.getElementById("booking-time").value;
+            const motivoInserito = document.getElementById("booking-reason").value;
+            const descrizioneInserita = document.getElementById("booking-description").value; // NUOVO
+
             if (oraInserita >= "13:30" && oraInserita < "14:30") return alert("Studio chiuso per pausa pranzo (13:30 - 14:30).");
 
             try {
-                const res = await fetch(`${API_URL}/prenotazioni`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: currentUser, dataVisita: dataInserita, oraVisita: oraInserita, motivo: document.getElementById("booking-reason").value }) });
+                const res = await fetch(`${API_URL}/prenotazioni`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: currentUser,
+                        dataVisita: dataInserita,
+                        oraVisita: oraInserita,
+                        motivo: motivoInserito,
+                        descrizione: descrizioneInserita // Invia la descrizione al server
+                    })
+                });
+
                 const data = await res.json();
                 alert(res.ok ? data.message : "Errore: " + data.error);
                 if (res.ok) bookingForm.reset();
@@ -302,20 +320,20 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (totale > 0) {
                         let sommaVoti = 0;
                         recensioni.forEach(rec => sommaVoti += rec.valutazione);
-                        
+
                         // Calcola la media e arrotonda a 1 decimale (es. 4.7)
                         let media = (sommaVoti / totale).toFixed(1);
-                        
+
                         // Inserisce il numero nel DOM
                         const votoMedioEl = document.getElementById("voto-medio");
-                        if(votoMedioEl) votoMedioEl.textContent = media;
+                        if (votoMedioEl) votoMedioEl.textContent = media;
 
                         // Calcola quante stelle piene mostrare
                         const stelleMedieEl = document.getElementById("stelle-medie");
-                        if(stelleMedieEl) {
+                        if (stelleMedieEl) {
                             let stelleHTML = "";
-                            for(let i=1; i<=5; i++) {
-                                if(i <= Math.round(media)) {
+                            for (let i = 1; i <= 5; i++) {
+                                if (i <= Math.round(media)) {
                                     stelleHTML += "★"; // Stella piena
                                 } else {
                                     stelleHTML += "☆"; // Stella vuota
@@ -369,10 +387,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     const dataFormattata = new Date(rec.data).toLocaleDateString('it-IT');
 
                     const currentUser = sessionStorage.getItem('activeUser');
-//const isMia = currentUser && rec.user_email === currentUser;
+                    //const isMia = currentUser && rec.user_email === currentUser;
                     const isMia = currentUser && rec.user_email.toLowerCase() === currentUser.toLowerCase();
 
-const cardHTML = `
+                    const cardHTML = `
     <div class="card-recensione" id="card-${rec.id}" style="position:relative;">
 
         ${isMia ? `
@@ -395,7 +413,7 @@ const cardHTML = `
         ${isMia ? `
         <div id="form-modifica-${rec.id}" style="display:none; margin-top:12px;">
             <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px;">
-                ${[1,2,3,4,5].map(n => `
+                ${[1, 2, 3, 4, 5].map(n => `
                     <label style="font-size:1.1rem; cursor:pointer;">
                         ${n}⭐ <input type="radio" name="rating-modifica-${rec.id}" value="${n}" ${rec.valutazione === n ? 'checked' : ''}>
                     </label>
@@ -561,43 +579,43 @@ const cardHTML = `
             }
         });
     }
-// --- 13. GESTIONE LOGIN DA PAGINA DI CONFERMA ---
+    // --- 13. GESTIONE LOGIN DA PAGINA DI CONFERMA ---
     const confirmLoginForm = document.getElementById('confirm-login-form');
     if (confirmLoginForm) {
         confirmLoginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
+
             const email = document.getElementById('confirm-email').value;
             const password = document.getElementById('confirm-pwd').value;
             const msgEl = document.getElementById('status-msg');
 
             try {
                 // Usiamo la TUA rotta di login standard!
-                const res = await fetch(`${API_URL}/login`, { 
-                    method: 'POST', 
-                    headers: { 'Content-Type': 'application/json' }, 
-                    body: JSON.stringify({ email: email, password: password }) 
+                const res = await fetch(`${API_URL}/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email, password: password })
                 });
-                
+
                 const data = await res.json();
-                
+
                 if (res.ok) {
                     msgEl.style.color = 'green';
                     msgEl.textContent = '✅ Accesso effettuato! Reindirizzamento in corso...';
-                    
+
                     // Salviamo l'utente in sessione proprio come nel login normale
-                    sessionStorage.setItem("activeUser", email); 
-                    
+                    sessionStorage.setItem("activeUser", email);
+
                     // Lo rimandiamo alla home dopo un secondo
                     setTimeout(() => window.location.href = 'home.html', 1500);
                 } else {
                     msgEl.style.color = 'red';
                     // Se sbaglia a scrivere, gli diamo errore
-                    msgEl.textContent = "Errore: " + data.error; 
+                    msgEl.textContent = "Errore: " + data.error;
                 }
-            } catch (err) { 
+            } catch (err) {
                 msgEl.style.color = 'red';
-                msgEl.textContent = 'Errore di connessione al server.'; 
+                msgEl.textContent = 'Errore di connessione al server.';
             }
         });
     }
@@ -618,12 +636,12 @@ function getTimeValue(recensione) {
 //javaScript della linea temporale 
 (function () {
 
-    const totale  = 5;
+    const totale = 5;
     const ritardi = [0, 180, 360, 540, 720];
 
     const riempimento = document.getElementById('riempimento');
-    const freccia     = document.getElementById('freccia');
-    const riga        = document.getElementById('riga-temporale');
+    const freccia = document.getElementById('freccia');
+    const riga = document.getElementById('riga-temporale');
 
     if (!riempimento || !freccia || !riga) return;
 
@@ -633,18 +651,18 @@ function getTimeValue(recensione) {
 
     function attiva(i) {
         const pallino = document.getElementById('pallino-' + (i + 1));
-        const scheda  = document.getElementById('scheda-' + (i + 1));
+        const scheda = document.getElementById('scheda-' + (i + 1));
 
         if (pallino) pallino.classList.add('attivo');
-        if (scheda)  scheda.classList.add('visibile');
+        if (scheda) scheda.classList.add('visibile');
 
         const percentuale = i === totale - 1 ? 100 : (i / (totale - 1)) * 100;
 
         if (isMobile()) {
             riempimento.style.height = percentuale + '%';
-            riempimento.style.width  = '2px';
+            riempimento.style.width = '2px';
         } else {
-            riempimento.style.width  = percentuale + '%';
+            riempimento.style.width = percentuale + '%';
         }
 
         if (i === totale - 1) {
@@ -653,15 +671,15 @@ function getTimeValue(recensione) {
     }
 
     function reset() {
-        riempimento.style.width  = '0%';
+        riempimento.style.width = '0%';
         riempimento.style.height = '0%';
         freccia.classList.remove('attiva');
 
         for (let i = 1; i <= totale; i++) {
             const pallino = document.getElementById('pallino-' + i);
-            const scheda  = document.getElementById('scheda-' + i);
+            const scheda = document.getElementById('scheda-' + i);
             if (pallino) pallino.classList.remove('attivo');
-            if (scheda)  scheda.classList.remove('visibile');
+            if (scheda) scheda.classList.remove('visibile');
         }
     }
 
@@ -694,7 +712,7 @@ function apriModifica(id, valutazione, messaggio) {
     document.getElementById(`form-modifica-${id}`).style.display = 'block';
     document.getElementById(`testo-modifica-${id}`).value = messaggio;
 
-//}
+    //}
 
 }
 

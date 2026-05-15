@@ -60,7 +60,7 @@ app.post('/api/login', async (req, res) => {
 // 3. ROTTA: CREA PRENOTAZIONE
 // ==========================================
 app.post('/api/prenotazioni', async (req, res) => {
-    const { email, dataVisita, oraVisita, motivo } = req.body;
+    const { email, dataVisita, oraVisita, motivo, descrizione } = req.body;
 
     // Fase A: Controllo se esiste già una prenotazione in quella data e a quell'ora
     const { data: prenotazioniEsistenti, error: checkError } = await supabase
@@ -80,7 +80,7 @@ app.post('/api/prenotazioni', async (req, res) => {
     const { data, error: insertError } = await supabase
         .from('prenotazioni')
         .insert([
-            { user_email: email, data: dataVisita, ora: oraVisita, motivo: motivo }
+            { user_email: email, data: dataVisita, ora: oraVisita, motivo: motivo , descrizione: descrizione}
         ]);
 
     if (insertError) return res.status(500).json({ error: 'Errore durante il salvataggio' });
