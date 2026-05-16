@@ -1847,6 +1847,30 @@ label[for="ordina"] {
         padding-left: 20px !important;
         padding-right: 20px !important;
     }
+        .section-studio {
+        flex-direction: column;
+    }
+    .right-noi {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .im {
+        width: 100%;
+        aspect-ratio: 4/3;
+        overflow: hidden;
+    }
+
+    .im img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+
 }
 
 /* --- TABLET PICCOLI (da 992px in giù) --- */
@@ -1868,6 +1892,7 @@ label[for="ordina"] {
     grid-template-columns: 1fr 1fr;
     gap: 15px;
     width: 100%;
+    margin-left: 0;
 }
 
 .im {
@@ -1971,6 +1996,10 @@ label[for="ordina"] {
         flex-direction: column;
         /* align-items: center; */
         text-align: left;/*cosi tutte le righe iniziano da sinistra */
+
+    }
+    .section-title {
+        padding: 0 10px;
     }
 
     .text,
@@ -2008,7 +2037,11 @@ label[for="ordina"] {
         max-width: 400px;
         text-align: center;
     }
-
+    /*spazio tra immagine commento medico e l h4 nei commenti che ci stanno nelle pagine recensioni e consigli*/
+    .col-md-3.text-center img {
+        margin-bottom: 20px;
+    }
+    /*fine spazio tra immagine commento medico e l h4 nei commenti che ci stanno nelle pagine recensioni e consigli*/
     /* Recensioni e Statistiche */
     .riepilogo-affiancato {
         flex-direction: column;
