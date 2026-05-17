@@ -30,7 +30,17 @@ app.post('/api/register', async (req, res) => {
         }
     });
 
+    // 1. Se c'è un errore tecnico da parte di Supabase
     if (error) return res.status(400).json({ error: error.message });
+
+    // 2. IL TRUCCO PER CAPIRE SE LA MAIL ESISTE GIÀ:
+    // Se l'array 'identities' è vuoto, significa che Supabase non ha creato 
+    // un nuovo utente perché la mail era già nel database.
+    if (data.user && data.user.identities && data.user.identities.length === 0) {
+        return res.status(409).json({ error: 'Questa email è già registrata! Effettua il login o recupera la password.' });
+    }
+
+    // 3. Tutto ok, è un utente davvero nuovo
     res.status(201).json({ message: 'Ti abbiamo inviato un\'email! Clicca sul link contenuto per attivare il tuo account.' });
 });
 
