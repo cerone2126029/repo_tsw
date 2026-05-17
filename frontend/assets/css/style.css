@@ -155,11 +155,13 @@ main {
     display: flex;
     flex-direction: column;
     gap: 6px;
+    width: 295px;
 }
 
 .inputs {
     display: flex;
     gap: 8px;
+    width: 100%;
 }
 
 .inputs input {
@@ -168,6 +170,7 @@ main {
     background-color: rgba(255, 255, 255, 0.05);
     border-radius: 6px;
     font-size: 0.85rem;
+    flex: 1;
     width: 140px;
     color: var(--white);
     transition: 0.3s;
@@ -185,11 +188,11 @@ main {
 
 .buttons {
     display: flex;
-    gap: 12px;
-    justify-content: flex-end;
+    justify-content: space-between; /* Spinge 'Accedi' a sinistra e 'Password dimenticata?' a destra */
     align-items: center;
-    flex-wrap: wrap;
-    margin-top: 10px;
+    width: 100%;
+    margin-top: 0px;  /* Elimina lo spazio superfluo ereditato prima */
+    flex-wrap: nowrap; /* Impedisce modifiche di posizionamento impreviste */
 }
 
 .custom-btn {
@@ -200,6 +203,11 @@ main {
     font-weight: 600;
     font-size: 0.8rem;
     transition: 0.3s;
+}
+
+.buttons .custom-btn {
+    padding: 5px 10px; /* Leggermente più compatti per stare in linea */
+    margin: 0;
 }
 
 .custom-primary {
@@ -236,7 +244,7 @@ main {
     text-decoration: none;
     transition: all 0.3s ease;
     white-space: nowrap;
-    margin-top: 4px;
+    margin-top: 0px;
     line-height: 1;
 }
 
