@@ -194,7 +194,6 @@ document.addEventListener("DOMContentLoaded", () => {
                                     <td><strong>${dataFormattata}</strong></td>
                                     <td>${oraFormattata}</td>
                                     <td>${book.motivo}</td>
-                                    <td><span class="status-badge">Confermata</span></td>
                                 </tr>
                             `;
                             if (listContainer) listContainer.innerHTML += row;
